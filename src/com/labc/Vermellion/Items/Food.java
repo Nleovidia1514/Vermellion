@@ -23,13 +23,13 @@ public abstract class Food extends Item {
 				hphealed++;
 			}
 		
-		for(int i = 0; i<=this.Mana;i++)
+		for(int i = 0; i<this.Mana;i++)
 			if (this.Owner.getMagic() < this.Owner.getMaxMagic()) {
 				this.Owner.setMagic(this.Owner.getMagic()+1);
 				magicrestored++;
 			}
 		
-		for( int i = 0; i<=this.water; i++)
+		for( int i = 0; i<this.water; i++)
 			if(this.Owner.getThirst() < this.Owner.getMaxThirst() ){
 				this.Owner.setThirst(this.Owner.getThirst()+1);
 				thirstrestored++;

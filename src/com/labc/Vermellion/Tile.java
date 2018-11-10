@@ -1,21 +1,16 @@
 package com.labc.Vermellion;
 
-import java.util.HashMap;
-
-import com.labc.Vermellion.Entities.Enemy;
-
 public class Tile {
 	int x;
 	int y;
-	private String name, shortDescription = "There is nothing here", longDescription = "There is nothing you can do here";
-	public Enemy enemy;
+	public String name, shortDescription = "There is nothing here", longDescription = "There is nothing you can do here";
+	public Entity mob;
 	public Character player;
 	private boolean shortDescriptionSet, longDescriptionSet;
+	public boolean hasRiver, hasTree, hasEnemy, hasNPC, canShoot;
 	private Tile[] neighbors = new Tile[4];
-	private HashMap<String,String> descs = new HashMap<String,String>();
 	private String itemOnFloor;
-	public boolean hasRiver, hasTree, hasEnemy, hasNPC;
-	private Descriptions descripts;
+	public Descriptions descripts;
 	
 	public Tile(int x , int y, String name, String itemOnF) {
 		this.name = name;
@@ -25,12 +20,13 @@ public class Tile {
 		this.hasNPC=false;
 		this.longDescriptionSet = false;
 		this.hasTree = true;
-		this.enemy = null;
 		this.player = null;
 		this.itemOnFloor = itemOnF;
+		this.canShoot = true;
 		this.descripts = new Descriptions(this);
 		this.shortDescription = descripts.shortDescs.get(name) ;
 		this.longDescription = descripts.longDescs.get(name);
+		this.mob = descripts.Entities.get(name);
 	}
 	
 	public void initNeightbors(Tile[][] tile) {
@@ -65,5 +61,9 @@ public class Tile {
 	
 	public void setItemOnFloor(String itemonf) {
 		this.itemOnFloor = itemonf;
+	}
+	
+	public String getName() {
+		return this.name;
 	}
 }

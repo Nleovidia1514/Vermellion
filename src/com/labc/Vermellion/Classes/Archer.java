@@ -21,24 +21,30 @@ public class Archer extends Character {
 		this.ILLUSION = 40;
 		this.BLOCK = 60;
 		this.ACCURACY = 200;
-		this.RESISTANCE = 60;
+		this.RESISTANCE = 15;
 		this.bagSize = 30;
 	}
 
 	@Override
 	protected void shoot(String target) {
 		Random rnd = new Random();
-		if(target.equalsIgnoreCase(this.current.enemy.getName())) {
-			int calculateChance = 300/this.ACCURACY;
-			if(rnd.nextInt(calculateChance)<=0) {
-				this.current.enemy.beShot(this.BAGREDAD);
-				System.out.println("\nYou shot an arrow\n"
-						+ "and hit "+target+" dealing "+this.BAGREDAD+" damage.");
+		if(this.current.canShoot) {
+			if(target.equalsIgnoreCase(this.current.mob.getName())) {
+				int calculateChance = 300/this.ACCURACY;
+				if(rnd.nextInt(calculateChance)<=0) {
+					System.out.println("\nYou shot an arrow\n"
+							+ "and hit "+target+" dealing "+this.BAGREDAD+" damage.");
+					this.current.mob.beShot(this.BAGREDAD);
+				}
+				else
+					System.out.println("\nYou missed the shot. You are so bagre.");
+				
+				this.current.canShoot = false;
 			}
 			else
-				System.out.println("\nYou missed the shot. You are so bagre.");
+				System.out.println("\nThere is no "+target+" around here.");
 		}
 		else
-			System.out.println("\nThere is no "+target+" around here.");
+			System.out.println("\nYou already shot your arrow.");
 	}
 }

@@ -21,7 +21,7 @@ public class BasicEnemy extends Enemy {
 
 	@Override
 	public void die() {
-		this.position.enemy = null;
+		this.position.mob = null;
 	}
 
 	@Override

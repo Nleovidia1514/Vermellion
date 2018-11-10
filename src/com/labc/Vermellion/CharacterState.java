@@ -20,7 +20,7 @@ public abstract class CharacterState {
 			
 			else if(action.equalsIgnoreCase("SHOOT")) {
 				if( sn.hasNext() ) {
-					if(player.current.hasEnemy)
+					if(player.current.mob != null)
 						player.shoot( sn.next() );
 					else
 						System.out.println("\nThere is nothing in here.");
@@ -53,7 +53,7 @@ public abstract class CharacterState {
 					String name = sn.next();
 					Item item = null;
 					for(int i=0;i<player.inventory.size();i++)
-						if(name.equalsIgnoreCase(player.inventory.get(i).toString()))
+						if(name.equalsIgnoreCase(player.inventory.get(i).getName()))
 							item = player.inventory.get(i);
 					if( item == null )
 						System.out.println("You don't have that item in your inventory.");

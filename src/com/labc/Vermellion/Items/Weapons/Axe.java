@@ -40,8 +40,8 @@ public class Axe extends Weapon implements Useable{
 		this.Owner.getCurrent().hasTree = false;
 		System.out.print("You chopped the tree. ");
 		if( this.Owner.getCurrent().hasEnemy ) {
-			System.out.println("and it fell on " + this.Owner.getCurrent().enemy.getName() );
-			this.Owner.getCurrent().enemy.beAttacked(75);
+			System.out.println("and it fell on " + this.Owner.getCurrent().mob.getName() );
+			this.Owner.getCurrent().mob.beAttacked(75);
 		}
 		if( this.Owner.getCurrent().hasRiver ) {
 			System.out.println("The chopped tree fell on the river and now you can pass over it.");

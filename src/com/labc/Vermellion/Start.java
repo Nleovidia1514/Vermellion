@@ -1,10 +1,8 @@
 package com.labc.Vermellion;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Random;
 import java.util.Scanner;
-
 import com.labc.Vermellion.Classes.Archer;
 import com.labc.Vermellion.Classes.Fighter;
 import com.labc.Vermellion.Classes.Mage;
@@ -49,8 +47,8 @@ public class Start {
 		}	
 		while(gameIsRunning) {
 			System.out.println(Player.current.getShortDescription());
-			System.out.println("\nMaxHP - "+Player.getHP()+"\n"
-			+"MaxMAGIC - "+Player.getMagic()+"\n"
+			System.out.println("\nHP - "+Player.getHP()+"\n"
+			+"MAGIC - "+Player.getMagic()+"\n"
 			+"THIRST - "+Player.THIRST);
 			changeGameState(sn.nextLine());
 		}

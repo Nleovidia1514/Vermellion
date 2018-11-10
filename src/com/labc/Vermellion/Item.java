@@ -17,10 +17,9 @@ public abstract class Item implements Useable {
 		return this.Description;
 	}
 	
-	@Override
-	public String toString() {
+	public abstract void beUsed();
+	
+	public String getName() {
 		return this.name;
 	}
-	
-	public abstract void beUsed();
 }

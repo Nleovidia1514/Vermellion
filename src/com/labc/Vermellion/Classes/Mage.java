@@ -1,14 +1,8 @@
 package com.labc.Vermellion.Classes;
 
 import com.labc.Vermellion.Character;
-import com.labc.Vermellion.Item;
 import com.labc.Vermellion.Tile;
-import com.labc.Vermellion.Entities.Enemy;
-
-import java.util.ArrayList;
 import java.util.Random;
-
-import com.labc.*;
 
 public class Mage extends Character {
 	
@@ -26,23 +20,30 @@ public class Mage extends Character {
 		this.BLOCK = 50;
 		this.bagSize = 30;
 		this.ACCURACY = 140;
-		this.RESISTANCE = 30;
+		this.RESISTANCE = 10;
 	}
 
 	@Override
 	protected void shoot(String target) {
 		Random rnd = new Random();
-		if(target.equalsIgnoreCase(this.current.enemy.getName())) {
-			int calculateChance = 300/this.ACCURACY;
-			if(rnd.nextInt(calculateChance)<=0) {
-				this.current.enemy.beShot(this.BAGREDAD);
-				System.out.println("\nYou shot a fireball to "+target+" and dealt "
-						+this.BAGREDAD+" damage.");
+		if(this.current.canShoot) {
+			if(target.equalsIgnoreCase(this.current.mob.getName())) {
+				int calculateChance = 300/this.ACCURACY;
+				if(rnd.nextInt(calculateChance)<=0) {
+					System.out.println("\nYou shot a fireball to "+target+" and dealt "
+							+this.BAGREDAD+" damage.");
+					this.current.mob.beShot(this.BAGREDAD);
+				}
+				else
+					System.out.println("You missed the shot. You are so bagre.");
+				
+				this.current.canShoot = false;
 			}
 			else
-				System.out.println("You missed the shot. You are so bagre.");
+				System.out.println("\nThere is no "+target+" here.");
 		}
 		else
-			System.out.println("\nThere is no "+target+" here.");
+			System.out.println("\nYou don't have the time to conjure another fireball.");
+		
 	}
 }

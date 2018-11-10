@@ -24,8 +24,8 @@ public abstract class Character {
 	
 	protected void attack() {
 		// TODO Auto-generated method stub
-		if(current.hasEnemy)
-			this.current.enemy.beAttacked(this.STR);
+		if(current.mob != null)
+			this.current.mob.beAttacked(this.STR);
 		else
 			System.out.println("You attacked but hit the air LUL");
 	}
@@ -56,8 +56,8 @@ public abstract class Character {
 	
 	protected void pickUpItem(String item) {
 		try {
-			if( this.current.enemy == null) {
-				if( item.equalsIgnoreCase(this.current.getItemOnFloor().toString()) ) {
+			if( this.current.mob == null) {
+				if( item.equalsIgnoreCase(this.current.getItemOnFloor()) ) {
 					if( inventory.size() >= this.bagSize )
 						System.out.println("\nYour inventory is full");
 					else {
@@ -79,18 +79,19 @@ public abstract class Character {
 	
 	protected void seeInv() {
 		for(int i=0;i<inventory.size();i++)
-			System.out.println(inventory.get(i).toString()+" - "+inventory.get(i).getDescription());
+			System.out.println(inventory.get(i).getName()+" - "+inventory.get(i).getDescription());
 	}
 	
 	protected void seeStats() {
-		System.out.println("HP: "+this.HP);
-		System.out.println("MAGIC: "+this.MAGIC);
+		System.out.println("MaxHP: "+this.HP);
+		System.out.println("MaxMAGIC: "+this.MAGIC);
 		System.out.println("STR: "+this.STR);
 		System.out.println("SNEAK: "+this.SNEAK);
 		System.out.println("BLOCK: "+this.BLOCK);
 		System.out.println("ACCURACY: "+this.ACCURACY);
 		System.out.println("ILLUSION: "+this.ILLUSION);
 		System.out.println("BAGREDAD: "+this.BAGREDAD);
+		System.out.println("RESISTANCE: "+this.RESISTANCE);
 	}
 	
 	public Tile getCurrent() {

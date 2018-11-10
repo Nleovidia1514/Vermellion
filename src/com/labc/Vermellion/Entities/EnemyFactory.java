@@ -1,9 +1,11 @@
 package com.labc.Vermellion.Entities;
 
 import com.labc.Vermellion.Tile;
+import com.labc.Vermellion.Entities.Enemies.Bandits;
 import com.labc.Vermellion.Entities.Enemies.Bear;
 import com.labc.Vermellion.Entities.Enemies.Cornieles;
 import com.labc.Vermellion.Entities.Enemies.Creeper;
+import com.labc.Vermellion.Entities.Enemies.GiantSnake;
 import com.labc.Vermellion.Entities.Enemies.Witch;
 
 public class EnemyFactory {
@@ -27,6 +29,12 @@ public class EnemyFactory {
 		
 		else if(type.equalsIgnoreCase("BEAR"))
 			enemy = new Bear(new BasicEnemy(tile));
+		
+		else if(type.equalsIgnoreCase("BANDITS"))
+			enemy = new Bandits(new BasicEnemy(tile));
+		
+		else if(type.equalsIgnoreCase("GIANTSNAKE"))
+			enemy = new GiantSnake(new BasicEnemy(tile));
 		
 		enemy.create();
 		return enemy;

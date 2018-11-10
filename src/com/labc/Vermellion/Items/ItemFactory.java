@@ -19,6 +19,7 @@ import com.labc.Vermellion.Character;
 
 public class ItemFactory {
 	private Character owner;
+	
 	public ItemFactory(Character owner) {
 		this.owner = owner;
 	}

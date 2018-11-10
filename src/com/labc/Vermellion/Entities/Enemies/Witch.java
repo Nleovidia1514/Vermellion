@@ -43,21 +43,22 @@ public class Witch extends EnemyDecorator{
 	@Override
 	public void die() {
 		System.out.println("The witch died.");
+		this.position.shortDescription = this.position.descripts.shortDescsAftFight.get(this.position.name);
+		this.position.longDescription = this.position.descripts.longDescsAftFight.get(this.position.name);
 		this.position.hasEnemy = false;
-		this.position.enemy = null;
+		this.position.mob = null;
 	}
 	
 	@Override
 	public void create() {
 		this.HP = this.HP + 200;
-		this.ATTACK = this.ATTACK + 50;
+		this.ATTACK = this.ATTACK + 40;
 		this.name = "Witch";
 	}
 	
 	@Override 
 	public void beShot(int damage) {
-		System.out.print("\nThe witch makes disturbing noises, this let's you know that you're hurting her"
-				+ " for "+damage+" damage.");
+		System.out.print("\nThe witch makes disturbing noises, this let's you know that you're hurting her");
 		this.HP = this.HP-damage;
 		if(this.HP<=0) 
 			die();

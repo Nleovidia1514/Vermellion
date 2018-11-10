@@ -1,7 +1,5 @@
 package com.labc.Vermellion.Items.Consumables;
 
-import java.awt.Font;
-
 import com.labc.Vermellion.Character;
 import com.labc.Vermellion.Items.Food;
 import com.labc.Vermellion.Items.Useable;

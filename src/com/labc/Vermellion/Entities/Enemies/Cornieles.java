@@ -34,8 +34,10 @@ public class Cornieles extends EnemyDecorator {
 	@Override
 	public void die() {
 		super.die();
-		this.position.enemy = null;
+		this.position.mob = null;
 		this.position.hasEnemy = false;
+		this.position.shortDescription = this.position.descripts.shortDescsAftFight.get(this.position.name);
+		this.position.longDescription = this.position.descripts.longDescsAftFight.get(this.position.name);
 		System.out.println("\nNo puede ser nonononono.");
 		System.out.println("Cornieles died.");
 	}
@@ -53,7 +55,6 @@ public class Cornieles extends EnemyDecorator {
 		super.beShot(damage);
 		this.HP = this.HP - damage;
 		System.out.println("\nSabeeeeeiiiis.");
-		System.out.println("You made "+damage+" damage to "+this.name+".");
 		if(this.HP<=0)
 			this.die();
 	}

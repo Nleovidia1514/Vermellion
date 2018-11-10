@@ -1,6 +1,5 @@
 package com.labc.Vermellion.Entities.Enemies;
 
-import com.labc.Vermellion.Tile;
 import com.labc.Vermellion.Entities.Enemy;
 import com.labc.Vermellion.Entities.EnemyDecorator;
 
@@ -23,7 +22,6 @@ public class Creeper extends EnemyDecorator {
 	public void beAttacked(int damage) {
 		super.beAttacked(damage);
 		System.out.println("\nPssssssssstt... x_x");
-		System.out.println("You made "+damage+" damage to the "+this.name+".");
 		this.HP -= damage;
 		if(this.HP<=0) 
 			die();
@@ -35,8 +33,10 @@ public class Creeper extends EnemyDecorator {
 	@Override
 	public void die() {
 		super.die();
-		this.position.enemy = null;
+		this.position.mob = null;
 		this.position.hasEnemy = false;
+		this.position.shortDescription = this.position.descripts.shortDescsAftFight.get(this.position.name);
+		this.position.longDescription = this.position.descripts.longDescsAftFight.get(this.position.name);
 		System.out.println("\nPsssssssssst D:");
 		System.out.println("The creeper died.");
 	}
@@ -45,7 +45,7 @@ public class Creeper extends EnemyDecorator {
 	public void create() {
 		super.create();
 		this.HP = this.HP + 100;
-		this.ATTACK = this.ATTACK + 150;
+		this.ATTACK = this.ATTACK + 200;
 		this.name = "Creeper";
 	}
 	
