@@ -10,7 +10,9 @@ public class GreenPot extends Food implements Useable {
 		super(owner);
 		this.Heal = 100;
 		this.Mana = 100;
-		this.name = "Green potion";
+		this.water = 100;
+		this.prefix = "a";
+		this.name = "GreenPot";
 		this.Description = "It's definitly green.";
 	}
 

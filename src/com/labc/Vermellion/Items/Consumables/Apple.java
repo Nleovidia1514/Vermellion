@@ -10,6 +10,8 @@ public class Apple extends Food implements Useable{
 		super(owner);
 		this.Heal = 30;
 		this.Mana = 0;
+		this.water = 40;
+		this.prefix = "an";
 		this.name = "Apple";
 		this.Description = "It's green?";
 	}

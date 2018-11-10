@@ -2,11 +2,11 @@ package com.labc.Vermellion;
 
 import java.util.ArrayList;
 import java.util.Scanner;
-
 import com.labc.Vermellion.Items.ItemFactory;
 
 public abstract class Character {
-	protected int MAXHP, MAXMAGIC, HP, MAGIC, STR, BAGREDAD, ILLUSION, SNEAK, BLOCK, ACCURACY;
+	protected int MAXHP, MAXMAGIC, HP, MAGIC, STR, BAGREDAD, ILLUSION, SNEAK,
+	BLOCK, ACCURACY, MAXTHIRST, THIRST, RESISTANCE;
 	protected int bagSize;
 	protected Tile current;
 	public ArrayList<Item> inventory;
@@ -18,7 +18,8 @@ public abstract class Character {
 		current.player = this;
 		this.inventory = new ArrayList<Item>();
 		this.itemFact  = new ItemFactory(this);
-		this.state = NotPoisoned.instance();
+		this.MAXTHIRST = this.THIRST = 150;
+		this.state = NormalState.instance();
 	}
 	
 	protected void attack() {
@@ -30,65 +31,7 @@ public abstract class Character {
 	}
 	
 	public void decideWhatToDo(Scanner sn) {
-		String action;
-		if(sn.hasNext()) {
-			action = sn.next();
-			if(action.equalsIgnoreCase("ATTACK"))
-				attack();
-			
-			else if(action.equalsIgnoreCase("LOOK")) 
-				System.out.println(this.current.getLongDescription());
-			
-			else if(action.equalsIgnoreCase("RUN"))
-				run();
-			
-			else if(action.equalsIgnoreCase("SHOOT")) {
-				if( sn.hasNext() ) 
-					shoot( sn.next() );
-				else
-					System.out.println("Shoot what?");
-			}
-			
-			else if(action.equalsIgnoreCase("INVENTORY"))
-				seeInv();
-			
-			else if(action.equalsIgnoreCase("STATS"))
-				seeStats();
-			
-			else if(action.equalsIgnoreCase("WALK")) {
-				if( sn.hasNext() )
-					walk(sn.next().trim());
-				else
-					System.out.println("Walk where?");
-			}
-			
-			else if(action.equalsIgnoreCase("PICKUP")) {
-				if( sn.hasNext() )
-					pickUpItem(sn.next());
-				else
-					System.out.println("Pick what up?");
-			}
-			else if(action.equalsIgnoreCase("USE")) {
-				if( sn.hasNext() ) {
-					String name = sn.next();
-					Item item = null;
-					for(int i=0;i<inventory.size();i++)
-						if(name.equalsIgnoreCase(inventory.get(i).toString()))
-							item = inventory.get(i);
-					if( item == null )
-						System.out.println("You don't have that item in your inventory.");
-					else
-						item.beUsed();
-				}
-				else 
-					System.out.println("Use what?");
-			}
-				
-			else
-				System.out.println("You can't do that.");
-		}
-		else
-			System.out.println("Are you a mute?");
+		this.state.decideWhatToDo(sn, this);
 	}
 	
 	protected abstract void shoot(String target);
@@ -107,23 +50,28 @@ public abstract class Character {
 		direction = i==1 ? "east" : direction;
 		direction = i==2 ? "south" : direction;
 		direction = i==3 ? "west" : direction;
-		System.out.println("You ran to the "+direction);
+		System.out.println("\nYou ran to the "+direction);
+		this.THIRST-=30;
 	}
 	
 	protected void pickUpItem(String item) {
 		try {
-			if( item.equalsIgnoreCase(this.current.getItemOnFloor().toString()) ) {
-				if( inventory.size() >= this.bagSize )
-					System.out.println("Your inventory is full");
-				else {
-					inventory.add(itemFact.getItem(item));
-					this.current.setItemOnFloor(null);
-					System.out.println("You picked the "+item+" up");
+			if( this.current.enemy == null) {
+				if( item.equalsIgnoreCase(this.current.getItemOnFloor().toString()) ) {
+					if( inventory.size() >= this.bagSize )
+						System.out.println("\nYour inventory is full");
+					else {
+						inventory.add(itemFact.getItem(item));
+						this.current.setItemOnFloor(null);
+						System.out.println("\nYou picked the "+item+" up");
+					}
+						
 				}
-					
+				else
+					System.out.println("\nThere is no "+item+" around here");
 			}
 			else
-				System.out.println(" There is no "+item+" around here");
+				System.out.println("\nYou can't pick anything up there is something trying to kill you");
 		}catch(NullPointerException e) {
 			System.out.println(" There is no "+item+" around here");
 		}
@@ -211,13 +159,48 @@ public abstract class Character {
 	public int getAccuracy() {
 		return this.ACCURACY;
 	}
+	public void setMaxHP(int maxHP) {
+		this.MAXHP = maxHP;
+	}
 	
 	public int getMaxHP() {
 		return this.MAXHP;
 	}
 	
+	public void setMaxMagic(int maxMagic) {
+		this.MAXMAGIC = maxMagic;
+	}
+	
 	public int getMaxMagic() {
 		return this.MAXMAGIC;
+	}
+	
+	public void setResistance(int Resistance) {
+		this.RESISTANCE = Resistance;
+	}
+	
+	public int getResistance() {
+		return this.RESISTANCE;
+	}
+	
+	public void setCharacterState(CharacterState state) {
+		this.state = state;
+	}
+	
+	public CharacterState getCharacterstate() {
+		return this.state;
+	}
+	
+	public void setThirst(int thirst) {
+		this.THIRST = thirst;
+	}
+	
+	public int getThirst() {
+		return this.THIRST;
+	}
+	
+	public int getMaxThirst() {
+		return this.MAXTHIRST;
 	}
 	
 	public ArrayList<Item> getInventory() {

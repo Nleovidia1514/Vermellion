@@ -10,6 +10,8 @@ public class SpaghettiOs extends Food implements Useable {
 		super(owner);
 		this.Heal = 200;
 		this.Mana = 100;
+		this.water = 50;
+		this.prefix = "";
 		this.name = "SpaghettiOs";
 		this.Description = "Every american child's favorite breakfast.";
 	}

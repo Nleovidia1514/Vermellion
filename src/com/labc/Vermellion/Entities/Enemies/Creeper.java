@@ -12,16 +12,18 @@ public class Creeper extends EnemyDecorator {
 
 	@Override
 	public void attack() {
-		// TODO Auto-generated method stub
-		System.out.println("Psssssssssst...");
-		position.player.setHP(position.player.getHP()-200);
+		super.attack();
+		int totalDamage = position.player.getHP() - CalculateDamage();
+		System.out.println("\nPsssssssssst...");
+		position.player.setHP(totalDamage);
+		System.out.println("The "+this.name+" dealt "+totalDamage+" damage to you.");
 	}
 
 	@Override
 	public void beAttacked(int damage) {
-		// TODO Auto-generated method stub
-		System.out.println("Pssssssssstt... x_x");
-		System.out.println("You made "+damage+" to the "+this.name);
+		super.beAttacked(damage);
+		System.out.println("\nPssssssssstt... x_x");
+		System.out.println("You made "+damage+" damage to the "+this.name+".");
 		this.HP -= damage;
 		if(this.HP<=0) 
 			die();
@@ -32,10 +34,11 @@ public class Creeper extends EnemyDecorator {
 
 	@Override
 	public void die() {
-		// TODO Auto-generated method stub
+		super.die();
 		this.position.enemy = null;
 		this.position.hasEnemy = false;
-		System.out.println("The creeper died");
+		System.out.println("\nPsssssssssst D:");
+		System.out.println("The creeper died.");
 	}
 	
 	@Override
@@ -44,6 +47,24 @@ public class Creeper extends EnemyDecorator {
 		this.HP = this.HP + 100;
 		this.ATTACK = this.ATTACK + 150;
 		this.name = "Creeper";
+	}
+	
+	@Override
+	public void beShot(int damage) {
+		super.beShot(damage);
+		System.out.println("\nPssssssssstt... x_x");
+		System.out.println("You made "+damage+" damage to the "+this.name+".");
+		this.HP -= damage;
+		if(this.HP<=0) 
+			die();
+	}
+	
+
+	private int CalculateDamage() {
+		int damage = this.ATTACK-this.getPos().player.getResistance();
+		if(damage < 0)
+			damage = 0;
+		return damage;
 	}
 
 }

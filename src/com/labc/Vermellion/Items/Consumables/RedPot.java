@@ -10,7 +10,9 @@ public class RedPot extends Food implements Useable {
 		super(owner);
 		this.Heal = 150;
 		this.Mana = 0;
-		this.name = "Red potion";
+		this.water = 15;
+		this.prefix = "a";
+		this.name = "RedPot";
 		this.Description = "It bubbles a little bit like a soda.";
 	}
 

@@ -10,7 +10,8 @@ public class BasicEnemy extends Enemy {
 
 	@Override
 	public void attack() {
-		this.position.player.setHP(this.position.player.getHP() - this.ATTACK);
+		int totalDamage = this.position.player.getHP() - CalculateDamage();
+		this.position.player.setHP(totalDamage);
 	}
 
 	@Override
@@ -30,4 +31,15 @@ public class BasicEnemy extends Enemy {
 		this.name = null;
 	}
 
+	@Override
+	public void beShot(int damage) {
+		this.HP = this.HP - damage;
+	}
+	
+	private int CalculateDamage() {
+		int damage = this.ATTACK-this.getPos().player.getResistance();
+		if(damage < 0)
+			damage = 0;
+		return damage;
+	}
 }

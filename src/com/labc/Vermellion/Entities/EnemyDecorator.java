@@ -29,4 +29,9 @@ public class EnemyDecorator extends Enemy {
 		this.enemy.create();
 	}
 
+	@Override
+	public void beShot(int damage) {
+		this.enemy.beShot(damage);
+	}
+
 }

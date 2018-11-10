@@ -1,10 +1,32 @@
 package com.labc.Vermellion;
 
+import java.util.Scanner;
+
 public class PoisonedState extends CharacterState {
 	private static PoisonedState instance = new PoisonedState();
+	public int turnsPoisoned;
+	private int turnsSuffered = 0;
 	
 	public static PoisonedState instance() {
 		return instance;
+	}
+	
+	@Override
+	public void decideWhatToDo(Scanner sn, Character player) {
+		super.decideWhatToDo(sn, player);
+		
+		turnsSuffered++;
+		
+		if(turnsSuffered == turnsPoisoned) {
+			player.setCharacterState(NormalState.instance());
+			turnsSuffered = 0;
+			turnsPoisoned = 0;
+		}
+		
+		
+		
+		player.setHP(player.getHP()-10);
+		System.out.println("You lost 10 HP because of the poison");
 	}
 	
 	@Override
@@ -40,8 +62,7 @@ public class PoisonedState extends CharacterState {
 			System.out.println("You can't walk there for some odd reason...");
 		
 		player.current.player = player;
-		player.setHP(player.getHP()-10);
-		System.out.println("You lost 10 HP");
+		player.THIRST-=20;
 	}
 
 }

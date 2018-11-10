@@ -10,6 +10,8 @@ public class Cachito extends Food implements Useable {
 		super(owner);
 		this.Heal = 70;
 		this.Mana = 20;
+		this.water = 0;
+		this.prefix = "a";
 		this.name = "Cachito";
 		this.Description = "The legends say this afrodisiac was once used to bribe teachers.";
 	}

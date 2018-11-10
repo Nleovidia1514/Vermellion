@@ -1,12 +1,19 @@
 package com.labc.Vermellion;
 
-public class NotPoisoned extends CharacterState {
-	private static NotPoisoned instance = new NotPoisoned(); 
+import java.util.Scanner;
+
+public class NormalState extends CharacterState {
+	private static NormalState instance = new NormalState(); 
 	
-	public static NotPoisoned instance() {
+	public static NormalState instance() {
 		return instance;
 	}
 
+	@Override
+	public void decideWhatToDo(Scanner sn, Character player) {
+		super.decideWhatToDo(sn, player);
+	}
+	
 	@Override
 	public void walk(String direction, Character player) {
 		if(direction.toLowerCase().equals("north")) {
@@ -40,7 +47,9 @@ public class NotPoisoned extends CharacterState {
 			System.out.println("You can't walk there for some odd reason...");
 		
 		player.current.player = player;
+		player.THIRST-=20;
 		System.out.println(player.current.x+","+player.current.y);
+		
 	}
 
 }

@@ -5,24 +5,24 @@ import java.util.Random;
 import com.labc.Vermellion.Character;
 import com.labc.Vermellion.Tile;
 
-public class Fighter extends Character {
-	
-	public Fighter(Tile starting) {
+public class Archer extends Character {
+
+	public Archer(Tile starting) {
 		super(starting);
-		System.out.println("\nYou see the sword and you inmediatly remember\n"
-				+ "the honor of your family, you can't let them down\n"
-				+ "you will do whatever it takes to put your family name\n"
-				+ "uphigh. You feel ready to take on Vermellion's wasteland.");
-		this.MAXHP = HP = 250;
+		System.out.println("\nYou grab the bow from the floor, you think it feels\n"
+				+ "familiar, the string is tense. This brings you back and\n"
+				+ "makes you remenber things you'd rather not, it is time to\n"
+				+ "look for revenge on Vermellion's wasteland.");
+		this.MAXHP = HP = 170;
 		this.MAXMAGIC = MAGIC = 50;
-		this.STR = 130;
-		this.BAGREDAD = 35;
-		this.SNEAK = 40;
+		this.STR = 60;
+		this.BAGREDAD = 150;
+		this.SNEAK = 70;
 		this.ILLUSION = 40;
-		this.BLOCK = 150;
-		this.ACCURACY = 80;
-		this.RESISTANCE = 50;
-		this.bagSize = 25;
+		this.BLOCK = 60;
+		this.ACCURACY = 200;
+		this.RESISTANCE = 60;
+		this.bagSize = 30;
 	}
 
 	@Override
@@ -32,7 +32,7 @@ public class Fighter extends Character {
 			int calculateChance = 300/this.ACCURACY;
 			if(rnd.nextInt(calculateChance)<=0) {
 				this.current.enemy.beShot(this.BAGREDAD);
-				System.out.println("\nYou shot an arrow from your wrist crossbow\n"
+				System.out.println("\nYou shot an arrow\n"
 						+ "and hit "+target+" dealing "+this.BAGREDAD+" damage.");
 			}
 			else

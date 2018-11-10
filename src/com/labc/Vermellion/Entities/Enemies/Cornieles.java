@@ -11,16 +11,18 @@ public class Cornieles extends EnemyDecorator {
 	
 	@Override
 	public void attack() {
-		// TODO Auto-generated method stub
-		System.out.println("Ustedes son unos expertos.");
-		position.player.setHP(position.player.getHP()-200);
+		super.attack();
+		int totalDamage = position.player.getHP()-CalculateDamage();
+		System.out.println("\nUstedes son unos expertos.");
+		position.player.setHP(totalDamage);
+		System.out.println(this.name+" dealt "+totalDamage+" damage to you.");
 	}
 
 	@Override
 	public void beAttacked(int damage) {
-		// TODO Auto-generated method stub
-		System.out.println("Sabeeeeiiiiis.");
-		System.out.println("You made "+damage+" to the "+this.name);
+		super.beAttacked(damage);
+		System.out.println("\nSabeeeeiiiiis.");
+		System.out.println("You made "+damage+" damage to "+this.name+".");
 		this.HP -= damage;
 		if(this.HP<=0) 
 			die();
@@ -31,10 +33,11 @@ public class Cornieles extends EnemyDecorator {
 
 	@Override
 	public void die() {
-		// TODO Auto-generated method stub
+		super.die();
 		this.position.enemy = null;
 		this.position.hasEnemy = false;
-		System.out.println("No puede ser nonononono.");
+		System.out.println("\nNo puede ser nonononono.");
+		System.out.println("Cornieles died.");
 	}
 	
 	@Override
@@ -43,5 +46,22 @@ public class Cornieles extends EnemyDecorator {
 		this.HP = this.HP + 300;
 		this.ATTACK = this.ATTACK + 150;
 		this.name = "Cornieles";
+	}
+	
+	@Override
+	public void beShot(int damage) {
+		super.beShot(damage);
+		this.HP = this.HP - damage;
+		System.out.println("\nSabeeeeeiiiis.");
+		System.out.println("You made "+damage+" damage to "+this.name+".");
+		if(this.HP<=0)
+			this.die();
+	}
+	
+	private int CalculateDamage() {
+		int damage = this.ATTACK-this.getPos().player.getResistance();
+		if(damage < 0)
+			damage = 0;
+		return damage;
 	}
 }

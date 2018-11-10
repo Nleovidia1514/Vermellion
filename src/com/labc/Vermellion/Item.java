@@ -7,6 +7,7 @@ public abstract class Item implements Useable {
 	protected String Description;
 	protected Character Owner;
 	protected String name;
+	public String prefix;
 	
 	public Item(Character owner) {
 		this.Owner = owner;

@@ -1,5 +1,6 @@
 package com.labc.Vermellion.Entities.Enemies;
 
+import com.labc.Vermellion.PoisonedState;
 import com.labc.Vermellion.Entities.Enemy;
 import com.labc.Vermellion.Entities.EnemyDecorator;
 
@@ -8,32 +9,31 @@ public class Witch extends EnemyDecorator{
 	public Witch(Enemy enemy) {
 		super(enemy);
 		this.HP = 150;
-		this.ATTACK = 30;
+		this.ATTACK = 90;
 		this.name = "Witch";
 	}
 
 	@Override
 	public void attack() {
-		// TODO Auto-generated method stub
+		super.attack();
+		int totalDamage = this.position.player.getHP() - CalculateDamage();
 		int z = 0;
 		if(z == 0 ) {
-			System.out.println("The witch curses you and lowers your maxHP to 100");
-			this.position.player.setHP(100);
+			System.out.println("The witch poisons you for 5 moves.");
+			this.position.player.setCharacterState(PoisonedState.instance());
+			PoisonedState.instance().turnsPoisoned = 5;
 		}
 		else {
-			System.out.println("The witch attacks you and deals "+this.ATTACK+" damage");
-			this.position.player.setHP(this.position.player.getHP()-25);
+			System.out.println("The witch attacks you and deals "+totalDamage+" damage to you.");
+			this.position.player.setHP(totalDamage);
 		}
-			
-			
 	}
 
 	@Override
 	public void beAttacked(int damage) {
-		// TODO Auto-generated method stub
-		System.out.print("The witch makes disturbing noises, this let's you know that you're hurting her"
-				+ " for "+damage+" damage ");
-		this.HP = HP-damage;
+		System.out.print("\nThe witch makes disturbing noises, this let's you know that you're hurting her"
+				+ " for "+damage+" damage.");
+		this.HP = this.HP-damage;
 		if(this.HP<=0) 
 			die();
 		else
@@ -42,8 +42,7 @@ public class Witch extends EnemyDecorator{
 
 	@Override
 	public void die() {
-		// TODO Auto-generated method stub
-		System.out.println("and died");
+		System.out.println("The witch died.");
 		this.position.hasEnemy = false;
 		this.position.enemy = null;
 	}
@@ -54,5 +53,20 @@ public class Witch extends EnemyDecorator{
 		this.ATTACK = this.ATTACK + 50;
 		this.name = "Witch";
 	}
-
+	
+	@Override 
+	public void beShot(int damage) {
+		System.out.print("\nThe witch makes disturbing noises, this let's you know that you're hurting her"
+				+ " for "+damage+" damage.");
+		this.HP = this.HP-damage;
+		if(this.HP<=0) 
+			die();
+	}
+	
+	private int CalculateDamage() {
+		int damage = this.ATTACK-this.getPos().player.getResistance();
+		if(damage < 0)
+			damage = 0;
+		return damage;
+	}
 }

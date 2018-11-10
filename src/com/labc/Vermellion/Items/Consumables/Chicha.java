@@ -10,6 +10,8 @@ public class Chicha extends Food implements Useable{
 		super(owner);
 		this.Heal = 60;
 		this.Mana = 30;
+		this.water = 50;
+		this.prefix = "a";
 		this.name = "Chicha";
 		this.Description = "Venezuelans love this beverage... or is it a smoothie?";
 	}

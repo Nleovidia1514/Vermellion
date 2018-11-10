@@ -11,6 +11,7 @@ public abstract class Entity {
 	
 	public abstract void beAttacked(int damage);
 	public abstract void die();
+	public abstract void beShot(int damage);
 	
 	public String getName() {
 		return this.name;

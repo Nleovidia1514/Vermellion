@@ -12,6 +12,8 @@ public class Fungi extends Food implements Useable{
 		super(owner);
 		this.Heal = -30;
 		this.Mana = 0;
+		this.water = 5;
+		this.prefix = "a";
 		this.name = "Fungi";
 		this.Description = "It looks like it could provide you a pea trifasica.";
 	}

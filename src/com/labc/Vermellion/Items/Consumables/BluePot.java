@@ -10,7 +10,9 @@ public class BluePot extends Food implements Useable {
 		super(owner);
 		this.Heal = 0;
 		this.Mana = 80;
-		this.name = "Blue potion";
+		this.water = 15;
+		this.prefix = "a";
+		this.name = "BluePot";
 		this.Description = "It has a label on it... 'Made in China'.";
 	}
 

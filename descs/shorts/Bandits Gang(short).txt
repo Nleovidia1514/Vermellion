@@ -1,3 +1,0 @@
-There is a bandits gang anxious for
-muggling everything you have
-(RUN)(LOOK)(USE 'ITEM')(ATTACK)(WALK 'DIRECTION')
