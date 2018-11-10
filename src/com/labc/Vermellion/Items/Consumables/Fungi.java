@@ -18,10 +18,8 @@ public class Fungi extends Food implements Useable{
 
 	@Override
 	public void beUsed() {
-		System.out.println("Suddenly you're in the sky and you've never felt more alive."
-				+ " You lost "+this.Heal*-1+" HP.  worth.");
-		this.Owner.setHP(this.Owner.getHP()+this.Heal);
-		this.Owner.inventory.remove(this);
+		System.out.print("Suddenly you're in the sky and you've never felt more alive. ");
+		super.beUsed();
 	}
 
 	@Override

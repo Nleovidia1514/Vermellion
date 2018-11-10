@@ -1,12 +1,12 @@
 package com.labc.Vermellion.Entities.Enemies;
 
-import com.labc.Vermellion.Tile;
 import com.labc.Vermellion.Entities.Enemy;
+import com.labc.Vermellion.Entities.EnemyDecorator;
 
-public class Witch extends Enemy{
+public class Witch extends EnemyDecorator{
 	
-	public Witch(Tile position) {
-		super(position);
+	public Witch(Enemy enemy) {
+		super(enemy);
 		this.HP = 150;
 		this.ATTACK = 30;
 		this.name = "Witch";
@@ -46,6 +46,13 @@ public class Witch extends Enemy{
 		System.out.println("and died");
 		this.position.hasEnemy = false;
 		this.position.enemy = null;
+	}
+	
+	@Override
+	public void create() {
+		this.HP = this.HP + 200;
+		this.ATTACK = this.ATTACK + 50;
+		this.name = "Witch";
 	}
 
 }

@@ -16,10 +16,8 @@ public class BluePot extends Food implements Useable {
 
 	@Override
 	public void beUsed() {
-		System.out.println("You drank the potion. It left you a bit dazzled\n"
-				+ "You restored "+this.Mana+" MAGIC.");
-		this.Owner.setMagic(this.Owner.getMagic()+this.Mana);
-		this.Owner.inventory.remove(this);
+		System.out.print("You drank the potion. It left you a bit dazzled. ");
+		super.beUsed();
 	}
 
 	@Override

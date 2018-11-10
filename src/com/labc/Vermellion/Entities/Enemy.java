@@ -9,4 +9,6 @@ public abstract class Enemy extends Entity implements AttackAble{
 	protected Enemy(Tile position) {
 		super(position);
 	}
+	
+	public abstract void create();
 }

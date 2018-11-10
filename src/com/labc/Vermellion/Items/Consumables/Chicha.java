@@ -16,11 +16,8 @@ public class Chicha extends Food implements Useable{
 
 	@Override
 	public void beUsed() {
-		System.out.println("Damn it tastes good. You healed "+this.Heal+" HP"
-				+"and restored "+this.Mana+" MAGIC.");
-		this.Owner.setHP(this.Owner.getHP()+this.Heal);
-		this.Owner.setMagic(this.Owner.getMagic()+this.Mana);
-		this.Owner.inventory.remove(this);
+		System.out.print("Damn it tastes good. ");
+		super.beUsed();
 	}
 
 	@Override

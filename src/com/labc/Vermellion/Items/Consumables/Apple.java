@@ -23,9 +23,8 @@ public class Apple extends Food implements Useable{
 	@Override
 	public void beUsed() {
 		// TODO Auto-generated method stub
-		System.out.println("You ate the apple... it had an odd taste. You healed "+this.Heal+" HP.");
-		this.Owner.setHP(this.Owner.getHP()+this.Heal);
-		this.Owner.inventory.remove(this);
+		System.out.print("You ate the apple... it had an odd taste. ");
+		super.beUsed();
 	}
 
 }

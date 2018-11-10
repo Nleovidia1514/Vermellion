@@ -16,10 +16,8 @@ public class RedPot extends Food implements Useable {
 
 	@Override
 	public void beUsed() {
-		System.out.println("It had a funny taste but you feel spectacular."
-				+ " You healed "+this.Heal+" HP.");
-		this.Owner.setHP(this.Owner.getHP()+this.Heal);
-		this.Owner.inventory.remove(this);
+		System.out.println("It had a funny taste but you feel spectacular. ");
+		super.beUsed();
 	}
 
 	@Override

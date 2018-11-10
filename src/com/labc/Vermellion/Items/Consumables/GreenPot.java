@@ -16,11 +16,8 @@ public class GreenPot extends Food implements Useable {
 
 	@Override
 	public void beUsed() {
-		System.out.println("You almost vomit but you managed not too. You healed "
-				+this.Heal+ " and restored "+this.Mana+" MAGIC.");
-		this.Owner.setHP(this.Owner.getHP()+this.Heal);
-		this.Owner.setMagic(this.Owner.getMagic()+this.Mana);
-		this.Owner.inventory.remove(this);
+		System.out.println("You almost vomit but you managed not too. ");
+		super.beUsed();
 	}
 
 	@Override

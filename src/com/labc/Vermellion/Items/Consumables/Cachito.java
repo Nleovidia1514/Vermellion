@@ -16,11 +16,8 @@ public class Cachito extends Food implements Useable {
 
 	@Override
 	public void beUsed() {
-		System.out.println("It had no fucking ham in it. You healed "+this.Heal+" HP "
-				+ "and restored "+this.Mana+" MAGIC.");
-		this.Owner.setHP(this.Owner.getHP()+this.Heal);
-		this.Owner.setMagic(this.Owner.getMagic()+this.Mana);
-		this.Owner.inventory.remove(this);
+		System.out.print("It had no fucking ham in it. ");
+		super.beUsed();
 	}
 
 	@Override

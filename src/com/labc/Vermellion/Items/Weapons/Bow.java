@@ -28,4 +28,6 @@ public class Bow extends Weapon implements Useable{
 		
 	}
 
+	
+
 }

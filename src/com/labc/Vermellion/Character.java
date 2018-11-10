@@ -6,17 +6,19 @@ import java.util.Scanner;
 import com.labc.Vermellion.Items.ItemFactory;
 
 public abstract class Character {
-	protected int HP, MAGIC, STR, BAGREDAD, ILLUSION, SNEAK, BLOCK, ACCURACY;
+	protected int MAXHP, MAXMAGIC, HP, MAGIC, STR, BAGREDAD, ILLUSION, SNEAK, BLOCK, ACCURACY;
 	protected int bagSize;
 	protected Tile current;
 	public ArrayList<Item> inventory;
 	private ItemFactory itemFact;
+	private CharacterState state;
 	
 	protected Character(Tile starting) {
 		this.current = starting;
 		current.player = this;
 		this.inventory = new ArrayList<Item>();
 		this.itemFact  = new ItemFactory(this);
+		this.state = NotPoisoned.instance();
 	}
 	
 	protected void attack() {
@@ -92,39 +94,7 @@ public abstract class Character {
 	protected abstract void shoot(String target);
 
 	protected void walk(String direction) {
-		
-		if(direction.toLowerCase().equals("north")) {
-			if(current.getNeighbors()[SingletonMap.NORTH]!=null)
-				this.current = current.getNeighbors()[SingletonMap.NORTH];
-			else
-				System.out.println("Seems like there is no access through there");
-		}
-		
-		else if(direction.toLowerCase().equals("east")) {
-			if(current.getNeighbors()[SingletonMap.EAST]!=null)
-				this.current = current.getNeighbors()[SingletonMap.EAST];
-			else
-				System.out.println("Seems like there is no access through there");
-		}
-		
-		else if(direction.toLowerCase().equals("south")) {
-			if(current.getNeighbors()[SingletonMap.SOUTH]!=null)
-				this.current = current.getNeighbors()[SingletonMap.SOUTH];
-			else
-				System.out.println("Seems like there is no access through there");
-		}
-		
-		else if(direction.toLowerCase().equals("west")) {
-			if(current.getNeighbors()[SingletonMap.WEST]!=null)
-				this.current = current.getNeighbors()[SingletonMap.WEST];
-			else
-				System.out.println("Seems like there is no access through there");
-		}
-		else
-			System.out.println("You can't walk there for some odd reason...");
-		
-		current.player = this;
-		System.out.println(this.current.x+","+this.current.y);
+		this.state.walk(direction,this);
 	}
 
 	protected void run() {
@@ -141,17 +111,22 @@ public abstract class Character {
 	}
 	
 	protected void pickUpItem(String item) {
-		if( item.equalsIgnoreCase(this.current.getItemOnFloor().toString()) ) {
-			if( inventory.size() >= this.bagSize )
-				System.out.println("Your inventory is full");
-			else {
-				inventory.add(itemFact.getItem(item));
-				System.out.println("You picked the "+item+" up");
+		try {
+			if( item.equalsIgnoreCase(this.current.getItemOnFloor().toString()) ) {
+				if( inventory.size() >= this.bagSize )
+					System.out.println("Your inventory is full");
+				else {
+					inventory.add(itemFact.getItem(item));
+					this.current.setItemOnFloor(null);
+					System.out.println("You picked the "+item+" up");
+				}
+					
 			}
-				
-		}
-		else
+			else
+				System.out.println(" There is no "+item+" around here");
+		}catch(NullPointerException e) {
 			System.out.println(" There is no "+item+" around here");
+		}
 	}
 	
 	protected void seeInv() {
@@ -235,6 +210,14 @@ public abstract class Character {
 	
 	public int getAccuracy() {
 		return this.ACCURACY;
+	}
+	
+	public int getMaxHP() {
+		return this.MAXHP;
+	}
+	
+	public int getMaxMagic() {
+		return this.MAXMAGIC;
 	}
 	
 	public ArrayList<Item> getInventory() {

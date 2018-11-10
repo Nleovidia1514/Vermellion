@@ -16,8 +16,8 @@ public class Mage extends Character {
 		System.out.println("You feel an outburst of power running through your body\n"
 				+ "you suddenly feel like the world is yours\n"
 				+ "and you're ready to take on Vermellion's wasteland...");
-		this.HP = 175;
-		this.MAGIC = 200;
+		this.MAXHP = HP = 175;
+		this.MAXMAGIC = MAGIC = 200;
 		this.STR = 60;
 		this.BAGREDAD = 10;
 		this.SNEAK = 70;

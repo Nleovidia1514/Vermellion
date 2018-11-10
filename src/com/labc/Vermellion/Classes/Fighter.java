@@ -14,8 +14,8 @@ public class Fighter extends Character {
 				+ "the honor of your family, you can't let them down\n"
 				+ "you will do whatever it takes to put your family name\n"
 				+ "uphigh. You feel ready to take on Vermellion's wasteland.");
-		this.HP = 250;
-		this.MAGIC = 50;
+		this.MAXHP = HP = 250;
+		this.MAXMAGIC = MAGIC = 50;
 		this.STR = 130;
 		this.BAGREDAD = 35;
 		this.SNEAK = 40;
