@@ -1,6 +1,7 @@
 package com.labc.Vermellion.Items.Consumables;
 
 import com.labc.Vermellion.Character;
+import com.labc.Vermellion.Start;
 import com.labc.Vermellion.Items.Food;
 import com.labc.Vermellion.Items.Useable;
 
@@ -18,7 +19,7 @@ public class GreenPot extends Food implements Useable {
 
 	@Override
 	public void beUsed() {
-		System.out.println("You almost vomit but you managed not too. ");
+		Start.ta.append("\nYou almost vomit but you managed not too. ");
 		super.beUsed();
 	}
 

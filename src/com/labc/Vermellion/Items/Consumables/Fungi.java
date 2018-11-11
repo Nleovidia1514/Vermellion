@@ -1,6 +1,7 @@
 package com.labc.Vermellion.Items.Consumables;
 
 import com.labc.Vermellion.Character;
+import com.labc.Vermellion.Start;
 import com.labc.Vermellion.Items.Food;
 import com.labc.Vermellion.Items.Useable;
 
@@ -18,7 +19,7 @@ public class Fungi extends Food implements Useable{
 
 	@Override
 	public void beUsed() {
-		System.out.print("Suddenly you're in the sky and you've never felt more alive. ");
+		Start.ta.append("\nSuddenly you're in the sky and you've never felt more alive. ");
 		super.beUsed();
 	}
 

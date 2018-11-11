@@ -1,6 +1,7 @@
 package com.labc.Vermellion.Entities.Enemies;
 
 import com.labc.Vermellion.Entity;
+import com.labc.Vermellion.Start;
 import com.labc.Vermellion.Entities.EntityDecorator;
 
 public class Creeper extends EntityDecorator implements AttackAble {
@@ -12,16 +13,16 @@ public class Creeper extends EntityDecorator implements AttackAble {
 	@Override
 	public void attack() {
 		int totalDamage = position.player.getHP() - CalculateDamage();
-		System.err.println("\nPsssssssssst...");
+		Start.ta.append("\nPsssssssssst...");
 		position.player.setHP(totalDamage);
-		System.out.println("The "+this.name+" dealt "+totalDamage+" damage to you.");
+		Start.ta.append("\nThe "+this.name+" dealt "+totalDamage+" damage to you.");
 		this.die();
 	}
 
 	@Override
 	public void beAttacked(int damage) {
 		super.beAttacked(damage);
-		System.err.println("\nPssssssssstt... x_x");
+		Start.ta.append("\nPssssssssstt... x_x");
 		this.HP -= damage;
 		if(this.HP<=0) 
 			die();
@@ -36,13 +37,13 @@ public class Creeper extends EntityDecorator implements AttackAble {
 		this.position.hasEnemy = false;
 		this.position.shortDescription = this.position.descripts.shortDescsAftFight.get(this.position.name);
 		this.position.longDescription = this.position.descripts.longDescsAftFight.get(this.position.name);
-		System.out.println("\nPsssssssssst D:");
-		System.out.println("The creeper died.");
+		Start.ta.append("\nPsssssssssst D:");
+		Start.ta.append("\nThe creeper died.");
 	}
 	
 	@Override
 	public void talk() {
-		System.err.println("Pssssssssssssssssssssssssst.");
+		Start.ta.append("\nPssssssssssssssssssssssssst.");
 		this.attack();
 	}
 	
@@ -57,8 +58,8 @@ public class Creeper extends EntityDecorator implements AttackAble {
 	@Override
 	public void beShot(int damage) {
 		super.beShot(damage);
-		System.err.println("\nPssssssssstt... x_x");
-		System.out.println("You made "+damage+" damage to the "+this.name+".");
+		Start.ta.append("\nPssssssssstt... x_x");
+		Start.ta.append("\nYou made "+damage+" damage to the "+this.name+".");
 		this.HP -= damage;
 		if(this.HP<=0) 
 			die();

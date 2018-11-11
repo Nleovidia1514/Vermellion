@@ -1,6 +1,7 @@
 package com.labc.Vermellion.Items;
 
 import com.labc.Vermellion.Item;
+import com.labc.Vermellion.Start;
 import com.labc.Vermellion.Character;
 
 public abstract class Food extends Item {
@@ -36,7 +37,7 @@ public abstract class Food extends Item {
 			}
 			
 		this.Owner.inventory.remove(this);
-		System.out.println("You restored "+hphealed+" HP, "+magicrestored+" MAGIC"
+		Start.ta.append("\nYou restored "+hphealed+" HP, "+magicrestored+" MAGIC"
 				+ " and "+thirstrestored+" thirst");
 	}
 }

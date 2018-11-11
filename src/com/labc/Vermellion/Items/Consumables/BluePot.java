@@ -1,6 +1,7 @@
 package com.labc.Vermellion.Items.Consumables;
 
 import com.labc.Vermellion.Character;
+import com.labc.Vermellion.Start;
 import com.labc.Vermellion.Items.Food;
 import com.labc.Vermellion.Items.Useable;
 
@@ -18,7 +19,7 @@ public class BluePot extends Food implements Useable {
 
 	@Override
 	public void beUsed() {
-		System.out.print("You drank the potion. It left you a bit dazzled. ");
+		Start.ta.append("\nYou drank the potion. It left you a bit dazzled. ");
 		super.beUsed();
 	}
 

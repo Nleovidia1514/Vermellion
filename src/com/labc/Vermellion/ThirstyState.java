@@ -14,22 +14,29 @@ public class ThirstyState extends CharacterState{
 	
 	public void walk(String direction, Character player) {
 		Random rnd = new Random();
-		int dir = rnd.nextInt(4);
-		while(player.current.getNeighbors()[dir] == null)
-			dir = rnd.nextInt(4);
-		
-		player.current = player.current.getNeighbors()[dir];
-		if(dir==SingletonMap.NORTH)
-			System.out.println("\nYou're hallucinating and walked north instead.");
-		
-		else if(dir==SingletonMap.EAST)
-			System.out.println("\nYou're hallucinating and walked east instead.");
-		
-		else if(dir==SingletonMap.SOUTH)
-			System.out.println("\nYou're hallucinating and walked south instead");
-		
-		else if(dir==SingletonMap.WEST)
-			System.out.println("\nYou're hallucinating and walked west instead.");
+		if(!player.current.hasEnemy) {
+			int dir = rnd.nextInt(4);
+			while(player.current.getNeighbors()[dir] == null)
+				dir = rnd.nextInt(4);
+			
+			player.current = player.current.getNeighbors()[dir];
+			if(dir==SingletonMap.NORTH)
+				Start.ta.append("\nYou're hallucinating and walked north instead.");
+			
+			else if(dir==SingletonMap.EAST)
+				Start.ta.append("\nYou're hallucinating and walked east instead.");
+			
+			else if(dir==SingletonMap.SOUTH)
+				Start.ta.append("\nYou're hallucinating and walked south instead");
+			
+			else if(dir==SingletonMap.WEST)
+				Start.ta.append("\nYou're hallucinating and walked west instead.");
+		}
+		else {
+			Start.ta.append("\nYou walked right through those who were trying to kill\n"
+					+ "you facilitating their job. You really are a doubtful IQ person.");
+			player.die(player);
+		}
 	}
 
 	@Override
@@ -41,14 +48,14 @@ public class ThirstyState extends CharacterState{
 	
 	@Override
 	public void talkToNPC(Scanner sn, Character player) {
-		System.out.println("You're hallucinating and no one can understand what you're trying to say.");
+		Start.ta.append("\nYou're hallucinating and no one can understand what you're trying to say.");
 	}
 	
 	@Override
 	public void die(Character player) {
-		System.out.println("You perished from thirst on Vermellion's lands. But you go down\n"
+		Start.ta.append("\nYou perished from thirst on Vermellion's lands. But you go down\n"
 				+ "with a smile on your face because you know that this trip\n"
-				+ "wasn't a failure, it was a learning adventure.\n");
+				+ "wasn't a failure, it was a learning experience.\n");
 		Start.gameIsRunning = false;
 	}
 

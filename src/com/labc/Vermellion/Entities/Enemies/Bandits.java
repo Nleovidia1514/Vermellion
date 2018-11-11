@@ -3,6 +3,7 @@ package com.labc.Vermellion.Entities.Enemies;
 import java.util.Random;
 
 import com.labc.Vermellion.Entity;
+import com.labc.Vermellion.Start;
 import com.labc.Vermellion.Entities.EntityDecorator;
 
 public class Bandits extends EntityDecorator implements AttackAble {
@@ -15,16 +16,16 @@ public class Bandits extends EntityDecorator implements AttackAble {
 	public void attack() {
 		Random rnd = new Random();
 		int totalDamage = position.player.getHP()-CalculateDamage(), itemStolen;
-		System.out.println("\nThe bandits try to steal items from you.");
+		Start.ta.setText("\nThe bandits try to steal items from you.");
 		if(position.player.inventory.size()>0) {
 			itemStolen = rnd.nextInt(position.player.inventory.size());
-			System.out.println("The bandits dealed "+CalculateDamage()+" damage to you and"
+			Start.ta.append("\nThe bandits dealed "+CalculateDamage()+" damage to you\n and"
 					+ " stole "+position.player.inventory.get(itemStolen).getName()
 					+ " from your inventory.");
 			position.player.inventory.remove(itemStolen);
 		}
 		else		
-			System.out.println("The bandits dealed "+CalculateDamage()+" damage to you and"
+			Start.ta.append("\nThe bandits dealed "+CalculateDamage()+" damage to you and"
 					+ " couldn't steal anything because you're poor");
 		position.player.setHP(totalDamage);
 		
@@ -33,8 +34,8 @@ public class Bandits extends EntityDecorator implements AttackAble {
 	@Override
 	public void beAttacked(int damage) {
 		super.beAttacked(damage);
-		System.out.println("*Gruntled bandits sounds*");
-		System.out.println("You made "+damage+" damage to the "+this.name+".");
+		Start.ta.append("\n*Gruntled bandits sounds*");
+		Start.ta.append("\nYou made "+damage+" damage to the "+this.name+".");
 		this.HP -= damage;
 		if(this.HP<=0) 
 			die();
@@ -47,7 +48,7 @@ public class Bandits extends EntityDecorator implements AttackAble {
 	public void beShot(int damage) {
 		super.beShot(damage);
 		this.HP = this.HP - damage;
-		System.out.println("*Gruntled bandits sounds");
+		Start.ta.append("\n*Gruntled bandits sounds*");
 		if(this.HP<=0)
 			this.die();
 	}
@@ -59,13 +60,13 @@ public class Bandits extends EntityDecorator implements AttackAble {
 		this.position.hasEnemy = false;
 		this.position.shortDescription = this.position.descripts.shortDescsAftFight.get(this.position.name);
 		this.position.longDescription = this.position.descripts.longDescsAftFight.get(this.position.name);
-		System.out.println("\nBandits started to scatter.");
-		System.out.println("The bandits died.");
+		Start.ta.append("\nBandits started to scatter.");
+		Start.ta.append("\nThe bandits died.");
 	}
 	
 	@Override
 	public void talk() {
-		System.err.println("This not time to talk. Shut the fuck up bitch.");
+		Start.ta.append("\nThis' no time to talk. Shut the fuck up bitch.");
 		this.attack();
 	}
 	

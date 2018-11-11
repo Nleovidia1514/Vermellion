@@ -9,13 +9,22 @@ public abstract class CharacterState {
 	
 	public void decideWhatToDo(Scanner sn, Character player) {
 		String action;
+		if(player.getCharacterstate() != ThirstyState.instance()
+				&& player.current.getName().equalsIgnoreCase("Wasteland")) {
+			player.THIRST = 25;
+		}
+		
+		else if(player.getCharacterstate() != ThirstyState.instance() &&
+				player.current.getName().equalsIgnoreCase("MountainSurroundings")) {
+			player.THIRST = 30;
+		}
 		if(sn.hasNext()) {
 			action = sn.next();
 			if(action.equalsIgnoreCase("ATTACK"))
-				player.attack();
+				player.attack(sn);
 			
 			else if(action.equalsIgnoreCase("LOOK")) 
-				System.out.println(player.current.getLongDescription());
+				Start.ta.setText(player.current.getLongDescription());
 			
 			else if(action.equalsIgnoreCase("RUN"))
 				player.run();
@@ -25,10 +34,10 @@ public abstract class CharacterState {
 					if(player.current.mob != null)
 						player.shoot( sn.next() );
 					else
-						System.out.println("\nThere is nothing in here.");
+						Start.ta.append("\nThere is nothing in here.");
 				}
 				else
-					System.out.println("Shoot what?");
+					Start.ta.append("\nShoot what?");
 			}
 			
 			else if(action.equalsIgnoreCase("INVENTORY"))
@@ -41,16 +50,17 @@ public abstract class CharacterState {
 				if( sn.hasNext() )
 					player.walk(sn.next().trim());
 				else
-					System.out.println("Walk where?");
+					Start.ta.append("\nWalk where?");
 			}
 			
 			else if(action.equalsIgnoreCase("PICKUP")) {
 				if( sn.hasNext() )
 					player.pickUpItem(sn.next());
 				else
-					System.out.println("Pick what up?");
+					Start.ta.append("\nPick what up?");
 			}
-			else if(action.equalsIgnoreCase("USE")) {
+			else if(action.equalsIgnoreCase("USE")||action.equalsIgnoreCase("EAT")
+					||action.equalsIgnoreCase("DRINK")) {
 				if( sn.hasNext() ) {
 					String name = sn.next();
 					Item item = null;
@@ -59,12 +69,12 @@ public abstract class CharacterState {
 								contains(name.toLowerCase()))
 							item = player.inventory.get(i);
 					if( item == null )
-						System.out.println("You don't have that item in your inventory.");
+						Start.ta.append("\nYou don't have that item in your inventory.");
 					else
 						item.beUsed();
 				}
 				else 
-					System.out.println("Use what?");
+					Start.ta.append("\nUse what?");
 			}
 			
 			else if(action.equalsIgnoreCase("TALK")) {
@@ -76,15 +86,15 @@ public abstract class CharacterState {
 			}
 			
 			else
-				System.out.println("You can't do that.");
+				Start.ta.append("\nYou can't do that.");
 		}
 		else
-			System.out.println("Are you a mute?");
+			Start.ta.append("\nAre you a mute?");
 		
-		if(player.THIRST<25)
+		if(player.THIRST<=25)
 			player.setCharacterState(ThirstyState.instance());
 		
-		if(player.THIRST==0 || player.HP==0) {
+		if(player.THIRST<=0 || player.HP<=0) {
 			player.die(player);
 		}
 	}

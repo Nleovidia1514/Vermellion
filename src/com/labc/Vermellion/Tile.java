@@ -6,7 +6,6 @@ public class Tile {
 	public String name, shortDescription = "There is nothing here", longDescription = "There is nothing you can do here";
 	public Entity mob;
 	public Character player;
-	private boolean shortDescriptionSet, longDescriptionSet;
 	public boolean hasRiver, hasTree, hasEnemy, hasNPC, canShoot;
 	private Tile[] neighbors = new Tile[4];
 	private String itemOnFloor;
@@ -18,15 +17,10 @@ public class Tile {
 		this.y=y;
 		this.hasEnemy=false;
 		this.hasNPC=false;
-		this.longDescriptionSet = false;
 		this.hasTree = true;
 		this.player = null;
 		this.itemOnFloor = itemOnF;
 		this.canShoot = true;
-		this.descripts = new Descriptions(this);
-		this.shortDescription = descripts.shortDescs.get(name) ;
-		this.longDescription = descripts.longDescs.get(name);
-		this.mob = descripts.Entities.get(name);
 	}
 	
 	public void initNeightbors(Tile[][] tile) {
@@ -36,12 +30,11 @@ public class Tile {
 		neighbors[SingletonMap.WEST] = this.x==0?null:tile[x-1][y];
 	}
 	
-	public boolean shortDescriptionSet() {
-		return this.shortDescriptionSet;
-	}
-	
-	public boolean longDescriptionSet() {
-		return this.longDescriptionSet;
+	public void setDescs() {
+		this.descripts = new Descriptions(this);
+		this.shortDescription = descripts.shortDescs.get(name) ;
+		this.longDescription = descripts.longDescs.get(name);
+		this.mob = descripts.Entities.get(name);
 	}
 	
 	public String getLongDescription() {

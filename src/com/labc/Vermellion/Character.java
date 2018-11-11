@@ -20,12 +20,21 @@ public abstract class Character {
 		this.state = NormalState.instance();
 	}
 	
-	protected void attack() {
-		// TODO Auto-generated method stub
-		if(current.mob != null)
-			this.current.mob.beAttacked(this.STR);
+	protected void attack(Scanner sn) {
+		if(sn.hasNext()) {
+			if(this.current.mob != null && 
+					this.current.mob.getName().toLowerCase().contains(sn.next().toLowerCase()))
+				this.current.mob.beAttacked(this.STR);
+			else
+				Start.ta.append("\nYou attacked but hit the air LUL");
+		}
 		else
-			System.out.println("You attacked but hit the air LUL");
+			Start.ta.append("\nAttack what?");
+		
+		this.THIRST-=15;
+		Start.ta.append("\nHP - "+Start.Player.getHP()+"\n"
+				+"MAGIC - "+Start.Player.getMagic()+"\n"
+				+"THIRST - "+Start.Player.getThirst());
 	}
 	
 	public void decideWhatToDo(Scanner sn) {
@@ -48,8 +57,11 @@ public abstract class Character {
 		direction = i==1 ? "east" : direction;
 		direction = i==2 ? "south" : direction;
 		direction = i==3 ? "west" : direction;
-		System.out.println("\nYou ran to the "+direction);
+		Start.ta.append("\nYou ran to the "+direction);
 		this.THIRST-=30;
+		Start.ta.append("\nHP - "+Start.Player.getHP()+"\n"
+				+"MAGIC - "+Start.Player.getMagic()+"\n"
+				+"THIRST - "+Start.Player.getThirst());
 	}
 	
 	protected void pickUpItem(String item) {
@@ -57,39 +69,40 @@ public abstract class Character {
 			if( this.current.mob == null) {
 				if( item.equalsIgnoreCase(this.current.getItemOnFloor()) ) {
 					if( inventory.size() >= this.bagSize )
-						System.out.println("\nYour inventory is full");
+						Start.ta.append("\nYour inventory is full");
 					else {
 						inventory.add(ItemFactory.getItem(item,this));
 						this.current.setItemOnFloor(null);
-						System.out.println("\nYou picked the "+item+" up");
+						this.current.longDescription = this.current.shortDescription;
+						Start.ta.append("\nYou picked the "+item+" up");
 					}
 						
 				}
 				else
-					System.out.println("\nThere is no "+item+" around here");
+					Start.ta.append("\nThere is no "+item+" around here");
 			}
 			else
-				System.out.println("\nYou can't pick anything up there is something trying to kill you");
+				Start.ta.append("\nYou can't pick anything up there is something trying to kill you");
 		}catch(NullPointerException e) {
-			System.out.println(" There is no "+item+" around here");
+			Start.ta.append("\nThere is no "+item+" around here");
 		}
 	}
 	
 	protected void seeInv() {
 		for(int i=0;i<inventory.size();i++)
-			System.out.println(inventory.get(i).getName()+" - "+inventory.get(i).getDescription());
+			Start.ta.setText(inventory.get(i).getName()+" - "+inventory.get(i).getDescription());
 	}
 	
 	protected void seeStats() {
-		System.out.println("MaxHP: "+this.HP);
-		System.out.println("MaxMAGIC: "+this.MAGIC);
-		System.out.println("STR: "+this.STR);
-		System.out.println("SNEAK: "+this.SNEAK);
-		System.out.println("BLOCK: "+this.BLOCK);
-		System.out.println("ACCURACY: "+this.ACCURACY);
-		System.out.println("ILLUSION: "+this.ILLUSION);
-		System.out.println("BAGREDAD: "+this.BAGREDAD);
-		System.out.println("RESISTANCE: "+this.RESISTANCE);
+		Start.ta.setText("MaxHP: "+this.HP);
+		Start.ta.append("\nMaxMAGIC: "+this.MAGIC);
+		Start.ta.append("\nSTR: "+this.STR);
+		Start.ta.append("\nSNEAK: "+this.SNEAK);
+		Start.ta.append("\nBLOCK: "+this.BLOCK);
+		Start.ta.append("\nACCURACY: "+this.ACCURACY);
+		Start.ta.append("\nILLUSION: "+this.ILLUSION);
+		Start.ta.append("\nBAGREDAD: "+this.BAGREDAD);
+		Start.ta.append("\nRESISTANCE: "+this.RESISTANCE);
 	}
 	
 	protected void talkToNPC(Scanner sn,Character player ) {

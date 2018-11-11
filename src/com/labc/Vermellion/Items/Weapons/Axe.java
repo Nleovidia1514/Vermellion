@@ -3,6 +3,7 @@ package com.labc.Vermellion.Items.Weapons;
 import com.labc.Vermellion.Items.Useable;
 import com.labc.Vermellion.Items.Weapon;
 import com.labc.Vermellion.Character;
+import com.labc.Vermellion.Start;
 
 public class Axe extends Weapon implements Useable{
 
@@ -30,7 +31,7 @@ public class Axe extends Weapon implements Useable{
 			Durability--;
 		}
 		else
-			System.out.println("You can't use your axe here.");
+			Start.ta.append("\nYou can't use your axe here.");
 		
 		if( Durability == 0 )
 			broke();
@@ -38,13 +39,13 @@ public class Axe extends Weapon implements Useable{
 	
 	private void chopTree() {
 		this.Owner.getCurrent().hasTree = false;
-		System.out.print("You chopped the tree. ");
+		Start.ta.append("\nYou chopped the tree. ");
 		if( this.Owner.getCurrent().hasEnemy ) {
-			System.out.println("and it fell on " + this.Owner.getCurrent().mob.getName() );
+			Start.ta.append("\nand it fell on " + this.Owner.getCurrent().mob.getName() );
 			this.Owner.getCurrent().mob.beAttacked(75);
 		}
 		if( this.Owner.getCurrent().hasRiver ) {
-			System.out.println("The chopped tree fell on the river and now you can pass over it.");
+			Start.ta.append("\nThe chopped tree fell on the river and now you can pass over it.");
 			this.Owner.getCurrent().hasRiver = false;
 		}	
 	}
@@ -52,7 +53,7 @@ public class Axe extends Weapon implements Useable{
 	@Override
 	protected void broke() {
 		// TODO Auto-generated method stub
-		System.out.println("Your axe has broken.");
+		Start.ta.append("\nYour axe has broken.");
 		this.Owner.getInventory().remove(this);
 	}
 }

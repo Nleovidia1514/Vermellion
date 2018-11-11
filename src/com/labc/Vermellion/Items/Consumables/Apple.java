@@ -1,6 +1,7 @@
 package com.labc.Vermellion.Items.Consumables;
 
 import com.labc.Vermellion.Character;
+import com.labc.Vermellion.Start;
 import com.labc.Vermellion.Items.Food;
 import com.labc.Vermellion.Items.Useable;
 
@@ -25,7 +26,7 @@ public class Apple extends Food implements Useable{
 	@Override
 	public void beUsed() {
 		// TODO Auto-generated method stub
-		System.out.print("You ate the apple... it had an odd taste. ");
+		Start.ta.append("\nYou ate the apple... it had an odd taste. ");
 		super.beUsed();
 	}
 

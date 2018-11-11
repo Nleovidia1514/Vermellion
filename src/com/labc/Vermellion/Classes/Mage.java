@@ -1,6 +1,7 @@
 package com.labc.Vermellion.Classes;
 
 import com.labc.Vermellion.Character;
+import com.labc.Vermellion.Start;
 import com.labc.Vermellion.Tile;
 import java.util.Random;
 
@@ -8,13 +9,13 @@ public class Mage extends Character {
 	
 	public Mage(Tile starting) {
 		super(starting);
-		System.out.println("\nYou feel an outburst of power running through your body\n"
+		Start.ta.setText("\nYou feel an outburst of power running through your body\n"
 				+ "you suddenly feel like the world is yours\n"
-				+ "and you're ready to take on Vermellion's wasteland...");
+				+ "and you're ready to take on Vermellion's wasteland...\n\n");
 		this.MAXHP = HP = 175;
 		this.MAXMAGIC = MAGIC = 200;
 		this.STR = 60;
-		this.BAGREDAD = 10;
+		this.BAGREDAD = 100;
 		this.SNEAK = 70;
 		this.ILLUSION = 150;
 		this.BLOCK = 50;
@@ -26,24 +27,28 @@ public class Mage extends Character {
 	@Override
 	protected void shoot(String target) {
 		Random rnd = new Random();
-		if(this.current.canShoot) {
-			if(target.equalsIgnoreCase(this.current.mob.getName())) {
-				int calculateChance = 300/this.ACCURACY;
-				if(rnd.nextInt(calculateChance)<=0) {
-					System.out.println("\nYou shot a fireball to "+target+" and dealt "
-							+this.BAGREDAD+" damage.");
-					this.current.mob.beShot(this.BAGREDAD);
+		if(this.MAGIC>=30) {
+			if(this.current.canShoot) {
+				if(this.current.mob.getName().toLowerCase().contains(target.toLowerCase())) {
+					int calculateChance = 300/this.ACCURACY;
+					if(rnd.nextInt(calculateChance)<=0) {
+						Start.ta.setText("\nYou shot a fireball to "+target+" and dealt "
+								+this.BAGREDAD+" damage.");
+						this.current.mob.beShot(this.BAGREDAD);
+					}
+					else
+						Start.ta.append("\nYou missed the fireball. You are so bagre.");
+					
+					this.MAGIC -=30;
+					this.current.canShoot = false;
 				}
 				else
-					System.out.println("You missed the shot. You are so bagre.");
-				
-				this.current.canShoot = false;
+					Start.ta.append("\nThere is no "+target+" here.");
 			}
 			else
-				System.out.println("\nThere is no "+target+" here.");
+				Start.ta.append("\nYou don't have the time to conjure another fireball.");
 		}
 		else
-			System.out.println("\nYou don't have the time to conjure another fireball.");
-		
+			Start.ta.append("\nYou don't have enough MAGIC to do that.");
 	}
 }

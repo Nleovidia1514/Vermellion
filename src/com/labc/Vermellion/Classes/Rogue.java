@@ -3,14 +3,15 @@ package com.labc.Vermellion.Classes;
 import com.labc.Vermellion.Tile;
 import java.util.Random;
 import com.labc.Vermellion.Character;
+import com.labc.Vermellion.Start;
 
 public class Rogue extends Character{
 	
 	public Rogue(Tile starting) {
 		super(starting);
-		System.out.println("\nYou grab the knives that were given to you by your father,\nthey are"
+		Start.ta.setText("\nYou grab the knives that were given to you by your father,\nthey are"
 				+" sharp... very sharp. 'I will avenge you father'\nsuddenly"
-				+" you feel ready to take on Vermellion's Wasteland...");
+				+" you feel ready to take on Vermellion's Wasteland...\n\n");
 		this.HP = 175;
 		this.MAGIC = 120;
 		this.STR = 80;
@@ -27,22 +28,22 @@ public class Rogue extends Character{
 	protected void shoot(String target) {
 		Random rnd = new Random();
 		if(this.current.canShoot) {
-			if(target.equalsIgnoreCase(this.current.mob.getName())) {
+			if(this.current.mob.getName().toLowerCase().contains(target.toLowerCase())) {
 				int calculateChance = 300/this.ACCURACY;
 				if(rnd.nextInt(calculateChance)<=0) {
-					System.out.println("\nYou threw a dagger to "+target+"'s throat and dealt "
+					Start.ta.setText("\nYou threw a dagger to "+target+"'s throat and dealt "
 							+this.BAGREDAD+" damage.");
 					this.current.mob.beShot(this.BAGREDAD);
 				}
 				else
-					System.out.println("You missed the dagger throw. You are so bagre.");
+					Start.ta.append("\nYou missed the dagger throw. You are so bagre.");
 				
 				this.current.canShoot = false;
 			}
 			else
-				System.out.println("\nThere is no "+target+" here.");
+				Start.ta.append("\nThere is no "+target+" here.");
 		}
 		else
-			System.out.println("\nYou already threw your dagger.");
+			Start.ta.append("\nYou already threw your dagger.");
 	}
 }

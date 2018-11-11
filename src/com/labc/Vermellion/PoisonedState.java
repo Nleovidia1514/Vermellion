@@ -24,43 +24,50 @@ public class PoisonedState extends CharacterState {
 		}
 		
 		player.setHP(player.getHP()-10);
-		System.out.println("You lost 10 HP because of the poison");
+		Start.ta.append("\nYou lost 10 HP because of the poison");
 	}
 	
 	@Override
 	public void walk(String direction, Character player) {
-		if(direction.toLowerCase().equals("north")) {
-			if(player.current.getNeighbors()[SingletonMap.NORTH]!=null)
-				player.current = player.current.getNeighbors()[SingletonMap.NORTH];
+		if(!player.current.hasEnemy) {
+			if(direction.toLowerCase().equals("north")) {
+				if(player.current.getNeighbors()[SingletonMap.NORTH]!=null)
+					player.current = player.current.getNeighbors()[SingletonMap.NORTH];
+				else
+					Start.ta.append("\nSeems like there is no access through there");
+			}
+			
+			else if(direction.toLowerCase().equals("east")) {
+				if(player.current.getNeighbors()[SingletonMap.EAST]!=null)
+					player.current = player.current.getNeighbors()[SingletonMap.EAST];
+				else
+					Start.ta.append("\nSeems like there is no access through there");
+			}
+			
+			else if(direction.toLowerCase().equals("south")) {
+				if(player.current.getNeighbors()[SingletonMap.SOUTH]!=null)
+					player.current = player.current.getNeighbors()[SingletonMap.SOUTH];
+				else
+					Start.ta.append("\nSeems like there is no access through there");
+			}
+			
+			else if(direction.toLowerCase().equals("west")) {
+				if(player.current.getNeighbors()[SingletonMap.WEST]!=null)
+					player.current = player.current.getNeighbors()[SingletonMap.WEST];
+				else
+					Start.ta.append("\nSeems like there is no access through there");
+			}
 			else
-				System.out.println("Seems like there is no access through there");
+				Start.ta.append("\nYou can't walk there for some odd reason...");
+			
+			player.current.player = player;
+			player.THIRST-=20;
 		}
-		
-		else if(direction.toLowerCase().equals("east")) {
-			if(player.current.getNeighbors()[SingletonMap.EAST]!=null)
-				player.current = player.current.getNeighbors()[SingletonMap.EAST];
-			else
-				System.out.println("Seems like there is no access through there");
+		else {
+			Start.ta.append("\nYou walked right through those who were trying to kill\n"
+					+ "you facilitating their job. You really are a doubtful IQ person.");
+			player.die(player);
 		}
-		
-		else if(direction.toLowerCase().equals("south")) {
-			if(player.current.getNeighbors()[SingletonMap.SOUTH]!=null)
-				player.current = player.current.getNeighbors()[SingletonMap.SOUTH];
-			else
-				System.out.println("Seems like there is no access through there");
-		}
-		
-		else if(direction.toLowerCase().equals("west")) {
-			if(player.current.getNeighbors()[SingletonMap.WEST]!=null)
-				player.current = player.current.getNeighbors()[SingletonMap.WEST];
-			else
-				System.out.println("Seems like there is no access through there");
-		}
-		else
-			System.out.println("You can't walk there for some odd reason...");
-		
-		player.current.player = player;
-		player.THIRST-=20;
 	}
 	
 	@Override
@@ -74,23 +81,23 @@ public class PoisonedState extends CharacterState {
 							contains(who.toLowerCase()))
 						player.current.mob.talk();
 					else
-						System.out.println("There is no "+who+" to talk to.");
+						Start.ta.append("\nThere is no "+who+" to talk to.");
 				}
 				else
-					System.out.println("Talk to who?");
+					Start.ta.append("\nTalk to who?");
 			}
 			else
-				System.out.println("Talk... What?");
+				Start.ta.append("\nTalk... What?");
 		}
 		else
-			System.out.println("Talk to who?");
+			Start.ta.append("\nTalk to who?");
 	}
 	
 	@Override
 	public void die(Character player) {
-		System.out.println("You perished from poison on Vermellion's lands.\n"
+		Start.ta.append("\nYou perished from poison on Vermellion's lands.\n"
 				+ "But you go down with a smile on your face because you\n "
-				+ "know that this trip wasn't a failure, it was a learning adventure.");
+				+ "know that this trip wasn't a failure, it was a learning experience.");
 		Start.gameIsRunning = false;
 	}
 

@@ -7,6 +7,7 @@ import com.labc.Vermellion.Entities.Enemies.Bear;
 import com.labc.Vermellion.Entities.Enemies.Cornieles;
 import com.labc.Vermellion.Entities.Enemies.Creeper;
 import com.labc.Vermellion.Entities.Enemies.GiantSnake;
+import com.labc.Vermellion.Entities.Enemies.Minotaur;
 import com.labc.Vermellion.Entities.Enemies.Witch;
 import com.labc.Vermellion.Entities.NPCs.Goddess;
 import com.labc.Vermellion.Entities.NPCs.SkullKid;
@@ -39,6 +40,9 @@ public class EntityFactory {
 		
 		else if(type.equalsIgnoreCase("GIANTSNAKE"))
 			enemy = new GiantSnake(new Enemy(new BasicEntity(tile)));
+		
+		else if(type.equalsIgnoreCase("MINOTAUR"))
+			enemy = new Minotaur(new Enemy(new BasicEntity(tile)));
 		//NPCs
 		else if(type.equalsIgnoreCase("GODDESS"))
 			enemy = new Goddess(new NPC(new BasicEntity(tile)));
@@ -48,6 +52,7 @@ public class EntityFactory {
 		
 		else if(type.equalsIgnoreCase("VILLAGER"))
 			enemy = new Villager(new NPC(new BasicEntity(tile)));
+		
 		
 		enemy.create();
 		return enemy;
