@@ -11,64 +11,68 @@ import com.labc.Vermellion.Items.Consumables.RedPot;
 import com.labc.Vermellion.Items.Consumables.SpaghettiOs;
 import com.labc.Vermellion.Items.Weapons.Axe;
 import com.labc.Vermellion.Items.Weapons.Bow;
+import com.labc.Vermellion.Items.Weapons.Excalibur;
 import com.labc.Vermellion.Items.Weapons.Knive;
+import com.labc.Vermellion.Items.Weapons.MajorasMask;
 import com.labc.Vermellion.Items.Weapons.Mind;
 import com.labc.Vermellion.Items.Weapons.Staff;
 import com.labc.Vermellion.Items.Weapons.Sword;
 import com.labc.Vermellion.Character;
 
 public class ItemFactory {
-	private Character owner;
 	
-	public ItemFactory(Character owner) {
-		this.owner = owner;
-	}
 	
-	public Item getItem ( String name ) {
+	public static Item getItem ( String name, Character owner ) {
 		if(name.equals(null))
 			return null;
 		//Weapons
 		else if(name.equalsIgnoreCase("AXE"))
-			return new Axe(this.owner);
+			return new Axe(owner);
 		
 		else if(name.equalsIgnoreCase("BOW"))
-			return new Bow(this.owner);
+			return new Bow(owner);
 		
 		else if(name.equalsIgnoreCase("KNIVE"))
-			return new Knive(this.owner);
+			return new Knive(owner);
 		
 		else if(name.equalsIgnoreCase("MIND"))
-			return new Mind(this.owner);
+			return new Mind(owner);
 		
 		else if(name.equalsIgnoreCase("STAFF"))
-			return new Staff(this.owner);
+			return new Staff(owner);
 		
 		else if(name.equalsIgnoreCase("SWORD"))
-			return new Sword(this.owner);
+			return new Sword(owner);
+		
+		else if(name.equalsIgnoreCase("EXCALIBUR"))
+			return new Excalibur(owner);
+		
+		else if(name.equalsIgnoreCase("MAJORASMASK"))
+			return new MajorasMask(owner);
 		//Food
 		else if(name.equalsIgnoreCase("APPLE"))
-			return new Apple(this.owner);
+			return new Apple(owner);
 		
 		else if(name.equalsIgnoreCase("BLUEPOT"))
-			return new BluePot(this.owner);
+			return new BluePot(owner);
 		
 		else if(name.equalsIgnoreCase("CACHITO"))
-			return new Cachito(this.owner);
+			return new Cachito(owner);
 		
 		else if(name.equalsIgnoreCase("CHICHA"))
-			return new Chicha(this.owner);
+			return new Chicha(owner);
 		
 		else if(name.equalsIgnoreCase("FUNGI"))
-			return new Fungi(this.owner);
+			return new Fungi(owner);
 		
 		else if(name.equalsIgnoreCase("GREENPOT"))
-			return new GreenPot(this.owner);
+			return new GreenPot(owner);
 		
 		else if(name.equalsIgnoreCase("REDPOT"))
-			return new RedPot(this.owner);
+			return new RedPot(owner);
 		
 		else if(name.equalsIgnoreCase("SPAGHETTIOS"))
-			return new SpaghettiOs(this.owner);
+			return new SpaghettiOs(owner);
 		
 		return null;
 	}

@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class PoisonedState extends CharacterState {
 	private static PoisonedState instance = new PoisonedState();
 	public int turnsPoisoned;
-	private int turnsSuffered = 0;
+	public int turnsSuffered = 0;
 	
 	public static PoisonedState instance() {
 		return instance;
@@ -22,8 +22,6 @@ public class PoisonedState extends CharacterState {
 			turnsSuffered = 0;
 			turnsPoisoned = 0;
 		}
-		
-		
 		
 		player.setHP(player.getHP()-10);
 		System.out.println("You lost 10 HP because of the poison");
@@ -63,6 +61,37 @@ public class PoisonedState extends CharacterState {
 		
 		player.current.player = player;
 		player.THIRST-=20;
+	}
+	
+	@Override
+	public void talkToNPC(Scanner sn, Character player) {
+		if(sn.hasNext()) {
+			String to = sn.next();
+			if(to.equalsIgnoreCase("to")) {
+				if(sn.hasNext()) {
+					String who = sn.next();
+					if(player.current.mob.getName().toLowerCase().
+							contains(who.toLowerCase()))
+						player.current.mob.talk();
+					else
+						System.out.println("There is no "+who+" to talk to.");
+				}
+				else
+					System.out.println("Talk to who?");
+			}
+			else
+				System.out.println("Talk... What?");
+		}
+		else
+			System.out.println("Talk to who?");
+	}
+	
+	@Override
+	public void die(Character player) {
+		System.out.println("You perished from poison on Vermellion's lands.\n"
+				+ "But you go down with a smile on your face because you\n "
+				+ "know that this trip wasn't a failure, it was a learning adventure.");
+		Start.gameIsRunning = false;
 	}
 
 }

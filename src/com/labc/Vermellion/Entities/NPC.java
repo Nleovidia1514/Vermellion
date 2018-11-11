@@ -1,14 +1,33 @@
 package com.labc.Vermellion.Entities;
 
 import com.labc.Vermellion.Entity;
-import com.labc.Vermellion.Tile;
 
-public abstract class NPC extends Entity {
-
-	public NPC(Tile position) {
-		super(position);
-		// TODO Auto-generated constructor stub
+public class NPC extends EntityDecorator {
+	
+	public NPC(Entity entity) {
+		super(entity);
 	}
 	
+	public void create() {
+		this.HP = 0;
+		this.ATTACK = 0;
+		this.alreadyTalkedTo = false;
+		this.name = null;
+	}
+
+	@Override
+	public void beAttacked(int damage) {
+		this.beAttacked(damage);
+	}
+
+	@Override
+	public void die() {
+		this.die();
+	}
+
+	@Override
+	public void beShot(int damage) {
+		this.beShot(damage);
+	}
 
 }

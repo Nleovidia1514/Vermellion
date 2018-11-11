@@ -2,9 +2,9 @@ package com.labc.Vermellion.Entities.Enemies;
 
 import com.labc.Vermellion.PoisonedState;
 import com.labc.Vermellion.Entities.Enemy;
-import com.labc.Vermellion.Entities.EnemyDecorator;
+import com.labc.Vermellion.Entities.EntityDecorator;
 
-public class Witch extends EnemyDecorator{
+public class Witch extends EntityDecorator implements AttackAble{
 	
 	public Witch(Enemy enemy) {
 		super(enemy);
@@ -15,18 +15,22 @@ public class Witch extends EnemyDecorator{
 
 	@Override
 	public void attack() {
-		super.attack();
 		int totalDamage = this.position.player.getHP() - CalculateDamage();
 		int z = 0;
 		if(z == 0 ) {
-			System.out.println("The witch poisons you for 5 moves.");
-			this.position.player.setCharacterState(PoisonedState.instance());
-			PoisonedState.instance().turnsPoisoned = 5;
+			Poison();
 		}
 		else {
 			System.out.println("The witch attacks you and deals "+totalDamage+" damage to you.");
 			this.position.player.setHP(totalDamage);
 		}
+	}
+	
+	private void Poison() {
+		System.out.println("The witch poisons you for 5 moves.");
+		this.position.player.setCharacterState(PoisonedState.instance());
+		PoisonedState.instance().turnsSuffered = 0;
+		PoisonedState.instance().turnsPoisoned = 5;
 	}
 
 	@Override
@@ -47,6 +51,12 @@ public class Witch extends EnemyDecorator{
 		this.position.longDescription = this.position.descripts.longDescsAftFight.get(this.position.name);
 		this.position.hasEnemy = false;
 		this.position.mob = null;
+	}
+	
+	@Override
+	public void talk() {
+		System.err.println("Eat this apple young adventurer. It will make you feel better. >:)");
+		this.Poison();
 	}
 	
 	@Override

@@ -1,14 +1,28 @@
 package com.labc.Vermellion.Entities;
 
 import com.labc.Vermellion.Entity;
-import com.labc.Vermellion.Tile;
 
-public abstract class Enemy extends Entity implements AttackAble{
-	protected int ATTACK;
+public class Enemy extends EntityDecorator {
 	
-	protected Enemy(Tile position) {
-		super(position);
+	protected Enemy(Entity entity) {
+		super(entity);
 	}
 	
-	public abstract void create();
+	public void create() {
+		this.HP = 0;
+		this.ATTACK = 0;
+		this.name = null;
+	}
+	
+	@Override
+	public void beAttacked(int damage) {
+	}
+
+	@Override
+	public void die() {
+	}
+
+	@Override
+	public void beShot(int damage) {
+	}
 }

@@ -10,14 +10,12 @@ public abstract class Character {
 	protected int bagSize;
 	protected Tile current;
 	public ArrayList<Item> inventory;
-	private ItemFactory itemFact;
 	private CharacterState state;
 	
 	protected Character(Tile starting) {
 		this.current = starting;
 		current.player = this;
 		this.inventory = new ArrayList<Item>();
-		this.itemFact  = new ItemFactory(this);
 		this.MAXTHIRST = this.THIRST = 150;
 		this.state = NormalState.instance();
 	}
@@ -61,7 +59,7 @@ public abstract class Character {
 					if( inventory.size() >= this.bagSize )
 						System.out.println("\nYour inventory is full");
 					else {
-						inventory.add(itemFact.getItem(item));
+						inventory.add(ItemFactory.getItem(item,this));
 						this.current.setItemOnFloor(null);
 						System.out.println("\nYou picked the "+item+" up");
 					}
@@ -92,6 +90,14 @@ public abstract class Character {
 		System.out.println("ILLUSION: "+this.ILLUSION);
 		System.out.println("BAGREDAD: "+this.BAGREDAD);
 		System.out.println("RESISTANCE: "+this.RESISTANCE);
+	}
+	
+	protected void talkToNPC(Scanner sn,Character player ) {
+		this.state.talkToNPC(sn, player);
+	}
+	
+	protected void die(Character player) {
+		this.state.die(player);
 	}
 	
 	public Tile getCurrent() {
@@ -207,4 +213,6 @@ public abstract class Character {
 	public ArrayList<Item> getInventory() {
 		return this.inventory;
 	}
+
+	
 }

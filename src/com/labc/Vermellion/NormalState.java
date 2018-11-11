@@ -51,5 +51,36 @@ public class NormalState extends CharacterState {
 		System.out.println(player.current.x+","+player.current.y);
 		
 	}
+	
+	@Override
+	public void talkToNPC(Scanner sn, Character player) {
+		if(sn.hasNext()) {
+			String to = sn.next();
+			if(to.equalsIgnoreCase("to")) {
+				if(sn.hasNext()) {
+					String who = sn.next();
+					if(player.current.mob.getName().toLowerCase().
+							contains(who.toLowerCase()))
+						player.current.mob.talk();
+					else
+						System.out.println("There is no "+who+" to talk to.");
+				}
+				else
+					System.out.println("Talk to who?");
+			}
+			else
+				System.out.println("Talk... What?");
+		}
+		else
+			System.out.println("Talk to who?");
+	}
+
+	@Override
+	public void die(Character player) {
+		System.out.println("You perished on Vermellion's lands. But you go down\n"
+				+ "with a smile on your face because you know that this trip\n"
+				+ "wasn't a failure, it was a learning adventure.\n");
+		Start.gameIsRunning = false;
+	}
 
 }

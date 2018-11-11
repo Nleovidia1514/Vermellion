@@ -1,9 +1,9 @@
 package com.labc.Vermellion.Entities.Enemies;
 
 import com.labc.Vermellion.Entities.Enemy;
-import com.labc.Vermellion.Entities.EnemyDecorator;
+import com.labc.Vermellion.Entities.EntityDecorator;
 
-public class Cornieles extends EnemyDecorator {
+public class Cornieles extends EntityDecorator implements AttackAble{
 
 	public Cornieles(Enemy enemy) {
 		super(enemy);
@@ -11,7 +11,6 @@ public class Cornieles extends EnemyDecorator {
 	
 	@Override
 	public void attack() {
-		super.attack();
 		int totalDamage = position.player.getHP()-CalculateDamage();
 		System.out.println("\nUstedes son unos expertos.");
 		position.player.setHP(totalDamage);
@@ -21,7 +20,7 @@ public class Cornieles extends EnemyDecorator {
 	@Override
 	public void beAttacked(int damage) {
 		super.beAttacked(damage);
-		System.out.println("\nSabeeeeiiiiis.");
+		System.err.println("\nSabeeeeiiiiis.");
 		System.out.println("You made "+damage+" damage to "+this.name+".");
 		this.HP -= damage;
 		if(this.HP<=0) 
@@ -38,8 +37,14 @@ public class Cornieles extends EnemyDecorator {
 		this.position.hasEnemy = false;
 		this.position.shortDescription = this.position.descripts.shortDescsAftFight.get(this.position.name);
 		this.position.longDescription = this.position.descripts.longDescsAftFight.get(this.position.name);
-		System.out.println("\nNo puede ser nonononono.");
+		System.err.println("\nNo puede ser nonononono.");
 		System.out.println("Cornieles died.");
+	}
+	
+	@Override
+	public void talk() {
+		System.err.println("No te voy a subir la nota sabeeeisss." );
+		this.attack();
 	}
 	
 	@Override

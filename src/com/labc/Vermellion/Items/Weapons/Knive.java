@@ -28,4 +28,10 @@ public class Knive extends Weapon implements Useable{
 		
 	}
 
+	@Override
+	protected void broke() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

@@ -32,13 +32,24 @@ public class ThirstyState extends CharacterState{
 			System.out.println("\nYou're hallucinating and walked west instead.");
 	}
 
-
-
 	@Override
 	public void decideWhatToDo(Scanner sn, Character player) {
 		super.decideWhatToDo(sn, player);
 		if(player.THIRST>25)
 			player.setCharacterState(NormalState.instance());
+	}
+	
+	@Override
+	public void talkToNPC(Scanner sn, Character player) {
+		System.out.println("You're hallucinating and no one can understand what you're trying to say.");
+	}
+	
+	@Override
+	public void die(Character player) {
+		System.out.println("You perished from thirst on Vermellion's lands. But you go down\n"
+				+ "with a smile on your face because you know that this trip\n"
+				+ "wasn't a failure, it was a learning adventure.\n");
+		Start.gameIsRunning = false;
 	}
 
 }

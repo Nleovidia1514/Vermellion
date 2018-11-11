@@ -2,19 +2,18 @@ package com.labc.Vermellion.Entities.Enemies;
 
 import java.util.Random;
 
-import com.labc.Vermellion.Entities.Enemy;
-import com.labc.Vermellion.Entities.EnemyDecorator;
+import com.labc.Vermellion.Entity;
+import com.labc.Vermellion.Entities.EntityDecorator;
 
-public class Bandits extends EnemyDecorator {
+public class Bandits extends EntityDecorator implements AttackAble {
 
-	public Bandits(Enemy enemy) {
-		super(enemy);
+	public Bandits(Entity entity) {
+		super(entity);
 	}
 	
 	@Override
 	public void attack() {
 		Random rnd = new Random();
-		super.attack();
 		int totalDamage = position.player.getHP()-CalculateDamage(), itemStolen;
 		System.out.println("\nThe bandits try to steal items from you.");
 		if(position.player.inventory.size()>0) {
@@ -64,6 +63,11 @@ public class Bandits extends EnemyDecorator {
 		System.out.println("The bandits died.");
 	}
 	
+	@Override
+	public void talk() {
+		System.err.println("This not time to talk. Shut the fuck up bitch.");
+		this.attack();
+	}
 	
 	@Override
 	public void create() {
@@ -72,7 +76,6 @@ public class Bandits extends EnemyDecorator {
 		this.ATTACK = this.ATTACK + 50;
 		this.name = "Bandits";
 	}
-	
 	
 	private int CalculateDamage() {
 		int damage = this.ATTACK-this.getPos().player.getResistance();

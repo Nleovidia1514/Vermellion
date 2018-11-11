@@ -4,6 +4,8 @@ import java.util.Scanner;
 
 public abstract class CharacterState {
 	public abstract void walk(String direction, Character player);
+	public abstract void talkToNPC(Scanner sn, Character player);
+	public abstract void die(Character player);
 	
 	public void decideWhatToDo(Scanner sn, Character player) {
 		String action;
@@ -53,7 +55,8 @@ public abstract class CharacterState {
 					String name = sn.next();
 					Item item = null;
 					for(int i=0;i<player.inventory.size();i++)
-						if(name.equalsIgnoreCase(player.inventory.get(i).getName()))
+						if(player.inventory.get(i).getName().toLowerCase().
+								contains(name.toLowerCase()))
 							item = player.inventory.get(i);
 					if( item == null )
 						System.out.println("You don't have that item in your inventory.");
@@ -63,7 +66,15 @@ public abstract class CharacterState {
 				else 
 					System.out.println("Use what?");
 			}
-				
+			
+			else if(action.equalsIgnoreCase("TALK")) {
+				player.talkToNPC(sn, player);
+			}
+			
+			else if(action.equalsIgnoreCase("SUICIDE")) {
+				player.die(player);
+			}
+			
 			else
 				System.out.println("You can't do that.");
 		}
@@ -72,5 +83,9 @@ public abstract class CharacterState {
 		
 		if(player.THIRST<25)
 			player.setCharacterState(ThirstyState.instance());
+		
+		if(player.THIRST==0 || player.HP==0) {
+			player.die(player);
+		}
 	}
 }

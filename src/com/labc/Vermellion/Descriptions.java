@@ -2,8 +2,7 @@ package com.labc.Vermellion;
 
 import java.util.HashMap;
 
-import com.labc.Vermellion.Entities.EnemyFactory;
-
+import com.labc.Vermellion.Entities.EntityFactory;
 
 public class Descriptions {
 	public HashMap<String,String> shortDescs = new HashMap<String,String>();
@@ -22,13 +21,25 @@ public class Descriptions {
 			longDescsAftFight.put("bandits","\nThere is "+dis.getItemOnFloor()+" on the floor.");
 			shortDescsAftFight.put("bandits","\nThere are remains of bandits on the floor.");
 			
-			Entities.put("bandits",EnemyFactory.getEnemy("BANDITS", dis));
+			Entities.put("bandits",EntityFactory.getEntity("BANDITS", dis));
 		}
 		
 		else if(dis.getName().equalsIgnoreCase("wasteland")) {
 			shortDescs.put("wasteland","\nYou find yourself in a strange place.\n"
 					+ "There are no trees in here even though you just came out of a forest\n"
 					+ "suddenly the thirst hits you and you start hallucinating. What will you do?");
+		}
+			
+		else if(dis.getName().equalsIgnoreCase("woods")) {
+			shortDescs.put("woods", "\nYou enter a place crowded with trees, after\n"
+					+ "walking for a few hours you hear the sound of an ocarina\n"
+					+ "and decide to see what it is... When you get close to the\n"
+					+ "you see a weird looking kid with a mask on. What will you do?");
+			shortDescsAftFight.put("woods", "\nThe funny looking kid lies dead on the floor.");
+			longDescs.put("woods", "\nThere is too much foliage for you too see anything.");
+			longDescsAftFight.put("forest", "The kid is lying on the floor covered in blood since\n"
+					+ "you didn't hesitate to put and end to his beautiful life");
+			Entities.put("woods", EntityFactory.getEntity("SKULLKID", dis));
 		}
 	}
 		

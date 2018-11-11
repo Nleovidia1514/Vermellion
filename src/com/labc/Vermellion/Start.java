@@ -14,11 +14,11 @@ public class Start {
 	private SingletonMap map;
 	public static Random rnd = new Random();
 	private String clase = "";
-	private Scanner sn = new Scanner(System.in);
 	private Character Player;
-	private boolean gameIsRunning;
+	public static boolean gameIsRunning;
 	
 	public Start() throws IOException {
+		Scanner sn = new Scanner(System.in);
 		this.gameIsRunning = true;
 		System.out.println("You wake up in the middle of nowhere with nothing\n"
 				+"but your skills and a thirst for revenge. You look\n"

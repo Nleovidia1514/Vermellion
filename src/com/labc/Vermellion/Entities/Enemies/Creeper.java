@@ -1,33 +1,32 @@
 package com.labc.Vermellion.Entities.Enemies;
 
-import com.labc.Vermellion.Entities.Enemy;
-import com.labc.Vermellion.Entities.EnemyDecorator;
+import com.labc.Vermellion.Entity;
+import com.labc.Vermellion.Entities.EntityDecorator;
 
-public class Creeper extends EnemyDecorator {
+public class Creeper extends EntityDecorator implements AttackAble {
 	
-	public Creeper(Enemy enemy) {
-		super(enemy);
+	public Creeper(Entity entity) {
+		super(entity);
 	}
 
 	@Override
 	public void attack() {
-		super.attack();
 		int totalDamage = position.player.getHP() - CalculateDamage();
-		System.out.println("\nPsssssssssst...");
+		System.err.println("\nPsssssssssst...");
 		position.player.setHP(totalDamage);
 		System.out.println("The "+this.name+" dealt "+totalDamage+" damage to you.");
+		this.die();
 	}
 
 	@Override
 	public void beAttacked(int damage) {
 		super.beAttacked(damage);
-		System.out.println("\nPssssssssstt... x_x");
+		System.err.println("\nPssssssssstt... x_x");
 		this.HP -= damage;
 		if(this.HP<=0) 
 			die();
 		else
 			this.attack();
-			
 	}
 
 	@Override
@@ -42,6 +41,12 @@ public class Creeper extends EnemyDecorator {
 	}
 	
 	@Override
+	public void talk() {
+		System.err.println("Pssssssssssssssssssssssssst.");
+		this.attack();
+	}
+	
+	@Override
 	public void create() {
 		super.create();
 		this.HP = this.HP + 100;
@@ -52,7 +57,7 @@ public class Creeper extends EnemyDecorator {
 	@Override
 	public void beShot(int damage) {
 		super.beShot(damage);
-		System.out.println("\nPssssssssstt... x_x");
+		System.err.println("\nPssssssssstt... x_x");
 		System.out.println("You made "+damage+" damage to the "+this.name+".");
 		this.HP -= damage;
 		if(this.HP<=0) 
