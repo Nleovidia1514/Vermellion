@@ -22,13 +22,13 @@ public class Witch extends EntityDecorator implements AttackAble{
 			Poison();
 		}
 		else {
-			Start.ta.append("\nThe witch attacks you and deals "+totalDamage+" damage to you.");
+			Start.ta.append("\nThe witch attacks you and deals "+CalculateDamage()+" damage to you\n"
+					+ "and poisoned you for 5 turns.");
 			this.position.player.setHP(totalDamage);
 		}
 	}
 	
 	private void Poison() {
-		Start.ta.append("\nThe witch poisons you for 5 moves.");
 		this.position.player.setCharacterState(PoisonedState.instance());
 		PoisonedState.instance().turnsSuffered = 0;
 		PoisonedState.instance().turnsPoisoned = 5;
@@ -36,18 +36,19 @@ public class Witch extends EntityDecorator implements AttackAble{
 
 	@Override
 	public void beAttacked(int damage) {
-		Start.ta.append("\nThe witch makes disturbing noises, this let's you know that you're hurting her"
+		Start.ta.setText("The witch makes disturbing noises, this let's you know that you're hurting her"
 				+ " for "+damage+" damage.");
 		this.HP = this.HP-damage;
-		if(this.HP<=0) 
-			die();
+		if(this.HP<=0) {
+			this.die();
+			Start.ta.append("\nThe witch died.");
+		}
 		else
 			this.attack();
 	}
 
 	@Override
 	public void die() {
-		Start.ta.append("\nThe witch died.");
 		this.position.shortDescription = this.position.descripts.shortDescsAftFight.get(this.position.name);
 		this.position.longDescription = this.position.descripts.longDescsAftFight.get(this.position.name);
 		this.position.hasEnemy = false;
@@ -56,7 +57,8 @@ public class Witch extends EntityDecorator implements AttackAble{
 	
 	@Override
 	public void talk() {
-		Start.ta.append("\nEat this apple young adventurer. It will make you feel better. >:)");
+		Start.ta.setText("Eat this apple young adventurer. It will make you feel better. >:)");
+		Start.ta.append("\nThe witch poisoned you for 5 turns");
 		this.Poison();
 	}
 	

@@ -20,6 +20,7 @@ public class Bow extends Weapon implements Useable{
 		this.ILLUSION = 60;
 		this.Damage = 70;
 		this.Description = "It has a weird essence on it and you don't know what it is.";
+		this.isStarter = true;
 	}
 
 	@Override

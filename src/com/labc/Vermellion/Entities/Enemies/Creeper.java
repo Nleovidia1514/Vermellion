@@ -15,17 +15,21 @@ public class Creeper extends EntityDecorator implements AttackAble {
 		int totalDamage = position.player.getHP() - CalculateDamage();
 		Start.ta.append("\nPsssssssssst...");
 		position.player.setHP(totalDamage);
-		Start.ta.append("\nThe "+this.name+" dealt "+totalDamage+" damage to you.");
+		Start.ta.append("\nThe "+this.name+" exploded and dealt "+CalculateDamage()+" damage to you.\n" 
+		+"Allahu akbar.");
 		this.die();
 	}
 
 	@Override
 	public void beAttacked(int damage) {
 		super.beAttacked(damage);
-		Start.ta.append("\nPssssssssstt... x_x");
+		Start.ta.setText("Pssssssssstt... x_x");
 		this.HP -= damage;
-		if(this.HP<=0) 
-			die();
+		if(this.HP<=0) {
+			Start.ta.append("\nPsssssssssst D:");
+			Start.ta.append("\nThe creeper died.");
+			this.die();
+		}
 		else
 			this.attack();
 	}
@@ -37,13 +41,12 @@ public class Creeper extends EntityDecorator implements AttackAble {
 		this.position.hasEnemy = false;
 		this.position.shortDescription = this.position.descripts.shortDescsAftFight.get(this.position.name);
 		this.position.longDescription = this.position.descripts.longDescsAftFight.get(this.position.name);
-		Start.ta.append("\nPsssssssssst D:");
-		Start.ta.append("\nThe creeper died.");
+		
 	}
 	
 	@Override
 	public void talk() {
-		Start.ta.append("\nPssssssssssssssssssssssssst.");
+		Start.ta.setText("Pssssssssssssssssssssssssst.");
 		this.attack();
 	}
 	
@@ -59,10 +62,13 @@ public class Creeper extends EntityDecorator implements AttackAble {
 	public void beShot(int damage) {
 		super.beShot(damage);
 		Start.ta.append("\nPssssssssstt... x_x");
-		Start.ta.append("\nYou made "+damage+" damage to the "+this.name+".");
 		this.HP -= damage;
-		if(this.HP<=0) 
-			die();
+		if(this.HP<=0) {
+			this.die();
+			Start.ta.append("\nPsssssssssst D:");
+			Start.ta.append("\nThe creeper died.");
+		}
+			
 	}
 	
 

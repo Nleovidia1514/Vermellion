@@ -20,6 +20,7 @@ public class Staff extends Weapon implements Useable {
 		this.ILLUSION = 200;
 		this.Damage = 120;
 		this.Description = "You shall not pass!";
+		this.isStarter = true;
 	}
 
 	@Override

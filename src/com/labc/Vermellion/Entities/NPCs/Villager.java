@@ -28,8 +28,10 @@ public class Villager extends EntityDecorator{
 		super.beAttacked(damage);
 		Start.ta.setText("*Scared villager noises*");
 		this.HP -= damage;
-		if(this.HP<=0)
-			die();
+		if(this.HP<=0) {
+			
+			this.die();
+		}
 		else
 			Start.ta.append("\nThe villager tries to run but it is pretty dumb.");
 	}
@@ -40,25 +42,32 @@ public class Villager extends EntityDecorator{
 		this.position.hasEnemy = false;
 		this.position.shortDescription = this.position.descripts.shortDescsAftFight.get(this.position.name);
 		this.position.longDescription = this.position.descripts.longDescsAftFight.get(this.position.name);
-		Start.ta.append("\n*Funny (and weird) villager noises.*");
 	}
 
 	@Override
 	public void beShot(int damage) {
 		super.beShot(damage);
-		Start.ta.setText("*Scared villager noises*");
 		this.HP -= damage;
-		if(this.HP<=0)
-			die();
+		if(this.HP<=0) {
+			Start.ta.append("\n*Funny (and weird) villager noises.*");
+			Start.ta.append("\nThe villager died.");
+			this.die();
+		}
+		else	
+			Start.ta.setText("*Scared villager noises*");
 	}
 	
 	@Override
 	public void talk() {
-		Start.ta.setText("Villager noisesVillager noisesVillager noises\n"
-				+ "Villager noisesVillager noisesVillager noises\n"
-				+ "Villager noisesVillager noisesVillager noises\n"
-				+ "Villager noisesVillager noisesVillager noises");
-		Start.tfState = VillagerState.instance(); 
+		if(!alreadyTalkedTo) {
+			Start.ta.setText("Villager noisesVillager noisesVillager noises\n"
+					+ "Villager noisesVillager noisesVillager noises\n"
+					+ "Villager noisesVillager noisesVillager noises\n"
+					+ "Villager noisesVillager noisesVillager noises");
+			Start.tfState = VillagerState.instance();
+		}
+		else
+			Start.ta.setText("Villager noised");
 	}
 	
 	public void makeDecision(String decision) {
@@ -70,15 +79,22 @@ public class Villager extends EntityDecorator{
 						.getItemNames()[rnd.nextInt(SingletonMap.getInstance()
 								.getItemNames().length)],this.position.player);
 				this.position.player.inventory.add(RndItem);
+				Start.ta.setText("*Happy villager noises^-^*");
 				Start.ta.append("\n"+RndItem.getName()+" has been added to your inventory.");
 				Start.tfState = PlayState.instance();
+				this.alreadyTalkedTo = true;
 			}
 			else if(decision.trim().equalsIgnoreCase("NO")) {
 				Start.ta.append("\n*Disappointed villager noises*");
 				Start.tfState = PlayState.instance();
 			}
-			else
+			else {
+				Start.ta.setText("Villager noisesVillager noisesVillager noises\n"
+						+ "Villager noisesVillager noisesVillager noises\n"
+						+ "Villager noisesVillager noisesVillager noises\n"
+						+ "Villager noisesVillager noisesVillager noises");
 				Start.ta.append("*Confused villager noises*");
+			}
 		}
 	}
 }

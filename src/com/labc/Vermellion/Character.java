@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import com.labc.Vermellion.Items.ItemFactory;
 
-public abstract class Character {
+public abstract class Character implements Visitor {
 	protected int MAXHP, MAXMAGIC, HP, MAGIC, STR, BAGREDAD, ILLUSION, SNEAK,
 	BLOCK, ACCURACY, MAXTHIRST, THIRST, RESISTANCE;
 	protected int bagSize;
@@ -16,7 +16,7 @@ public abstract class Character {
 		this.current = starting;
 		current.player = this;
 		this.inventory = new ArrayList<Item>();
-		this.MAXTHIRST = this.THIRST = 150;
+		this.MAXTHIRST = this.THIRST = 500;
 		this.state = NormalState.instance();
 	}
 	
@@ -26,15 +26,12 @@ public abstract class Character {
 					this.current.mob.getName().toLowerCase().contains(sn.next().toLowerCase()))
 				this.current.mob.beAttacked(this.STR);
 			else
-				Start.ta.append("\nYou attacked but hit the air LUL");
+				Start.ta.setText("You attacked but hit the air LUL");
+			this.THIRST-=15;
 		}
 		else
-			Start.ta.append("\nAttack what?");
+			Start.ta.setText("Attack what?");
 		
-		this.THIRST-=15;
-		Start.ta.append("\nHP - "+Start.Player.getHP()+"\n"
-				+"MAGIC - "+Start.Player.getMagic()+"\n"
-				+"THIRST - "+Start.Player.getThirst());
 	}
 	
 	public void decideWhatToDo(Scanner sn) {
@@ -57,11 +54,8 @@ public abstract class Character {
 		direction = i==1 ? "east" : direction;
 		direction = i==2 ? "south" : direction;
 		direction = i==3 ? "west" : direction;
-		Start.ta.append("\nYou ran to the "+direction);
+		this.current.accept(this);
 		this.THIRST-=30;
-		Start.ta.append("\nHP - "+Start.Player.getHP()+"\n"
-				+"MAGIC - "+Start.Player.getMagic()+"\n"
-				+"THIRST - "+Start.Player.getThirst());
 	}
 	
 	protected void pickUpItem(String item) {
@@ -69,28 +63,30 @@ public abstract class Character {
 			if( this.current.mob == null) {
 				if( item.equalsIgnoreCase(this.current.getItemOnFloor()) ) {
 					if( inventory.size() >= this.bagSize )
-						Start.ta.append("\nYour inventory is full");
+						Start.ta.setText("Your inventory is full");
 					else {
 						inventory.add(ItemFactory.getItem(item,this));
 						this.current.setItemOnFloor(null);
 						this.current.longDescription = this.current.shortDescription;
-						Start.ta.append("\nYou picked the "+item+" up");
+						Start.ta.setText("You picked the "+item+" up");
 					}
 						
 				}
 				else
-					Start.ta.append("\nThere is no "+item+" around here");
+					Start.ta.setText("There is no "+item+" around here");
 			}
 			else
-				Start.ta.append("\nYou can't pick anything up there is something trying to kill you");
+				Start.ta.setText("You can't pick anything up there is something trying to kill you");
 		}catch(NullPointerException e) {
-			Start.ta.append("\nThere is no "+item+" around here");
+			Start.ta.setText("\nThere is no "+item+" around here");
 		}
 	}
 	
 	protected void seeInv() {
-		for(int i=0;i<inventory.size();i++)
-			Start.ta.setText(inventory.get(i).getName()+" - "+inventory.get(i).getDescription());
+		Start.ta.setText(inventory.get(0).getName()+" - "+inventory.get(0).getDescription());
+		for(int i=1;i<inventory.size();i++)
+			Start.ta.append("\n"+inventory.get(i).getName()+" - "+inventory.get(i).getDescription());
+			
 	}
 	
 	protected void seeStats() {

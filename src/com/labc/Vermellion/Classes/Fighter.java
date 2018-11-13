@@ -4,13 +4,15 @@ import java.util.Random;
 
 import com.labc.Vermellion.Character;
 import com.labc.Vermellion.Start;
+import com.labc.Vermellion.ThirstyState;
 import com.labc.Vermellion.Tile;
+import com.labc.Vermellion.Items.ItemFactory;
 
 public class Fighter extends Character {
 	
 	public Fighter(Tile starting) {
 		super(starting);
-		Start.ta.setText("\nYou see the sword and you inmediatly remember\n"
+		Start.ta.setText("You see the sword and you inmediatly remember\n"
 				+ "the honor of your family, you can't let them down\n"
 				+ "you will do whatever it takes to put your family name\n"
 				+ "uphigh. You feel ready to take on Vermellion's wasteland.\n\n");
@@ -24,6 +26,7 @@ public class Fighter extends Character {
 		this.ACCURACY = 80;
 		this.RESISTANCE = 30;
 		this.bagSize = 25;
+		this.inventory.add(ItemFactory.getItem("SWORD", this));
 	}
 
 	@Override
@@ -33,19 +36,41 @@ public class Fighter extends Character {
 			if(this.current.mob.getName().toLowerCase().contains(target.toLowerCase())) {
 				int calculateChance = 300/this.ACCURACY;
 				if(rnd.nextInt(calculateChance)<=0) {
-					Start.ta.setText("\nYou shot an arrow from your wrist crossbow\n"
-							+ "and hit "+target+" dealing "+this.BAGREDAD+" damage.");
+					Start.ta.setText("You shot an arrow from your wrist crossbow\n"
+							+ "and hit "+this.current.mob.getName()+" dealing "+this.BAGREDAD+" damage.");
 					this.current.mob.beShot(this.BAGREDAD);
 				}
 				else
-					Start.ta.append("\nYou missed the shot. You are so bagre.");
+					Start.ta.setText("You missed the shot. You are so bagre.");
 				
 				this.current.canShoot = false;
 			}
 			else
-				Start.ta.append("\nThere is no "+target+" around here.");
+				Start.ta.setText("There is no "+target+" around here.");
 		}
 		else
-			Start.ta.append("\nYou don't have the time to set your crossbow.");
+			Start.ta.setText("You don't have the time to set your crossbow.");
 	}
+
+	@Override
+	public void Visit(Tile tile) {
+		Start.ta.setText(tile.getShortDescription());
+		if(tile.hasEnemy)
+			Start.ta.append("\nYour honor makes you anxious to fight but\n"
+					+ "decide to think before you act.");
+		
+		if(this.getCharacterstate() != ThirstyState.instance()
+				&& tile.getName().equalsIgnoreCase("Wasteland")) {
+			this.THIRST = 40;
+		}
+		
+		else if(this.getCharacterstate() != ThirstyState.instance() &&
+				tile.getName().equalsIgnoreCase("MountainSurroundings")) {
+			this.THIRST = 60;
+		}
+		
+		tile.player = this;
+	}
+
+	
 }

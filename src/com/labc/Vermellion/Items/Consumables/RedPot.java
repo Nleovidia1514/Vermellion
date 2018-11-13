@@ -14,12 +14,13 @@ public class RedPot extends Food implements Useable {
 		this.water = 15;
 		this.prefix = "a";
 		this.name = "RedPot";
+		this.isDrinkable = true;
 		this.Description = "It bubbles a little bit like a soda.";
 	}
 
 	@Override
 	public void beUsed() {
-		Start.ta.append("\nIt had a funny taste but you feel spectacular. ");
+		Start.ta.setText("It had a funny taste but you feel spectacular. ");
 		super.beUsed();
 	}
 

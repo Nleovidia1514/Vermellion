@@ -16,27 +16,26 @@ public class ChooseClassState extends TextFieldState {
 	
 	private void chooseClass() {
 		Start.clase = Start.tf.getText();
-		if(Start.clase.equalsIgnoreCase("staff") || Start.clase.equalsIgnoreCase("Dagger")
-				|| Start.clase.equalsIgnoreCase("sword") || Start.clase.equalsIgnoreCase("glasses")
-				|| Start.clase.equalsIgnoreCase("BOW")) {
-			if(Start.clase.equalsIgnoreCase("staff")) 
-				Start.Player = new Mage(Start.starting);
-			else if(Start.clase.equalsIgnoreCase("dagger"))
-				Start.Player = new Rogue(Start.starting);
-			else if(Start.clase.equalsIgnoreCase("sword"))
-				Start.Player = new Fighter(Start.starting);
-			else if(Start.clase.equalsIgnoreCase("glasses"))
-				Start.Player = new Nerio(Start.starting);
-			else if(Start.clase.equalsIgnoreCase("bow"))
-				Start.Player = new Archer(Start.starting);
-			else
-				Start.ta.setText("You look for "+Start.clase+" but you can't find one");
+		if(Start.clase.toLowerCase().contains("staff")) 
+			Start.Player = new Mage(Start.starting);
+		else if(Start.clase.toLowerCase().contains("dagger"))
+			Start.Player = new Rogue(Start.starting);
+		else if(Start.clase.toLowerCase().contains("sword"))
+			Start.Player = new Fighter(Start.starting);
+		else if(Start.clase.toLowerCase().contains("glasses"))
+			Start.Player = new Nerio(Start.starting);
+		else if(Start.clase.toLowerCase().contains("bow"))
+			Start.Player = new Archer(Start.starting);
+		else
+			Start.ta.append("Can you get the dick out of your mouth?");
+		
+		if(Start.Player!=null) {
+			Start.tfState = PlayState.instance();
+			Start.ta.append(Start.Player.getCurrent().getShortDescription());
+			Start.ta.append("\nHP - "+Start.Player.getHP()+"\n"
+			+"MAGIC - "+Start.Player.getMagic()+"\n"
+			+"THIRST - "+Start.Player.getThirst());
 		}
-		Start.tfState = PlayState.instance();
-		Start.ta.append(Start.Player.getCurrent().getShortDescription());
-		Start.ta.append("\nHP - "+Start.Player.getHP()+"\n"
-		+"MAGIC - "+Start.Player.getMagic()+"\n"
-		+"THIRST - "+Start.Player.getThirst());
 	}
 
 	@Override

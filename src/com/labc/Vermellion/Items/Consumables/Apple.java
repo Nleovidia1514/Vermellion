@@ -14,6 +14,7 @@ public class Apple extends Food implements Useable{
 		this.water = 40;
 		this.prefix = "an";
 		this.name = "Apple";
+		this.isEatable = true;
 		this.Description = "It's green?";
 	}
 
@@ -26,7 +27,7 @@ public class Apple extends Food implements Useable{
 	@Override
 	public void beUsed() {
 		// TODO Auto-generated method stub
-		Start.ta.append("\nYou ate the apple... it had an odd taste. ");
+		Start.ta.setText("You ate the apple... it had an odd taste. ");
 		super.beUsed();
 	}
 

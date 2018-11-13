@@ -14,12 +14,13 @@ public class BluePot extends Food implements Useable {
 		this.water = 15;
 		this.prefix = "a";
 		this.name = "BluePot";
+		this.isDrinkable = true;
 		this.Description = "It has a label on it... 'Made in China'.";
 	}
 
 	@Override
 	public void beUsed() {
-		Start.ta.append("\nYou drank the potion. It left you a bit dazzled. ");
+		Start.ta.setText("You drank the potion. It left you a bit dazzled. ");
 		super.beUsed();
 	}
 

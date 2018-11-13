@@ -14,12 +14,13 @@ public class SpaghettiOs extends Food implements Useable {
 		this.water = 50;
 		this.prefix = "";
 		this.name = "SpaghettiOs";
+		this.isEatable = true;
 		this.Description = "Every american child's favorite breakfast.";
 	}
 
 	@Override
 	public void beUsed() {
-		Start.ta.append("\nYou consumed the "+this.name+" and you feel like a child in El Imperio. ");
+		Start.ta.setText("You consumed the "+this.name+" and you feel like a child in El Imperio. ");
 		super.beUsed();
 	}
 

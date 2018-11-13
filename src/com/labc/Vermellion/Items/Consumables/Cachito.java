@@ -14,12 +14,13 @@ public class Cachito extends Food implements Useable {
 		this.water = 0;
 		this.prefix = "a";
 		this.name = "Cachito";
+		this.isEatable = true;
 		this.Description = "The legends say this afrodisiac was once used to bribe teachers.";
 	}
 
 	@Override
 	public void beUsed() {
-		Start.ta.append("\nIt had no fucking ham in it. ");
+		Start.ta.setText("It had no fucking ham in it. ");
 		super.beUsed();
 	}
 

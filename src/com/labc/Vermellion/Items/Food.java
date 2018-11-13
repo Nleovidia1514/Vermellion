@@ -11,6 +11,8 @@ public abstract class Food extends Item {
 	
 	public Food(Character owner) {
 		super(owner);
+		this.isEatable = false;
+		this.isDrinkable = false;
 	}
 	
 	public abstract void giveToNPC();

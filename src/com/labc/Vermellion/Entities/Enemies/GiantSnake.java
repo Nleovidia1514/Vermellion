@@ -17,10 +17,14 @@ public class GiantSnake extends EntityDecorator implements AttackAble{
 		Start.ta.setText("You attacked the snake and dealt\n"
 				+ damage + " damage to it. Snakes are gross.");
 		this.HP-=damage;
-		if(this.HP<=0)
-			this.attack();
+		if(this.HP<=0) {
+			this.die();
+			Start.ta.append("\nSSssssss...");
+			Start.ta.append("\nThe giant snake died.");
+		}
+			
 		else
-			Start.ta.append("\nSSSSSSSSSssssSSSs");
+			this.attack();
 	}
 	
 	@Override
@@ -30,41 +34,42 @@ public class GiantSnake extends EntityDecorator implements AttackAble{
 		this.position.hasEnemy = false;
 		this.position.shortDescription = this.position.descripts.shortDescsAftFight.get(this.getName());
 		this.position.longDescription = this.position.descripts.longDescsAftFight.get(this.getName());
-		Start.ta.append("\nSSssssss...");
-		Start.ta.append("\nThe giant snake died.");
 	}
 	
 	@Override
 	public void beShot(int damage) {
 		super.beShot(damage);
 		Start.ta.append("SSSSssSSSSSSSs!!>:(<");
-		Start.ta.append("\nYou made "+damage+" damage to the "+this.name+".");
 		this.HP -= damage;
-		if(this.HP<=0) 
-			die();
+		if(this.HP<=0) {
+			Start.ta.append("\nSSssssss...");
+			this.die();
+			Start.ta.append("\nThe giant snake died.");
+		}
+			
 	}
 	
 	@Override
 	public void create() {
 		super.create();
-		this.HP = this.HP + 1500;
-		this.ATTACK = this.ATTACK + 300;
+		this.HP =  1500;
+		this.ATTACK = 300;
 		this.name = "GiantSnake";
 	}
 	
 	@Override
 	public void talk() {
-		Start.ta.append("\nSssssssssssSSssSsSs");
+		Start.ta.setText("SssssssssssSSssSsSs");
 		this.attack();
 	}
 
 	@Override
 	public void attack() {
 		int totalDamage = position.player.getHP() - CalculateDamage();
-		Start.ta.append("SSSSSSSsssSSSSsSSSS!!!!!");
+		Start.ta.append("\nSSSSSSSsssSSSSsSSSS!!!!!");
 		position.player.setHP(totalDamage);
 		Poison();
-		Start.ta.append("\nThe "+this.name+" dealt "+totalDamage+" damage to you.\n"
+		Start.ta.append("\nThe "+this.name+" dealt "+CalculateDamage()+" damage to you.\n"
 				+ "and poisoned you for 3 turns.");
 	}
 	

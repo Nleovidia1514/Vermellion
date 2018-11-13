@@ -17,41 +17,52 @@ public class NormalState extends CharacterState {
 	@Override
 	public void walk(String direction, Character player) {
 		if(!player.current.hasEnemy) {
-			if(direction.toLowerCase().equals("north")) {
-				if(player.current.getNeighbors()[SingletonMap.NORTH]!=null)
+			if(direction.toLowerCase().contains("north")) {
+				if(player.current.getNeighbors()[SingletonMap.NORTH]!=null) {
 					player.current = player.current.getNeighbors()[SingletonMap.NORTH];
+					player.current.accept(player);
+				}
+					
 				else
-					Start.ta.append("\nSeems like there is no access through there");
+					Start.ta.setText("Seems like there is no access through there");
 			}
 			
-			else if(direction.toLowerCase().equals("east")) {
-				if(player.current.getNeighbors()[SingletonMap.EAST]!=null)
+			else if(direction.toLowerCase().contains("east")) {
+				if(player.current.getNeighbors()[SingletonMap.EAST]!=null) {
 					player.current = player.current.getNeighbors()[SingletonMap.EAST];
+					player.current.accept(player);
+				}
+					
 				else
-					Start.ta.append("\nSeems like there is no access through there");
+					Start.ta.setText("Seems like there is no access through there");
 			}
 			
-			else if(direction.toLowerCase().equals("south")) {
-				if(player.current.getNeighbors()[SingletonMap.SOUTH]!=null)
+			else if(direction.toLowerCase().contains("south")) {
+				if(player.current.getNeighbors()[SingletonMap.SOUTH]!=null) {
 					player.current = player.current.getNeighbors()[SingletonMap.SOUTH];
+					player.current.accept(player);
+				}
+					
 				else
-					Start.ta.append("\nSeems like there is no access through there");
+					Start.ta.setText("Seems like there is no access through there");
 			}
 			
-			else if(direction.toLowerCase().equals("west")) {
-				if(player.current.getNeighbors()[SingletonMap.WEST]!=null)
+			else if(direction.toLowerCase().contains("west")) {
+				if(player.current.getNeighbors()[SingletonMap.WEST]!=null) {
 					player.current = player.current.getNeighbors()[SingletonMap.WEST];
+					player.current.accept(player);
+				}
+					
 				else
-					Start.ta.append("\nSeems like there is no access through there");
+					Start.ta.setText("Seems like there is no access through there");
 			}
 			else
-				Start.ta.append("\nYou can't walk there for some odd reason...");
+				Start.ta.setText("You can't walk there for some odd reason...");
 			
-			player.current.player = player;
 			player.THIRST-=20;
 		}
 		else {
-			Start.ta.append("\nYou walked right through those who were trying to kill\n"
+			Start.ta.setText("You walked right through those who were trying to kill\n"
 					+ "you facilitating their job. You really are a doubtful IQ person.");
 			player.die(player);
 		}
@@ -62,22 +73,26 @@ public class NormalState extends CharacterState {
 		if(sn.hasNext()) {
 			String to = sn.next();
 			if(to.equalsIgnoreCase("to")) {
-				if(sn.hasNext()) {
-					String who = sn.next();
-					if(player.current.mob.getName().toLowerCase().
-							contains(who.toLowerCase()))
-						player.current.mob.talk();
-					else
-						Start.ta.append("\nThere is no "+who+" to talk to.");
+				if(sn.hasNext()){
+					boolean okay = false;
+					String[] wat = sn.nextLine().split(" ");
+					for(String who : wat)
+						if(player.current.mob.getName().toLowerCase().
+								contains(who)) {
+							player.current.mob.talk();
+							okay = true;
+						}
+					if(okay = false)
+						Start.ta.setText("There is no such being like that here");
 				}
 				else
-					Start.ta.append("\nTalk to who?");
+					Start.ta.setText("Talk to who?");
 			}
 			else
-				Start.ta.append("\nTalk... What?");
+				Start.ta.setText("Talk... What??");
 		}
 		else
-			Start.ta.append("\nTalk to who?");
+			Start.ta.setText("Talk to who?");
 	}
 
 	@Override

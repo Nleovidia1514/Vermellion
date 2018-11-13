@@ -14,12 +14,13 @@ public class GreenPot extends Food implements Useable {
 		this.water = 100;
 		this.prefix = "a";
 		this.name = "GreenPot";
+		this.isDrinkable = true;
 		this.Description = "It's definitly green.";
 	}
 
 	@Override
 	public void beUsed() {
-		Start.ta.append("\nYou almost vomit but you managed not too. ");
+		Start.ta.setText("You almost vomit but you managed not too. ");
 		super.beUsed();
 	}
 

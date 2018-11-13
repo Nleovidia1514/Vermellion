@@ -17,23 +17,12 @@ public class PlayState extends TextFieldState{
 	}
 	
 	private void play() {
-		int z = 0;
+		
 		if(Start.gameIsRunning) {
 			changeGameState(Start.tf.getText());
-			if(z==0) {
-				Start.ta.setText(Start.Player.getCurrent().getShortDescription());
-				Start.ta.append("\nHP - "+Start.Player.getHP()+"\n"
-						+"MAGIC - "+Start.Player.getMagic()+"\n"
-						+"THIRST - "+Start.Player.getThirst());
-				z++;
-			}
-			else {
-				Start.ta.append("\n"+Start.Player.getCurrent().getShortDescription());
-				Start.ta.append("\nHP - "+Start.Player.getHP()+"\n"
-						+"MAGIC - "+Start.Player.getMagic()+"\n"
-						+"THIRST - "+Start.Player.getThirst());
-				z--;
-			}
+			Start.ta.append("\nHP - "+Start.Player.getHP()+"\n"
+					+"MAGIC - "+Start.Player.getMagic()+"\n"
+					+"THIRST - "+Start.Player.getThirst());
 		}
 	}
 	

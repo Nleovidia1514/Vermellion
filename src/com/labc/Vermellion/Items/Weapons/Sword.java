@@ -20,6 +20,7 @@ public class Sword extends Weapon implements Useable{
 		this.SNEAK = 55;
 		this.Damage = 120;
 		this.Description = "It belonged to a knight... maybe.";
+		this.isStarter = true;
 	}
 
 	@Override

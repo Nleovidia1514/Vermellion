@@ -30,41 +30,40 @@ public class PoisonedState extends CharacterState {
 	@Override
 	public void walk(String direction, Character player) {
 		if(!player.current.hasEnemy) {
-			if(direction.toLowerCase().equals("north")) {
+			if(direction.toLowerCase().contains("north")) {
 				if(player.current.getNeighbors()[SingletonMap.NORTH]!=null)
 					player.current = player.current.getNeighbors()[SingletonMap.NORTH];
 				else
-					Start.ta.append("\nSeems like there is no access through there");
+					Start.ta.setText("Seems like there is no access through there");
 			}
 			
-			else if(direction.toLowerCase().equals("east")) {
+			else if(direction.toLowerCase().contains("east")) {
 				if(player.current.getNeighbors()[SingletonMap.EAST]!=null)
 					player.current = player.current.getNeighbors()[SingletonMap.EAST];
 				else
-					Start.ta.append("\nSeems like there is no access through there");
+					Start.ta.setText("Seems like there is no access through there");
 			}
 			
-			else if(direction.toLowerCase().equals("south")) {
+			else if(direction.toLowerCase().contains("south")) {
 				if(player.current.getNeighbors()[SingletonMap.SOUTH]!=null)
 					player.current = player.current.getNeighbors()[SingletonMap.SOUTH];
 				else
-					Start.ta.append("\nSeems like there is no access through there");
+					Start.ta.setText("Seems like there is no access through there");
 			}
 			
-			else if(direction.toLowerCase().equals("west")) {
+			else if(direction.toLowerCase().contains("west")) {
 				if(player.current.getNeighbors()[SingletonMap.WEST]!=null)
 					player.current = player.current.getNeighbors()[SingletonMap.WEST];
 				else
-					Start.ta.append("\nSeems like there is no access through there");
+					Start.ta.setText("Seems like there is no access through there");
 			}
 			else
-				Start.ta.append("\nYou can't walk there for some odd reason...");
+				Start.ta.setText("You can't walk there for some odd reason...");
 			
-			player.current.player = player;
 			player.THIRST-=20;
 		}
 		else {
-			Start.ta.append("\nYou walked right through those who were trying to kill\n"
+			Start.ta.setText("You walked right through those who were trying to kill\n"
 					+ "you facilitating their job. You really are a doubtful IQ person.");
 			player.die(player);
 		}
@@ -81,16 +80,16 @@ public class PoisonedState extends CharacterState {
 							contains(who.toLowerCase()))
 						player.current.mob.talk();
 					else
-						Start.ta.append("\nThere is no "+who+" to talk to.");
+						Start.ta.setText("There is no such being like that here.");
 				}
 				else
-					Start.ta.append("\nTalk to who?");
+					Start.ta.setText("Talk to who?");
 			}
 			else
-				Start.ta.append("\nTalk... What?");
+				Start.ta.setText("Talk... What?");
 		}
 		else
-			Start.ta.append("\nTalk to who?");
+			Start.ta.setText("Talk to who?");
 	}
 	
 	@Override

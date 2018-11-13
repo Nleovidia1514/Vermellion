@@ -11,8 +11,8 @@ import com.labc.Vermellion.Items.Consumables.RedPot;
 import com.labc.Vermellion.Items.Consumables.SpaghettiOs;
 import com.labc.Vermellion.Items.Weapons.Axe;
 import com.labc.Vermellion.Items.Weapons.Bow;
+import com.labc.Vermellion.Items.Weapons.Dagger;
 import com.labc.Vermellion.Items.Weapons.Excalibur;
-import com.labc.Vermellion.Items.Weapons.Knive;
 import com.labc.Vermellion.Items.Weapons.MajorasMask;
 import com.labc.Vermellion.Items.Weapons.Mind;
 import com.labc.Vermellion.Items.Weapons.Staff;
@@ -32,8 +32,8 @@ public class ItemFactory {
 		else if(name.equalsIgnoreCase("BOW"))
 			return new Bow(owner);
 		
-		else if(name.equalsIgnoreCase("KNIVE"))
-			return new Knive(owner);
+		else if(name.equalsIgnoreCase("DAGGER"))
+			return new Dagger(owner);
 		
 		else if(name.equalsIgnoreCase("MIND"))
 			return new Mind(owner);

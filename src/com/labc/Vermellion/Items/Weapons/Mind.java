@@ -20,6 +20,7 @@ public class Mind extends Weapon implements Useable {
 		this.ACCURACY = 65;
 		this.Damage = 80;
 		this.Description = "The most powerful tool a person can have.";
+		this.isStarter = true;
 	}
 
 	@Override

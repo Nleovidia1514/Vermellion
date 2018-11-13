@@ -1,5 +1,8 @@
 package com.labc.Vermellion;
 
+import java.awt.Color;
+import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -52,12 +55,14 @@ public class Start {
 		panel.add(ta);
 		panel.add(tf);
 		tf.setRequestFocusEnabled(true);
-		panel.setLayout(new GridLayout(2,1));
+		panel.setLayout(new FlowLayout());
 		frame.add(panel);
+		ta.setFont(new Font("perro",Font.ITALIC,17));
 		frame.pack();
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setAlwaysOnTop(true);
 	}
 
 	public static void main(String[] args) throws IOException {

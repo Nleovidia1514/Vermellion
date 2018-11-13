@@ -14,12 +14,14 @@ public class Chicha extends Food implements Useable{
 		this.water = 50;
 		this.prefix = "a";
 		this.name = "Chicha";
+		this.isDrinkable = true;
+		this.isEatable = true;
 		this.Description = "Venezuelans love this beverage... or is it a smoothie?";
 	}
 
 	@Override
 	public void beUsed() {
-		Start.ta.append("\nDamn it tastes good. ");
+		Start.ta.setText("Damn it tastes good. ");
 		super.beUsed();
 	}
 

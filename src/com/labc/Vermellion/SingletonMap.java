@@ -4,12 +4,12 @@ import java.util.Random;
 
 public class SingletonMap {
 	public static int NORTH=0, EAST=1, SOUTH=2, WEST=3;
-	public static int MapSize = 16;
+	public static int MapSize = 8;
 	private Tile[][] tile = new Tile[MapSize][MapSize];
 	private Random rnd = new Random();
 	private static String[] names = new String[]{"bandits","wasteland","woods"};
 	private static String[] itemNames = new String[]{"Apple","Bluepot","Cachito","Chicha","Fungi",
-	"GreenPot","RedPot","SpaghettiOs","Axe","Bow","Knive","Staff","Sword"};
+	"GreenPot","RedPot","SpaghettiOs","Axe"};
 	private volatile static SingletonMap obj; 
 
 	private SingletonMap() {
@@ -75,11 +75,7 @@ public class SingletonMap {
 	{ 
 		if (obj == null) 
 		{ 
-			synchronized (SingletonMap.class) 
-			{ 
-				if (obj==null) 
-					obj = new SingletonMap(); 
-			} 
+			obj = new SingletonMap(); 
 		} 
 		return obj; 
 	} 

@@ -1,6 +1,6 @@
 package com.labc.Vermellion;
 
-public class Tile {
+public class Tile implements Element{
 	int x;
 	int y;
 	public String name, shortDescription = "There is nothing here", longDescription = "There is nothing you can do here";
@@ -11,7 +11,7 @@ public class Tile {
 	private String itemOnFloor;
 	public Descriptions descripts;
 	
-	public Tile(int x , int y, String name, String itemOnF) {
+	public Tile(int x , int y, String name, String itemOnF){
 		this.name = name;
 		this.x=x;
 		this.y=y;
@@ -58,5 +58,10 @@ public class Tile {
 	
 	public String getName() {
 		return this.name;
+	}
+
+	@Override
+	public void accept(Visitor v) {
+		v.Visit(this);
 	}
 }

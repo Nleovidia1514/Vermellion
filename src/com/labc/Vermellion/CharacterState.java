@@ -9,18 +9,9 @@ public abstract class CharacterState {
 	
 	public void decideWhatToDo(Scanner sn, Character player) {
 		String action;
-		if(player.getCharacterstate() != ThirstyState.instance()
-				&& player.current.getName().equalsIgnoreCase("Wasteland")) {
-			player.THIRST = 25;
-		}
-		
-		else if(player.getCharacterstate() != ThirstyState.instance() &&
-				player.current.getName().equalsIgnoreCase("MountainSurroundings")) {
-			player.THIRST = 30;
-		}
 		if(sn.hasNext()) {
 			action = sn.next();
-			if(action.equalsIgnoreCase("ATTACK"))
+			if(action.equalsIgnoreCase("ATTACK") || action.equalsIgnoreCase("KILL"))
 				player.attack(sn);
 			
 			else if(action.equalsIgnoreCase("LOOK")) 
@@ -34,10 +25,10 @@ public abstract class CharacterState {
 					if(player.current.mob != null)
 						player.shoot( sn.next() );
 					else
-						Start.ta.append("\nThere is nothing in here.");
+						Start.ta.setText("There is nothing in here.");
 				}
 				else
-					Start.ta.append("\nShoot what?");
+					Start.ta.setText("Shoot what?");
 			}
 			
 			else if(action.equalsIgnoreCase("INVENTORY"))
@@ -48,33 +39,20 @@ public abstract class CharacterState {
 			
 			else if(action.equalsIgnoreCase("WALK")) {
 				if( sn.hasNext() )
-					player.walk(sn.next().trim());
+					player.walk(sn.nextLine().trim());
 				else
-					Start.ta.append("\nWalk where?");
+					Start.ta.setText("Walk where?");
 			}
 			
 			else if(action.equalsIgnoreCase("PICKUP")) {
 				if( sn.hasNext() )
 					player.pickUpItem(sn.next());
 				else
-					Start.ta.append("\nPick what up?");
+					Start.ta.setText("Pick what up?");
 			}
 			else if(action.equalsIgnoreCase("USE")||action.equalsIgnoreCase("EAT")
 					||action.equalsIgnoreCase("DRINK")) {
-				if( sn.hasNext() ) {
-					String name = sn.next();
-					Item item = null;
-					for(int i=0;i<player.inventory.size();i++)
-						if(player.inventory.get(i).getName().toLowerCase().
-								contains(name.toLowerCase()))
-							item = player.inventory.get(i);
-					if( item == null )
-						Start.ta.append("\nYou don't have that item in your inventory.");
-					else
-						item.beUsed();
-				}
-				else 
-					Start.ta.append("\nUse what?");
+				useItem(sn,player,action);
 			}
 			
 			else if(action.equalsIgnoreCase("TALK")) {
@@ -86,10 +64,13 @@ public abstract class CharacterState {
 			}
 			
 			else
-				Start.ta.append("\nYou can't do that.");
+				Start.ta.setText("You can't do that.");
 		}
-		else
-			Start.ta.append("\nAre you a mute?");
+		else {
+			Start.ta.setText("Are you a mute?");
+			Start.ta.append(player.current.getShortDescription());
+		}
+			
 		
 		if(player.THIRST<=25)
 			player.setCharacterState(ThirstyState.instance());
@@ -97,5 +78,36 @@ public abstract class CharacterState {
 		if(player.THIRST<=0 || player.HP<=0) {
 			player.die(player);
 		}
+	}
+	
+	private void useItem(Scanner sn, Character player,String action) {
+		if( sn.hasNext() ) {
+			String name = sn.next();
+			Item item = null;
+			for(int i=0;i<player.inventory.size();i++)
+				if(player.inventory.get(i).getName().toLowerCase().
+						contains(name.toLowerCase()))
+					item = player.inventory.get(i);
+			if( item == null )
+				Start.ta.append("\nYou don't have that item in your inventory.");
+			else {
+				if(action.equalsIgnoreCase("USE"))
+					item.beUsed();
+				else if(action.equalsIgnoreCase("EAT")) {
+					if(item.isEatable)
+						item.beUsed();
+					else
+						Start.ta.setText("You can't eat that dude.");
+				}
+				else if(action.equalsIgnoreCase("DRINK")) {
+					if(item.isDrinkable)
+						item.beUsed();
+					else
+						Start.ta.setText("You can't eat that dude.");
+				}
+			}
+		}
+		else 
+			Start.ta.setText("Use what?");
 	}
 }

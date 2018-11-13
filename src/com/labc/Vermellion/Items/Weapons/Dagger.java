@@ -4,9 +4,9 @@ import com.labc.Vermellion.Character;
 import com.labc.Vermellion.Items.Useable;
 import com.labc.Vermellion.Items.Weapon;
 
-public class Knive extends Weapon implements Useable{
+public class Dagger extends Weapon implements Useable{
 
-	public Knive(Character owner) {
+	public Dagger(Character owner) {
 		super(owner);
 		this.Durability = 10;
 		this.name = "Knive";
@@ -20,6 +20,7 @@ public class Knive extends Weapon implements Useable{
 		this.ILLUSION = 65;
 		this.Damage = 90;
 		this.Description = "These knives look like they could slice someone's throat.";
+		this.isStarter = true;
 	}
 
 	@Override

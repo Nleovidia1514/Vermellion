@@ -16,13 +16,20 @@ public class Bandits extends EntityDecorator implements AttackAble {
 	public void attack() {
 		Random rnd = new Random();
 		int totalDamage = position.player.getHP()-CalculateDamage(), itemStolen;
-		Start.ta.setText("\nThe bandits try to steal items from you.");
+		Start.ta.append("\nThe bandits try to steal items from you.");
 		if(position.player.inventory.size()>0) {
 			itemStolen = rnd.nextInt(position.player.inventory.size());
-			Start.ta.append("\nThe bandits dealed "+CalculateDamage()+" damage to you\n and"
-					+ " stole "+position.player.inventory.get(itemStolen).getName()
-					+ " from your inventory.");
-			position.player.inventory.remove(itemStolen);
+			if(position.player.inventory.get(itemStolen).isStarter) {
+				Start.ta.append("\nThe bandits dealed "+CalculateDamage()+" damage to you\n"
+						+ " and couldn't steal your item because it is binded to you by\n"
+						+ "powers they do not understand.");
+			}
+			else {
+				Start.ta.append("\nThe bandits dealed "+CalculateDamage()+" damage to you\n and"
+						+ " stole "+position.player.inventory.get(itemStolen).getName()
+						+ " from your inventory.");
+				position.player.inventory.remove(itemStolen);
+			}
 		}
 		else		
 			Start.ta.append("\nThe bandits dealed "+CalculateDamage()+" damage to you and"
@@ -33,40 +40,40 @@ public class Bandits extends EntityDecorator implements AttackAble {
 
 	@Override
 	public void beAttacked(int damage) {
-		super.beAttacked(damage);
-		Start.ta.append("\n*Gruntled bandits sounds*");
+		Start.ta.setText("*Gruntled bandits sounds*");
 		Start.ta.append("\nYou made "+damage+" damage to the "+this.name+".");
 		this.HP -= damage;
-		if(this.HP<=0) 
+		if(this.HP<=0) {
 			die();
+			Start.ta.append("\nBandits started to scatter.");
+			Start.ta.append("\nThe bandits died.");
+		}
 		else
 			this.attack();
-			
 	}
 	
 	@Override 
 	public void beShot(int damage) {
-		super.beShot(damage);
 		this.HP = this.HP - damage;
 		Start.ta.append("\n*Gruntled bandits sounds*");
-		if(this.HP<=0)
+		if(this.HP<=0) {
 			this.die();
+			Start.ta.append("\nBandits started to scatter.");
+			Start.ta.append("\nThe bandits died.");
+		}
 	}
 
 	@Override
 	public void die() {
-		super.die();
 		this.position.mob = null;
 		this.position.hasEnemy = false;
 		this.position.shortDescription = this.position.descripts.shortDescsAftFight.get(this.position.name);
 		this.position.longDescription = this.position.descripts.longDescsAftFight.get(this.position.name);
-		Start.ta.append("\nBandits started to scatter.");
-		Start.ta.append("\nThe bandits died.");
 	}
 	
 	@Override
 	public void talk() {
-		Start.ta.append("\nThis' no time to talk. Shut the fuck up bitch.");
+		Start.ta.setText("This' no time to talk. Shut the fuck up bitch.");
 		this.attack();
 	}
 	

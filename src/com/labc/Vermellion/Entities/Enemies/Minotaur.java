@@ -17,9 +17,11 @@ public class Minotaur extends EntityDecorator implements AttackAble {
 				+ damage + " damage to it. Does he fuck humans or horses?.");
 		this.HP-=damage;
 		if(this.HP<=0)
+			this.die();
+		else {
+			Start.ta.append("\nMinotaur - You will pay for that human!");
 			this.attack();
-		else
-			Start.ta.append("\nYou will pay for that human!");
+		}
 	}
 	
 	@Override
@@ -36,13 +38,13 @@ public class Minotaur extends EntityDecorator implements AttackAble {
 	@Override
 	public void beShot(int damage) {
 		super.beShot(damage);
-		Start.ta.setText("You dealt "+ damage + " damage to the minotaur.\n"
-						+ "Now it looks confused LUL.");
+		Start.ta.setText("The minotaur looks confused LUL.");
 		this.HP-=damage;
 		if(this.HP<=0)
-			this.attack();
-		else
-			Start.ta.append("\nYou will pay for that human?");
+			this.die();
+		else {
+			Start.ta.append("\nYou will pay for that human...?");
+		}
 	}
 	
 	@Override
@@ -55,16 +57,16 @@ public class Minotaur extends EntityDecorator implements AttackAble {
 	
 	@Override
 	public void talk() {
-		Start.ta.append("\nDon't you even dream about it human!!");
+		Start.ta.setText("\nDon't you even dream about it human!!");
 		this.attack();
 	}
 
 	@Override
 	public void attack() {
 		int totalDamage = position.player.getHP() - CalculateDamage();
-		Start.ta.append("CHARGEEEEEEEEE!!!!");
+		Start.ta.append("\nCHARGEEEEEEEEE!!!!");
 		position.player.setHP(totalDamage);
-		Start.ta.append("\nThe "+this.name+" dealt "+totalDamage+" damage to you\n"
+		Start.ta.append("\nThe "+this.name+" dealt "+CalculateDamage()+" damage to you\n"
 				+ "and let you a bit dazzled.");
 	}
 	

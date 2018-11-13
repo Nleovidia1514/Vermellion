@@ -15,17 +15,20 @@ public class Cornieles extends EntityDecorator implements AttackAble{
 		int totalDamage = position.player.getHP()-CalculateDamage();
 		Start.ta.append("\nUstedes son unos expertos.");
 		position.player.setHP(totalDamage);
-		Start.ta.append("\n"+this.name+" dealt "+totalDamage+" damage to you.");
+		Start.ta.append("\n"+this.name+" dealt "+CalculateDamage()+" damage to you.");
 	}
 
 	@Override
 	public void beAttacked(int damage) {
 		super.beAttacked(damage);
-		Start.ta.append("\nSabeeeeiiiiis.");
+		Start.ta.setText("Sabeeeeiiiiis.");
 		Start.ta.append("\nYou made "+damage+" damage to "+this.name+".");
 		this.HP -= damage;
-		if(this.HP<=0) 
+		if(this.HP<=0) {
+			Start.ta.append("\nNo puede ser nonononono.");
+			Start.ta.append("\nCornieles died.");
 			die();
+		}	
 		else
 			this.attack();
 			
@@ -38,13 +41,11 @@ public class Cornieles extends EntityDecorator implements AttackAble{
 		this.position.hasEnemy = false;
 		this.position.shortDescription = this.position.descripts.shortDescsAftFight.get(this.position.name);
 		this.position.longDescription = this.position.descripts.longDescsAftFight.get(this.position.name);
-		Start.ta.append("\nNo puede ser nonononono.");
-		Start.ta.append("\nCornieles died.");
 	}
 	
 	@Override
 	public void talk() {
-		Start.ta.append("\nNo te voy a subir la nota sabeeeisss." );
+		Start.ta.setText("No te voy a subir la nota sabeeeisss." );
 		this.attack();
 	}
 	
@@ -60,9 +61,13 @@ public class Cornieles extends EntityDecorator implements AttackAble{
 	public void beShot(int damage) {
 		super.beShot(damage);
 		this.HP = this.HP - damage;
-		Start.ta.append("\nSabeeeeeiiiis.");
-		if(this.HP<=0)
+		Start.ta.append("Sabeeeeeiiiis.");
+		if(this.HP<=0) {
 			this.die();
+			Start.ta.append("\nNo puede ser nonononono.");
+			Start.ta.append("\nCornieles died.");
+		}
+			
 	}
 	
 	private int CalculateDamage() {

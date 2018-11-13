@@ -15,7 +15,7 @@ public class Bear extends EntityDecorator implements AttackAble{
 		int totalDamage = position.player.getHP()-(CalculateDamage());
 		Start.ta.append("\n*Angry bear sounds*");
 		position.player.setHP(totalDamage);
-		Start.ta.append("\nThe bear dealed "+totalDamage+" damage to you.");
+		Start.ta.append("\nThe bear dealed "+CalculateDamage()+" damage to you.");
 	}
 
 	@Override
@@ -24,8 +24,11 @@ public class Bear extends EntityDecorator implements AttackAble{
 		Start.ta.setText("*Hurted bear sounds*");
 		Start.ta.append("\nYou made "+damage+" damage to the "+this.name+".");
 		this.HP -= damage;
-		if(this.HP<=0) 
-			die();
+		if(this.HP<=0) {
+			Start.ta.append("\n*Sad bear sounds*");
+			Start.ta.append("\nThe bear died.");
+			this.die();
+		}
 		else
 			this.attack();
 			
@@ -36,8 +39,12 @@ public class Bear extends EntityDecorator implements AttackAble{
 		super.beShot(damage);
 		this.HP = this.HP - damage;
 		Start.ta.append("\n*Shot at bear sounds*");
-		if(this.HP<=0)
+		if(this.HP<=0) {
+			Start.ta.append("\n*Sad bear sounds*");
+			Start.ta.append("\nThe bear died.");
 			this.die();
+		}
+			
 	}
 
 	@Override
@@ -47,13 +54,11 @@ public class Bear extends EntityDecorator implements AttackAble{
 		this.position.hasEnemy = false;
 		this.position.shortDescription = this.position.descripts.shortDescsAftFight.get(this.position.name);
 		this.position.longDescription = this.position.descripts.longDescsAftFight.get(this.position.name);
-		Start.ta.append("\n*Sad bear sounds*");
-		Start.ta.append("\nThe bear died.");
 	}
 	
 	@Override 
 	public void talk() {
-		Start.ta.append("\n*Confused bear sounds*");
+		Start.ta.setText("*Confused bear sounds*");
 		this.attack();
 	}
 	
