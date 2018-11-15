@@ -35,7 +35,7 @@ public class ThirstyState extends CharacterState{
 			
 		}
 		else {
-			Start.ta.setText("You walked right through those who were trying to kill\n"
+			Start.ta.setText("You walked right through those who were trying to kill "
 					+ "you facilitating their job. You really are a doubtful IQ person.");
 			player.die(player);
 		}
@@ -50,15 +50,15 @@ public class ThirstyState extends CharacterState{
 	
 	@Override
 	public void talkToNPC(Scanner sn, Character player) {
-		Start.ta.setText("You're hallucinating because of the thirst and no one\n"
+		Start.ta.setText("You're hallucinating because of the thirst and no one "
 				+ "can understand what you're trying to say.");
 	}
 	
 	@Override
 	public void die(Character player) {
-		Start.ta.append("\nYou perished from thirst on Vermellion's lands. But you go down\n"
-				+ "with a smile on your face because you know that this trip\n"
-				+ "wasn't a failure, it was a learning experience.\n");
+		Start.ta.append("\n\nYou perished from thirst on Vermellion's lands. But you go down "
+				+ "with a smile on your face because you know that this trip "
+				+ "wasn't a failure, it was a learning experience.");
 		Start.gameIsRunning = false;
 	}
 

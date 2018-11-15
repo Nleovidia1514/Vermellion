@@ -1,11 +1,11 @@
 package com.labc.Vermellion.Items.Consumables;
 
 import com.labc.Vermellion.Character;
+import com.labc.Vermellion.Entity;
 import com.labc.Vermellion.Start;
 import com.labc.Vermellion.Items.Food;
-import com.labc.Vermellion.Items.Useable;
 
-public class BluePot extends Food implements Useable {
+public class BluePot extends Food {
 
 	public BluePot(Character owner) {
 		super(owner);
@@ -19,9 +19,16 @@ public class BluePot extends Food implements Useable {
 	}
 
 	@Override
-	public void beUsed() {
-		Start.ta.setText("You drank the potion. It left you a bit dazzled. ");
-		super.beUsed();
+	public void beUsed(Entity mob) {
+		if(mob == null) {
+			Start.ta.setText("You drank the potion. It left you a bit dazzled. ");
+			super.beUsed(mob);
+		}
+		else {
+			Start.ta.append("\nYou threw the blue potion at the "+mob.getName()+"\n"
+					+ "and achieved completely nothing. Great work!");
+			mob.beAttacked(0);
+		}
 	}
 
 	@Override

@@ -7,18 +7,16 @@ import com.labc.Vermellion.Start;
 import com.labc.Vermellion.ThirstyState;
 import com.labc.Vermellion.Tile;
 import com.labc.Vermellion.Visitor;
+import com.labc.Vermellion.Items.Equipment;
 import com.labc.Vermellion.Items.ItemFactory;
 
 public class Archer extends Character {
-
+	
 	public Archer(Tile starting) {
 		super(starting);
-		Start.ta.setText("You grab the bow from the floor, you think it feels\n"
-				+ "familiar, the string is tense. This brings you back and\n"
-				+ "makes you remenber things you'd rather not, it is time to\n"
-				+ "look for revenge on Vermellion's wasteland.\n\n");
-		this.MAXHP = HP = 170;
-		this.MAXMAGIC = MAGIC = 50;
+		this.startingItem = (Equipment) ItemFactory.getItem("BOW", this);
+		this.MAXHP = 170;
+		this.MAXMAGIC = 50;
 		this.STR = 60;
 		this.BAGREDAD = 150;
 		this.SNEAK = 70;
@@ -27,7 +25,14 @@ public class Archer extends Character {
 		this.ACCURACY = 200;
 		this.RESISTANCE = 15;
 		this.bagSize = 30;
-		this.inventory.add(ItemFactory.getItem("BOW", this));
+		this.inventory.add(this.startingItem);
+		this.startingItem.equip();
+		this.HP = this.MAXHP;
+		this.MAGIC = this.MAXMAGIC;
+		Start.ta.setText("You grab the bow from the floor, you think it feels "
+				+ "familiar, the string is tense. This brings you back and "
+				+ "makes you remenber things you'd rather not, it is time to "
+				+ "look for revenge on Vermellion's wasteland.\n\n");
 	}
 
 	@Override
@@ -37,7 +42,7 @@ public class Archer extends Character {
 			if(this.current.mob.getName().toLowerCase().contains(target.toLowerCase())) {
 				int calculateChance = 300/this.ACCURACY;
 				if(rnd.nextInt(calculateChance)<=0) {
-					Start.ta.setText("You shot an arrow\n"
+					Start.ta.setText("You shot an arrow "
 							+ "and hit "+this.current.mob.getName()+" dealing "+this.BAGREDAD+" damage.");
 					this.current.mob.beShot(this.BAGREDAD);
 				}
@@ -61,12 +66,12 @@ public class Archer extends Character {
 		
 		if(this.getCharacterstate() != ThirstyState.instance()
 				&& tile.getName().equalsIgnoreCase("Wasteland")) {
-			this.THIRST = 40;
+			this.THIRST -= 200;
 		}
 		
 		else if(this.getCharacterstate() != ThirstyState.instance() &&
 				tile.getName().equalsIgnoreCase("MountainSurroundings")) {
-			this.THIRST = 60;
+			this.THIRST -= 300;
 		}
 		
 		tile.player = this;

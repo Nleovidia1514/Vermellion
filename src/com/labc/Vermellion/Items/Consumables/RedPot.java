@@ -1,11 +1,11 @@
 package com.labc.Vermellion.Items.Consumables;
 
 import com.labc.Vermellion.Character;
+import com.labc.Vermellion.Entity;
 import com.labc.Vermellion.Start;
 import com.labc.Vermellion.Items.Food;
-import com.labc.Vermellion.Items.Useable;
 
-public class RedPot extends Food implements Useable {
+public class RedPot extends Food {
 
 	public RedPot(Character owner) {
 		super(owner);
@@ -19,9 +19,15 @@ public class RedPot extends Food implements Useable {
 	}
 
 	@Override
-	public void beUsed() {
-		Start.ta.setText("It had a funny taste but you feel spectacular. ");
-		super.beUsed();
+	public void beUsed(Entity mob) {
+		if(mob == null) {
+			Start.ta.setText("It had a funny taste but you feel spectacular. ");
+			super.beUsed(mob);
+		}
+		else {
+			Start.ta.append("\nYou threw the potion and revitalized the "+mob.getName()+".");
+			mob.beAttacked(-30);
+		}
 	}
 
 	@Override

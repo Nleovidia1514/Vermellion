@@ -3,12 +3,11 @@ package com.labc.Vermellion;
 import com.labc.Vermellion.Items.Useable;
 
 public abstract class Item implements Useable {
-	protected int HP, MAGIC, ILLUSION, SNEAK, BLOCK, STR, BAGREDAD, ACCURACY;
 	protected String Description;
-	protected Character Owner;
+	private Character Owner;
 	protected String name;
 	public String prefix;
-	public boolean isStarter, isDrinkable, isEatable;;
+	public boolean isStarter, isDrinkable, isEatable;
 	
 	public Item(Character owner) {
 		this.Owner = owner;
@@ -21,9 +20,17 @@ public abstract class Item implements Useable {
 		return this.Description;
 	}
 	
-	public abstract void beUsed();
-	
 	public String getName() {
 		return this.name;
 	}
+
+	public Character getOwner() {
+		return Owner;
+	}
+
+	public void setOwner(Character owner) {
+		Owner = owner;
+	}
+	
+
 }

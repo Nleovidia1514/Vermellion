@@ -63,7 +63,7 @@ public class PoisonedState extends CharacterState {
 			player.THIRST-=20;
 		}
 		else {
-			Start.ta.setText("You walked right through those who were trying to kill\n"
+			Start.ta.setText("You walked right through those who were trying to kill "
 					+ "you facilitating their job. You really are a doubtful IQ person.");
 			player.die(player);
 		}
@@ -94,8 +94,8 @@ public class PoisonedState extends CharacterState {
 	
 	@Override
 	public void die(Character player) {
-		Start.ta.append("\nYou perished from poison on Vermellion's lands.\n"
-				+ "But you go down with a smile on your face because you\n "
+		Start.ta.append("\n\nYou perished from poison on Vermellion's lands. "
+				+ "But you go down with a smile on your face because you "
 				+ "know that this trip wasn't a failure, it was a learning experience.");
 		Start.gameIsRunning = false;
 	}

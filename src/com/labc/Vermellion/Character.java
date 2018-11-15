@@ -2,6 +2,8 @@ package com.labc.Vermellion;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import com.labc.Vermellion.Items.Equipment;
 import com.labc.Vermellion.Items.ItemFactory;
 
 public abstract class Character implements Visitor {
@@ -9,7 +11,9 @@ public abstract class Character implements Visitor {
 	BLOCK, ACCURACY, MAXTHIRST, THIRST, RESISTANCE;
 	protected int bagSize;
 	protected Tile current;
+	protected Equipment startingItem;
 	public ArrayList<Item> inventory;
+	public String[] equipment = new String[5];
 	private CharacterState state;
 	
 	protected Character(Tile starting) {
@@ -20,19 +24,6 @@ public abstract class Character implements Visitor {
 		this.state = NormalState.instance();
 	}
 	
-	protected void attack(Scanner sn) {
-		if(sn.hasNext()) {
-			if(this.current.mob != null && 
-					this.current.mob.getName().toLowerCase().contains(sn.next().toLowerCase()))
-				this.current.mob.beAttacked(this.STR);
-			else
-				Start.ta.setText("You attacked but hit the air LUL");
-			this.THIRST-=15;
-		}
-		else
-			Start.ta.setText("Attack what?");
-		
-	}
 	
 	public void decideWhatToDo(Scanner sn) {
 		this.state.decideWhatToDo(sn, this);
@@ -42,6 +33,14 @@ public abstract class Character implements Visitor {
 
 	protected void walk(String direction) {
 		this.state.walk(direction,this);
+	}
+	
+	protected void talkToNPC(Scanner sn ) {
+		this.state.talkToNPC(sn, this);
+	}
+	
+	protected void die(Character player) {
+		this.state.die(player);
 	}
 
 	protected void run() {
@@ -58,17 +57,72 @@ public abstract class Character implements Visitor {
 		this.THIRST-=30;
 	}
 	
+	
+	protected void seeStats() {
+		Start.ta.setText("MaxHP: "+this.MAXHP);
+		Start.ta.append("\nMaxMAGIC: "+this.MAXMAGIC);
+		Start.ta.append("\nSTR: "+this.STR);
+		Start.ta.append("\nSNEAK: "+this.SNEAK);
+		Start.ta.append("\nBLOCK: "+this.BLOCK);
+		Start.ta.append("\nACCURACY: "+this.ACCURACY);
+		Start.ta.append("\nILLUSION: "+this.ILLUSION);
+		Start.ta.append("\nBAGREDAD: "+this.BAGREDAD);
+		Start.ta.append("\nRESISTANCE: "+this.RESISTANCE);
+	}
+	
+	protected void equip(Scanner sn) {
+		if(sn.hasNext()) {
+			Equipment itemToBeEquipped = null;
+			String itemToEquip = sn.next().toLowerCase();
+			for(int i = 0; i<inventory.size();i++)
+				if(inventory.get(i).getClass().getSimpleName().toLowerCase().contains(itemToEquip)) {
+					try {
+						itemToBeEquipped = (Equipment) inventory.get(i);
+						itemToBeEquipped.equip();
+						break;
+					}catch(Exception e) {
+						itemToBeEquipped = (Equipment) inventory.get(i);
+						Start.ta.setText("You can't equip that item.");
+						break;
+					}		
+				}
+				if(itemToBeEquipped == null)
+					Start.ta.setText("You don't have that item in your possesion.");
+		}
+		else
+			Start.ta.setText("Equip what...?");
+	}
+	
+	protected void unEquip(Scanner sn) {
+		if(sn.hasNext()) {
+			Equipment itemToBeUnEquipped = null;
+			String itemToUnEquip = sn.next().toLowerCase();
+			for(int i = 0; i<inventory.size();i++) {
+				if(inventory.get(i).getClass().getSimpleName().toLowerCase().contains(itemToUnEquip)) {
+						itemToBeUnEquipped = (Equipment) inventory.get(i);
+						itemToBeUnEquipped.unEquip();
+					}		
+			}
+			if(itemToBeUnEquipped == null)
+				Start.ta.setText("You don't have that item in your possesion");
+		}
+		else
+			Start.ta.setText("Unequip what...?");
+	}
+	
 	protected void pickUpItem(String item) {
+		Item itemToBePickedUp;
 		try {
 			if( this.current.mob == null) {
-				if( item.equalsIgnoreCase(this.current.getItemOnFloor()) ) {
+				if( this.current.getItemOnFloor().toLowerCase().contains(item.toLowerCase())) {
 					if( inventory.size() >= this.bagSize )
 						Start.ta.setText("Your inventory is full");
 					else {
-						inventory.add(ItemFactory.getItem(item,this));
+						itemToBePickedUp = ItemFactory.getItem(this.current.getItemOnFloor(), this);
+						inventory.add(itemToBePickedUp);
 						this.current.setItemOnFloor(null);
 						this.current.longDescription = this.current.shortDescription;
-						Start.ta.setText("You picked the "+item+" up");
+						Start.ta.setText("You picked the "+itemToBePickedUp.getClass().getSimpleName()+" up");
 					}
 						
 				}
@@ -89,24 +143,94 @@ public abstract class Character implements Visitor {
 			
 	}
 	
-	protected void seeStats() {
-		Start.ta.setText("MaxHP: "+this.HP);
-		Start.ta.append("\nMaxMAGIC: "+this.MAGIC);
-		Start.ta.append("\nSTR: "+this.STR);
-		Start.ta.append("\nSNEAK: "+this.SNEAK);
-		Start.ta.append("\nBLOCK: "+this.BLOCK);
-		Start.ta.append("\nACCURACY: "+this.ACCURACY);
-		Start.ta.append("\nILLUSION: "+this.ILLUSION);
-		Start.ta.append("\nBAGREDAD: "+this.BAGREDAD);
-		Start.ta.append("\nRESISTANCE: "+this.RESISTANCE);
+	protected void attack(Scanner sn) {
+		Entity mobToAttack;
+		Item itemToAttackWith = null;
+		if(sn.hasNext()) {
+			if(this.current.mob.getName().toLowerCase().contains(sn.next().toLowerCase())) {
+				mobToAttack = this.current.mob;
+				if(sn.hasNext()) {
+					if(sn.hasNext() && sn.next().equalsIgnoreCase("with")) {
+						String instrument = sn.next().toLowerCase();
+						if(instrument.contains("hand") || instrument.contains("fist")) {
+							Start.ta.setText("You attacked "+current.mob.getName()+" with your fists.");
+							mobToAttack.beAttacked(this.STR);
+						}
+						else {
+							for(int i=0;i<inventory.size();i++)
+								if(inventory.get(i).getName().toLowerCase().contains(instrument)) {
+									itemToAttackWith = inventory.get(i);
+									break;
+								}
+							if(itemToAttackWith == null)
+								Start.ta.setText("You don't have anything like that in your possesion.");
+						
+							else if(itemToAttackWith.getClass().getSuperclass().getSimpleName().equalsIgnoreCase("Equipment"))
+							{
+								if(this.equipment[Equipment.weapon].equalsIgnoreCase(itemToAttackWith.getClass().getSimpleName())) {
+									Start.ta.setText("You attacked "+current.mob.getName()+" with "+equipment[Equipment.weapon]+".");
+									itemToAttackWith.beUsed(mobToAttack);
+								}
+								else if( ( this.equipment[Equipment.helmet].equalsIgnoreCase("Mind") && itemToAttackWith.getClass().getSimpleName().equalsIgnoreCase("Mind"))  || 
+										(  this.equipment[Equipment.helmet].equalsIgnoreCase("MajorasMask") && itemToAttackWith.getClass().getSimpleName().equalsIgnoreCase("MajorasMask")))
+								{
+									Start.ta.setText("You attacked " + current.mob.getName()+ "with " + this.equipment[Equipment.helmet]+".");
+									itemToAttackWith.beUsed(mobToAttack);
+								}
+								else
+									Start.ta.setText("You don't have that equipped as a weapon.");
+							}
+							else
+							{
+			
+								Start.ta.setText("You attacked "+current.mob.getName()+" with "+instrument+".");
+					
+								itemToAttackWith.beUsed(mobToAttack);
+							}
+						}
+					}
+					else
+						Start.ta.setText("Attack "+this.current.mob.getName()+" with what?");
+				}
+				else
+					Start.ta.setText("Attack "+this.current.mob.getName()+" with what?");
+			}
+			else
+				Start.ta.setText("There is no such being like that near here.");
+		}
+		else
+			Start.ta.setText("Attack what?");
 	}
 	
-	protected void talkToNPC(Scanner sn,Character player ) {
-		this.state.talkToNPC(sn, player);
-	}
-	
-	protected void die(Character player) {
-		this.state.die(player);
+	protected void useItem(Scanner sn, String action) {
+		if( sn.hasNext() ) {
+			String name = sn.next();
+			Item item = null;
+			for(int i=0;i<this.inventory.size();i++)
+				if(this.inventory.get(i).getName().toLowerCase().
+						contains(name.toLowerCase()))
+					item = this.inventory.get(i);
+			if( item == null )
+				Start.ta.append("\nYou don't have that item in your inventory.");
+			else {
+				if(action.equalsIgnoreCase("USE"))
+					item.beUsed(null);
+				else if(action.equalsIgnoreCase("EAT")) {
+					if(item.isEatable)
+						item.beUsed(null);
+					else
+						Start.ta.setText("You can't eat that dude.");
+				}
+				else if(action.equalsIgnoreCase("DRINK")) {
+					if(item.isDrinkable)
+						item.beUsed(null);
+					else
+						Start.ta.setText("You can't eat that dude.");
+				}
+			}
+		}
+		else 
+			Start.ta.setText("Use what?");
 	}
 	
 	public Tile getCurrent() {

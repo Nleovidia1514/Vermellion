@@ -22,7 +22,7 @@ public class Goddess extends EntityDecorator{
 	@Override
 	public void beAttacked(int damage) {
 		this.HP -= damage;
-		Start.ta.setText("You attacked the goddess dealing "+damage+" damage."
+		Start.ta.append("\nYou attacked the goddess dealing "+damage+" damage."
 				+ " You really are a horrible person.");
 		if(this.HP<=0) {
 			Start.ta.append("\nThe goddess died and her body evaporated. You are astonished.");
@@ -53,9 +53,9 @@ public class Goddess extends EntityDecorator{
 	@Override
 	public void talk() {
 		if(!this.alreadyTalkedTo) {
-			Start.ta.setText("\nGoddess - Hello traveler. i have been expecting for a long time\n"
-					+ "when i first sensed your arrival i knew you wouldn't\n"
-					+ "have an easy path to you destination so i have built\n"
+			Start.ta.setText("\nGoddess - Hello traveler. i have been expecting for a long time "
+					+ "when i first sensed your arrival i knew you wouldn't "
+					+ "have an easy path to you destination so i have built "
 					+ "this in order to help you get through your savage journey."
 					+ "\nWill you accept this gift?");
 			
@@ -69,27 +69,27 @@ public class Goddess extends EntityDecorator{
 		if(decision.trim().equalsIgnoreCase("YES") || decision.trim().equalsIgnoreCase("NO")) {
 			if(decision.trim().equalsIgnoreCase("YES")) {
 				this.position.player.inventory.add(ItemFactory.getItem("EXCALIBUR", this.position.player));
-				Start.ta.setText("Take this gift as a sign of my gratitude\n"
-						+ "for that which you have not yet done young adventurer.\n"
+				Start.ta.setText("Take this gift as a sign of my gratitude "
+						+ "for that which you have not yet done young adventurer. "
 						+ "Grow wise and strong, i will be watching...");
 				Start.ta.append("\nExcalibur has been added to your inventory.");
 				this.alreadyTalkedTo = true;
 				Start.tfState = PlayState.instance();
 			}
 			else if(decision.trim().equalsIgnoreCase("NO")) {
-				Start.ta.setText("\nGoddess - Oh well... that is disappointing.");
+				Start.ta.setText("Goddess - Oh well... that is disappointing.");
 				Start.tfState = PlayState.instance();
 			}
-				
-			else {
-				Start.ta.setText("\nGoddess - Hello traveler. i have been expecting for a long time\n"
-						+ "when i first sensed your arrival i knew you wouldn't\n"
-						+ "have an easy path to you destination so i have built\n"
-						+ "this in order to help you get through your savage journey."
-						+ "\nWill you accept this gift?");
-				Start.ta.append("\nGoddess - Sorry traveler. I can't quite understand your language.");
-			}	
 		}
+		else {
+			Start.ta.setText("Goddess - Hello traveler. i have been expecting for a long time "
+					+ "when i first sensed your arrival i knew you wouldn't "
+					+ "have an easy path to you destination so i have built "
+					+ "this in order to help you get through your savage journey."
+					+ "\nWill you accept this gift?");
+			Start.ta.append("\nGoddess - Sorry traveler. I can't quite understand your language.");
+		}	
 	}
-
+	
+	
 }

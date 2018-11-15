@@ -1,11 +1,11 @@
 package com.labc.Vermellion.Items.Consumables;
 
 import com.labc.Vermellion.Character;
+import com.labc.Vermellion.Entity;
 import com.labc.Vermellion.Start;
 import com.labc.Vermellion.Items.Food;
-import com.labc.Vermellion.Items.Useable;
 
-public class Fungi extends Food implements Useable{
+public class Fungi extends Food{
 
 	public Fungi(Character owner) {
 		super(owner);
@@ -19,9 +19,16 @@ public class Fungi extends Food implements Useable{
 	}
 
 	@Override
-	public void beUsed() {
-		Start.ta.setText("Suddenly you're in the sky and you've never felt more alive. ");
-		super.beUsed();
+	public void beUsed(Entity mob) {
+		if(mob == null) {
+			Start.ta.setText("Suddenly you're in the sky and you've never felt more alive. ");
+			super.beUsed(mob);
+		}
+		else {
+			Start.ta.append("\nYou made the "+mob.getName()+" and is now hallucinating and\n"
+					+ "doing weird stuff");
+			mob.die();
+		}
 	}
 
 	@Override

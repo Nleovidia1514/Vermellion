@@ -25,7 +25,7 @@ public class SkullKid extends EntityDecorator{
 	@Override
 	public void beAttacked(int damage) {
 		this.HP -= damage;
-		Start.ta.setText("You attacked the SkullKid dealing "+damage+" damage. He's just a kid.");
+		Start.ta.append("\nYou attacked the SkullKid dealing "+damage+" damage. He's just a kid.");
 		if(this.HP<=0) {
 			Start.ta.append("\nThe kid died and disappeared. Nothing makes sense.");
 			this.die();
@@ -52,10 +52,10 @@ public class SkullKid extends EntityDecorator{
 	public void talk() {
 		if(!this.alreadyTalkedTo) {
 			Start.tfState = SkullKidState.instance();
-			Start.ta.setText("SkullKid - Hello adventurer. I am the SkullKid, inhabitant and\n"
-					+ "protector of these magic woods. I like to call myself\n"
-					+ "a trickster so i have a little game for you. If you\n"
-					+ "can play these woods' characteristic song correctly, i will\n"
+			Start.ta.setText("SkullKid - Hello adventurer. I am the SkullKid, inhabitant and "
+					+ "protector of these magic woods. I like to call myself "
+					+ "a trickster so i have a little game for you. If you "
+					+ "can play these woods' characteristic song correctly, i will "
 					+ "give you a reward. So do you accept this game?");
 		}
 		else 
@@ -67,14 +67,14 @@ public class SkullKid extends EntityDecorator{
 		String sariasSong = "abajo derecha izquierda";
 		if(song.toLowerCase().contains("stop") || song.toLowerCase().contains(sariasSong)) {
 			if(song.toLowerCase().contains(sariasSong)) {
-				Start.ta.setText("SkullKid - That really is a beatiful song. Isn't it adventurer?\n");
+				Start.ta.setText("SkullKid - That really is a beatiful song. Isn't it adventurer?");
 				this.position.player.inventory.add(ItemFactory.getItem("MAJORASMASK",this.position.player));
 				Start.ta.append("\nMajora's mask has been added to your inventory.");
 				this.alreadyTalkedTo = true;
 				Start.tfState = PlayState.instance();
 			}
 			else {
-				Start.ta.append("\nSkullKid - Oh well... that is disappointing.");
+				Start.ta.setText("SkullKid - Oh well... that is disappointing.");
 				Start.tfState = PlayState.instance();
 			}
 				
@@ -86,24 +86,22 @@ public class SkullKid extends EntityDecorator{
 	public void makeDecision(String decision) {
 		if(decision.trim().equalsIgnoreCase("YES") || decision.trim().equalsIgnoreCase("NO")) {
 			if(decision.trim().equalsIgnoreCase("YES")) {
-				Start.ta.setText("Skull kid - Oh, how exciting. Time to show me what you can do.\n"
+				Start.ta.setText("Skull kid - Oh, how exciting. Time to show me what you can do. "
 						+ "Here, take my ocarina and start playing.");
 				Start.tfState = SariasSongState.instance();
 			}
 			else if(decision.trim().equalsIgnoreCase("NO")) {
 				Start.ta.append("\nSkullKid - Oh well... that is disappointing.");
 				Start.tfState = PlayState.instance();
-			}
-			
-			else {
-				Start.ta.setText("SkullKid - Hello adventurer. I am the SkullKid, inhabitant and\n"
-						+ "protector of these magic woods. I like to call myself\n"
-						+ "a trickster so i have a little game for you. If you\n"
-						+ "can play these woods' characteristic song correctly, i will\n"
-						+ "give you a reward. So do you accept this game?");
-				Start.ta.append("\nSkullKid - Sorry adventurer. I can't quite understand your language.");
-			}
-				
+			}	
+		}
+		else {
+			Start.ta.setText("SkullKid - Hello adventurer. I am the SkullKid, inhabitant and "
+					+ "protector of these magic woods. I like to call myself\n"
+					+ "a trickster so i have a little game for you. If you "
+					+ "can play these woods' characteristic song correctly, i will "
+					+ "give you a reward. So do you accept this game?");
+			Start.ta.append("\nSkullKid - Sorry adventurer. I can't quite understand your language.");
 		}
 	}
 }

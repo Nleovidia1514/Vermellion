@@ -28,5 +28,9 @@ public abstract class Entity {
 	public void setHP(int HP) {
 		this.HP = HP;
 	}
+	
+	public int getHP() {
+		return this.HP;
+	}
 
 }

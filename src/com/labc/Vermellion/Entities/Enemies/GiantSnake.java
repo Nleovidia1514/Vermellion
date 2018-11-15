@@ -4,6 +4,7 @@ import com.labc.Vermellion.PoisonedState;
 import com.labc.Vermellion.Start;
 import com.labc.Vermellion.Entities.Enemy;
 import com.labc.Vermellion.Entities.EntityDecorator;
+import com.labc.Vermellion.Items.Equipment;
 
 public class GiantSnake extends EntityDecorator implements AttackAble{
 
@@ -14,7 +15,7 @@ public class GiantSnake extends EntityDecorator implements AttackAble{
 	@Override
 	public void beAttacked(int damage) {
 		super.beAttacked(damage);
-		Start.ta.setText("You attacked the snake and dealt\n"
+		Start.ta.append("\nYou attacked the snake and dealt "
 				+ damage + " damage to it. Snakes are gross.");
 		this.HP-=damage;
 		if(this.HP<=0) {
@@ -69,8 +70,17 @@ public class GiantSnake extends EntityDecorator implements AttackAble{
 		Start.ta.append("\nSSSSSSSsssSSSSsSSSS!!!!!");
 		position.player.setHP(totalDamage);
 		Poison();
-		Start.ta.append("\nThe "+this.name+" dealt "+CalculateDamage()+" damage to you.\n"
+		Start.ta.append("\nThe "+this.name+" dealt "+CalculateDamage()+" damage to you. "
 				+ "and poisoned you for 3 turns.");
+		for(String damage : this.position.player.equipment)
+		{
+			for(int i=0;i<this.position.player.inventory.size();i++) {
+				Equipment piece = (Equipment) this.position.player.inventory.get(i);
+				if(piece.getName().equalsIgnoreCase(damage) 
+						&& piece.getCategory() != Equipment.weapon )
+					piece.reduceDurability();
+			}
+		}
 	}
 	
 	private void Poison() {

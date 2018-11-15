@@ -3,6 +3,7 @@ package com.labc.Vermellion.Items;
 import com.labc.Vermellion.Item;
 import com.labc.Vermellion.Start;
 import com.labc.Vermellion.Character;
+import com.labc.Vermellion.Entity;
 
 public abstract class Food extends Item {
 	protected int Heal;
@@ -18,27 +19,27 @@ public abstract class Food extends Item {
 	public abstract void giveToNPC();
 	
 	@Override
-	public void beUsed() {
+	public void beUsed(Entity mob) {
 		int hphealed = 0, magicrestored = 0; int thirstrestored = 0;
 		for(int i = 0; i<this.Heal;i++)
-			if (this.Owner.getHP() < this.Owner.getMaxHP()) {
-				this.Owner.setHP(this.Owner.getHP()+1);
+			if (this.getOwner().getHP() < this.getOwner().getMaxHP()) {
+				this.getOwner().setHP(this.getOwner().getHP()+1);
 				hphealed++;
 			}
 		
 		for(int i = 0; i<this.Mana;i++)
-			if (this.Owner.getMagic() < this.Owner.getMaxMagic()) {
-				this.Owner.setMagic(this.Owner.getMagic()+1);
+			if (this.getOwner().getMagic() < this.getOwner().getMaxMagic()) {
+				this.getOwner().setMagic(this.getOwner().getMagic()+1);
 				magicrestored++;
 			}
 		
 		for( int i = 0; i<this.water; i++)
-			if(this.Owner.getThirst() < this.Owner.getMaxThirst() ){
-				this.Owner.setThirst(this.Owner.getThirst()+1);
+			if(this.getOwner().getThirst() < this.getOwner().getMaxThirst() ){
+				this.getOwner().setThirst(this.getOwner().getThirst()+1);
 				thirstrestored++;
 			}
 			
-		this.Owner.inventory.remove(this);
+		this.getOwner().inventory.remove(this);
 		Start.ta.append("\nYou restored "+hphealed+" HP, "+magicrestored+" MAGIC"
 				+ " and "+thirstrestored+" thirst");
 	}

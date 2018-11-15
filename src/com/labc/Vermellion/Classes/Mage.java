@@ -5,6 +5,7 @@ import com.labc.Vermellion.Start;
 import com.labc.Vermellion.ThirstyState;
 import com.labc.Vermellion.Tile;
 import com.labc.Vermellion.Visitor;
+import com.labc.Vermellion.Items.Equipment;
 import com.labc.Vermellion.Items.ItemFactory;
 
 import java.util.Random;
@@ -13,11 +14,9 @@ public class Mage extends Character{
 	
 	public Mage(Tile starting) {
 		super(starting);
-		Start.ta.setText("You feel an outburst of power running through your body\n"
-				+ "you suddenly feel like the world is yours\n"
-				+ "and you're ready to take on Vermellion's wasteland...\n\n");
-		this.MAXHP = HP = 175;
-		this.MAXMAGIC = MAGIC = 200;
+		this.startingItem = (Equipment) ItemFactory.getItem("STAFF", this);
+		this.MAXHP = 175;
+		this.MAXMAGIC = 200;
 		this.STR = 60;
 		this.BAGREDAD = 100;
 		this.SNEAK = 70;
@@ -26,7 +25,13 @@ public class Mage extends Character{
 		this.bagSize = 30;
 		this.ACCURACY = 140;
 		this.RESISTANCE = 10;
-		this.inventory.add(ItemFactory.getItem("STAFF", this));
+		this.inventory.add(this.startingItem);
+		this.startingItem.equip();
+		this.HP = this.MAXHP;
+		this.MAGIC = this.MAXMAGIC;
+		Start.ta.setText("You feel an outburst of power running through your body "
+				+ "you suddenly feel like the world is yours "
+				+ "and you're ready to take on Vermellion's wasteland...\n\n");
 	}
 
 	@Override
@@ -61,17 +66,17 @@ public class Mage extends Character{
 	public void Visit(Tile tile) {
 		Start.ta.setText(tile.getShortDescription());
 		if(tile.hasEnemy)
-			Start.ta.append("\nYou read your spell book as you prepare for\n"
+			Start.ta.append("\nYou read your spell book as you prepare for "
 					+ "what's next.");
 		
 		if(this.getCharacterstate() != ThirstyState.instance()
 				&& tile.getName().equalsIgnoreCase("Wasteland")) {
-			this.THIRST = 40;
+			this.THIRST -=200;
 		}
 		
 		else if(this.getCharacterstate() != ThirstyState.instance() &&
 				tile.getName().equalsIgnoreCase("MountainSurroundings")) {
-			this.THIRST = 60;
+			this.THIRST -= 300;
 		}
 		
 		tile.player = this;

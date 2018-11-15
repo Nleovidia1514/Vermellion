@@ -3,6 +3,7 @@ package com.labc.Vermellion.Entities.Enemies;
 import com.labc.Vermellion.Start;
 import com.labc.Vermellion.Entities.Enemy;
 import com.labc.Vermellion.Entities.EntityDecorator;
+import com.labc.Vermellion.Items.Equipment;
 
 public class Bear extends EntityDecorator implements AttackAble{
 
@@ -16,13 +17,22 @@ public class Bear extends EntityDecorator implements AttackAble{
 		Start.ta.append("\n*Angry bear sounds*");
 		position.player.setHP(totalDamage);
 		Start.ta.append("\nThe bear dealed "+CalculateDamage()+" damage to you.");
+		for(String damage : this.position.player.equipment)
+		{
+			for(int i=0;i<this.position.player.inventory.size();i++) {
+				Equipment piece = (Equipment) this.position.player.inventory.get(i);
+				if(piece.getName().equalsIgnoreCase(damage) 
+						&& piece.getCategory() != Equipment.weapon )
+					piece.reduceDurability();
+			}
+		}
 	}
 
 	@Override
 	public void beAttacked(int damage) {
 		super.beAttacked(damage);
-		Start.ta.setText("*Hurted bear sounds*");
-		Start.ta.append("\nYou made "+damage+" damage to the "+this.name+".");
+		Start.ta.append("\n*Hurted bear sounds*");
+		Start.ta.append("\nYou dealt "+damage+" damage to the "+this.name+".");
 		this.HP -= damage;
 		if(this.HP<=0) {
 			Start.ta.append("\n*Sad bear sounds*");

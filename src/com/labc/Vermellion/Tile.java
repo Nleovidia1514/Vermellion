@@ -1,5 +1,7 @@
 package com.labc.Vermellion;
 
+import javax.swing.ImageIcon;
+
 public class Tile implements Element{
 	int x;
 	int y;
@@ -10,6 +12,7 @@ public class Tile implements Element{
 	private Tile[] neighbors = new Tile[4];
 	private String itemOnFloor;
 	public Descriptions descripts;
+	public ImageIcon image;
 	
 	public Tile(int x , int y, String name, String itemOnF){
 		this.name = name;
@@ -62,6 +65,7 @@ public class Tile implements Element{
 
 	@Override
 	public void accept(Visitor v) {
+		Start.pic.setIcon(this.image);
 		v.Visit(this);
 	}
 }

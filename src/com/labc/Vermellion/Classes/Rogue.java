@@ -2,6 +2,7 @@ package com.labc.Vermellion.Classes;
 
 import com.labc.Vermellion.Tile;
 import com.labc.Vermellion.Visitor;
+import com.labc.Vermellion.Items.Equipment;
 import com.labc.Vermellion.Items.ItemFactory;
 
 import java.util.Random;
@@ -13,11 +14,9 @@ public class Rogue extends Character{
 	
 	public Rogue(Tile starting) {
 		super(starting);
-		Start.ta.setText("You grab the knives that were given to you by your father,\nthey are"
-				+" sharp... very sharp. 'I will avenge you father'\nsuddenly"
-				+" you feel ready to take on Vermellion's Wasteland...\n\n");
-		this.HP = 175;
-		this.MAGIC = 120;
+		this.startingItem = (Equipment) ItemFactory.getItem("DAGGER", this);
+		this.MAXHP = 175;
+		this.MAXMAGIC = 120;
 		this.STR = 80;
 		this.BAGREDAD = 35;
 		this.SNEAK = 150;
@@ -26,7 +25,13 @@ public class Rogue extends Character{
 		this.ACCURACY = 100;
 		this.RESISTANCE = 20;
 		this.bagSize = 20;
-		this.inventory.add(ItemFactory.getItem("DAGGER", this));
+		this.inventory.add(this.startingItem);
+		this.startingItem.equip();
+		this.HP = this.MAXHP;
+		this.MAGIC = this.MAXMAGIC;
+		Start.ta.setText("You grab the knives that were given to you by your father, they are"
+				+" sharp... very sharp. 'I will avenge you father' suddenly"
+				+" you feel ready to take on Vermellion's Wasteland...\n\n");
 	}
 
 	@Override
@@ -56,17 +61,17 @@ public class Rogue extends Character{
 	public void Visit(Tile tile) {
 		Start.ta.setText(tile.getShortDescription());
 		if(tile.hasEnemy)
-			Start.ta.append("\nYou make playful moves with you dagger\n"
-					+ "as you can't want to slice something's throat..");
+			Start.ta.append("\nYou make playful moves with your dagger "
+					+ "as you can't wait to slice something's throat..");
 		
 		if(this.getCharacterstate() != ThirstyState.instance()
 				&& tile.getName().equalsIgnoreCase("Wasteland")) {
-			this.THIRST = 40;
+			this.THIRST -=200;
 		}
 		
 		else if(this.getCharacterstate() != ThirstyState.instance() &&
 				tile.getName().equalsIgnoreCase("MountainSurroundings")) {
-			this.THIRST = 60;
+			this.THIRST -=300;
 		}
 		
 		tile.player = this;

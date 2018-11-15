@@ -1,11 +1,11 @@
 package com.labc.Vermellion.Items.Consumables;
 
 import com.labc.Vermellion.Character;
+import com.labc.Vermellion.Entity;
 import com.labc.Vermellion.Start;
 import com.labc.Vermellion.Items.Food;
-import com.labc.Vermellion.Items.Useable;
 
-public class Apple extends Food implements Useable{
+public class Apple extends Food {
 
 	public Apple(Character owner) {
 		super(owner);
@@ -25,10 +25,15 @@ public class Apple extends Food implements Useable{
 	}
 
 	@Override
-	public void beUsed() {
-		// TODO Auto-generated method stub
-		Start.ta.setText("You ate the apple... it had an odd taste. ");
-		super.beUsed();
+	public void beUsed(Entity mob) {
+		if(mob == null) {
+			Start.ta.setText("You ate the apple... it had an odd taste. ");
+			super.beUsed(mob);
+		}
+		else {
+			Start.ta.setText("You threw the apple ti}o the "+mob.getName()+" and got it mad");
+			mob.beAttacked(0);
+		}
 	}
 
 }

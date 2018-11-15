@@ -27,15 +27,16 @@ public class ChooseClassState extends TextFieldState {
 		else if(Start.clase.toLowerCase().contains("bow"))
 			Start.Player = new Archer(Start.starting);
 		else
-			Start.ta.append("Can you get the dick out of your mouth?");
+			Start.ta.append("\nCan you get the dick out of your mouth?");
 		
 		if(Start.Player!=null) {
 			Start.tfState = PlayState.instance();
-			Start.ta.append(Start.Player.getCurrent().getShortDescription());
+			Start.starting.accept(Start.Player);
 			Start.ta.append("\nHP - "+Start.Player.getHP()+"\n"
 			+"MAGIC - "+Start.Player.getMagic()+"\n"
 			+"THIRST - "+Start.Player.getThirst());
 		}
+	
 	}
 
 	@Override

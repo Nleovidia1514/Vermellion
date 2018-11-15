@@ -9,14 +9,14 @@ import com.labc.Vermellion.Items.Consumables.Fungi;
 import com.labc.Vermellion.Items.Consumables.GreenPot;
 import com.labc.Vermellion.Items.Consumables.RedPot;
 import com.labc.Vermellion.Items.Consumables.SpaghettiOs;
-import com.labc.Vermellion.Items.Weapons.Axe;
-import com.labc.Vermellion.Items.Weapons.Bow;
-import com.labc.Vermellion.Items.Weapons.Dagger;
-import com.labc.Vermellion.Items.Weapons.Excalibur;
-import com.labc.Vermellion.Items.Weapons.MajorasMask;
-import com.labc.Vermellion.Items.Weapons.Mind;
-import com.labc.Vermellion.Items.Weapons.Staff;
-import com.labc.Vermellion.Items.Weapons.Sword;
+import com.labc.Vermellion.Items.Equipamiento.Axe;
+import com.labc.Vermellion.Items.Equipamiento.Bow;
+import com.labc.Vermellion.Items.Equipamiento.Dagger;
+import com.labc.Vermellion.Items.Equipamiento.Excalibur;
+import com.labc.Vermellion.Items.Equipamiento.MajorasMask;
+import com.labc.Vermellion.Items.Equipamiento.Mind;
+import com.labc.Vermellion.Items.Equipamiento.Staff;
+import com.labc.Vermellion.Items.Equipamiento.Sword;
 import com.labc.Vermellion.Character;
 
 public class ItemFactory {

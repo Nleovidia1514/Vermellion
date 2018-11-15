@@ -1,11 +1,12 @@
 package com.labc.Vermellion.Items.Consumables;
 
 import com.labc.Vermellion.Character;
+import com.labc.Vermellion.Entity;
 import com.labc.Vermellion.Start;
 import com.labc.Vermellion.Items.Food;
-import com.labc.Vermellion.Items.Useable;
 
-public class GreenPot extends Food implements Useable {
+
+public class GreenPot extends Food {
 
 	public GreenPot(Character owner) {
 		super(owner);
@@ -19,9 +20,16 @@ public class GreenPot extends Food implements Useable {
 	}
 
 	@Override
-	public void beUsed() {
-		Start.ta.setText("You almost vomit but you managed not too. ");
-		super.beUsed();
+	public void beUsed(Entity mob) {
+		if(mob == null) {
+			Start.ta.setText("You almost vomit but you managed not too. ");
+			super.beUsed(mob);
+		}
+		else {
+			Start.ta.append("\nYou threw the potion to the "+mob.getName()+" and\n"
+					+ "managed to hurt it a little bit.");
+			mob.beAttacked(25);
+		}
 	}
 
 	@Override

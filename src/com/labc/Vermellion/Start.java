@@ -19,8 +19,8 @@ public class Start {
 	public static String clase = "";
 	public static Character Player;
 	public static boolean gameIsRunning;
-	JFrame frame;
-	JPanel panel;
+	public static JFrame frame;
+	public static JLabel pic;
 	public static JTextArea ta;
 	public static JTextField tf;
 	public static TextFieldState tfState;
@@ -35,24 +35,21 @@ public class Start {
 	}
 	
 	private void innitGui() {
-		frame = new JFrame("Vermellion");
-		panel = new JPanel();
-		ta = new JTextArea("You wake up in the middle of nowhere with nothing\n"
-				+"but your skills and a thirst for revenge. You look\n"
-				+"around and see a number of tools:\n\nA staff\nA dagger"
+		ta.setText("You wake up in the middle of nowhere with nothing"
+				+" but your skills and a thirst for revenge. You look"
+				+" around and see a number of tools:\n\nA staff\nA dagger"
 				+"\nA sword\nA pair of glasses\nA bow\nWhat do you grab?");
-		tf = new JTextField(10);
 		tf.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				Start.tfState.action();
 				tf.setText(null);
-				frame.pack();
-			}
 			
+			}
+	
 		});
-		ta.setEditable(false);
-		panel.add(ta);
+		
+		/*panel.add(ta);
 		panel.add(tf);
 		tf.setRequestFocusEnabled(true);
 		panel.setLayout(new FlowLayout());
@@ -62,12 +59,7 @@ public class Start {
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setAlwaysOnTop(true);
-	}
-
-	public static void main(String[] args) throws IOException {
-		// TODO Auto-generated method stub
-		new Start();
+		frame.setAlwaysOnTop(true);*/
 	}
 
 }

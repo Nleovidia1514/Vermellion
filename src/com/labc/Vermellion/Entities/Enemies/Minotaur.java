@@ -3,6 +3,7 @@ package com.labc.Vermellion.Entities.Enemies;
 import com.labc.Vermellion.Start;
 import com.labc.Vermellion.Entities.Enemy;
 import com.labc.Vermellion.Entities.EntityDecorator;
+import com.labc.Vermellion.Items.Equipment;
 
 public class Minotaur extends EntityDecorator implements AttackAble {
 
@@ -13,7 +14,7 @@ public class Minotaur extends EntityDecorator implements AttackAble {
 	@Override
 	public void beAttacked(int damage) {
 		super.beAttacked(damage);
-		Start.ta.setText("You attacked the minotaur and dealt\n"
+		Start.ta.append("\nYou attacked the minotaur and dealt "
 				+ damage + " damage to it. Does he fuck humans or horses?.");
 		this.HP-=damage;
 		if(this.HP<=0)
@@ -66,8 +67,17 @@ public class Minotaur extends EntityDecorator implements AttackAble {
 		int totalDamage = position.player.getHP() - CalculateDamage();
 		Start.ta.append("\nCHARGEEEEEEEEE!!!!");
 		position.player.setHP(totalDamage);
-		Start.ta.append("\nThe "+this.name+" dealt "+CalculateDamage()+" damage to you\n"
+		Start.ta.append("\nThe "+this.name+" dealt "+CalculateDamage()+" damage to you"
 				+ "and let you a bit dazzled.");
+		for(String damage : this.position.player.equipment)
+		{
+			for(int i=0;i<this.position.player.inventory.size();i++) {
+				Equipment piece = (Equipment) this.position.player.inventory.get(i);
+				if(piece.getName().equalsIgnoreCase(damage) 
+						&& piece.getCategory() != Equipment.weapon )
+					piece.reduceDurability();
+			}
+		}
 	}
 	
 	private int CalculateDamage() {

@@ -1,11 +1,11 @@
 package com.labc.Vermellion.Items.Consumables;
 
 import com.labc.Vermellion.Character;
+import com.labc.Vermellion.Entity;
 import com.labc.Vermellion.Start;
 import com.labc.Vermellion.Items.Food;
-import com.labc.Vermellion.Items.Useable;
 
-public class SpaghettiOs extends Food implements Useable {
+public class SpaghettiOs extends Food {
 
 	public SpaghettiOs(Character owner) {
 		super(owner);
@@ -19,9 +19,15 @@ public class SpaghettiOs extends Food implements Useable {
 	}
 
 	@Override
-	public void beUsed() {
-		Start.ta.setText("You consumed the "+this.name+" and you feel like a child in El Imperio. ");
-		super.beUsed();
+	public void beUsed(Entity mob) {
+		if(mob == null) {
+			Start.ta.setText("You consumed the "+this.name+" and you feel like a child in El Imperio. ");
+			super.beUsed(mob);
+		}
+		else {
+			Start.ta.append("The "+mob.getName()+" seem happy for your gift but they will still try to kill you.");
+			mob.beAttacked(0);
+		}
 	}
 
 	@Override

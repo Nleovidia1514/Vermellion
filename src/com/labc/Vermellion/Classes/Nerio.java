@@ -2,6 +2,7 @@ package com.labc.Vermellion.Classes;
 
 import com.labc.Vermellion.Tile;
 import com.labc.Vermellion.Visitor;
+import com.labc.Vermellion.Items.Equipment;
 import com.labc.Vermellion.Items.ItemFactory;
 
 import java.util.Random;
@@ -13,12 +14,9 @@ public class Nerio extends Character  {
 	
 	public Nerio(Tile starting) {
 		super(starting);
-		Start.ta.setText("You grab the glasses and put them on, you notice\n"
-				+"how you start getting old and getting bagre, this is it.\n"
-				+"The moment you've been waiting for has arrived\n"
-				+ "'Si me traen un cachito yo soy generoso'\n\n");
-		this.HP = 300;
-		this.MAGIC = 50;
+		this.startingItem = (Equipment) ItemFactory.getItem("MIND", this);
+		this.MAXHP = 300;
+		this.MAXMAGIC = 50;
 		this.STR = 200;
 		this.BAGREDAD = 1000;
 		this.SNEAK = 100;
@@ -27,7 +25,14 @@ public class Nerio extends Character  {
 		this.ACCURACY = 100;
 		this.RESISTANCE = 50;
 		this.bagSize = 30;
-		this.inventory.add(ItemFactory.getItem("MIND", this));
+		this.inventory.add(this.startingItem);
+		this.startingItem.equip();
+		this.HP = this.MAXHP;
+		this.MAGIC = this.MAXMAGIC;
+		Start.ta.setText("You grab the glasses and put them on, you notice "
+				+"how you start getting old and getting bagre, this is it. "
+				+"The moment you've been waiting for has arrived "
+				+ "'Si me traen un cachito yo soy generoso'\n\n");
 	}
 
 	@Override
@@ -58,17 +63,17 @@ public class Nerio extends Character  {
 	public void Visit(Tile tile) {
 		Start.ta.setText(tile.getShortDescription());
 		if(tile.hasEnemy)
-			Start.ta.append("\nYou think about what to do next\n "
+			Start.ta.append("\nYou think about what to do next "
 					+ "while you watch youtube.");
 		
 		if(this.getCharacterstate() != ThirstyState.instance()
 				&& tile.getName().equalsIgnoreCase("Wasteland")) {
-			this.THIRST = 40;
+			this.THIRST -=200 ;
 		}
 		
 		else if(this.getCharacterstate() != ThirstyState.instance() &&
 				tile.getName().equalsIgnoreCase("MountainSurroundings")) {
-			this.THIRST = 60;
+			this.THIRST -= 300;
 		}
 		
 		tile.player = this;

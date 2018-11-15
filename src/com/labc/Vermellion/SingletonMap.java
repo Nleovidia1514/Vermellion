@@ -29,10 +29,12 @@ public class SingletonMap {
 				tile[i][j].initNeightbors(tile);
 		
 		innitMountain();
+		Descriptions.innitPics();
 		
 		for(int i = 0; i<MapSize;i++)
 			for(int j= 0; j<MapSize;j++) {
 			tile[i][j].setDescs();
+			tile[i][j].image = Descriptions.picBeforeFight.get(tile[i][j].getName());
 			//System.out.println(tile[i][j].getName());
 			}
 	}

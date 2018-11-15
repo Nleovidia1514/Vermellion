@@ -3,8 +3,10 @@ package com.labc.Vermellion.Entities.Enemies;
 import java.util.Random;
 
 import com.labc.Vermellion.Entity;
+import com.labc.Vermellion.Item;
 import com.labc.Vermellion.Start;
 import com.labc.Vermellion.Entities.EntityDecorator;
+import com.labc.Vermellion.Items.Equipment;
 
 public class Bandits extends EntityDecorator implements AttackAble {
 
@@ -15,20 +17,35 @@ public class Bandits extends EntityDecorator implements AttackAble {
 	@Override
 	public void attack() {
 		Random rnd = new Random();
-		int totalDamage = position.player.getHP()-CalculateDamage(), itemStolen;
+		int totalDamage = position.player.getHP()-CalculateDamage();
 		Start.ta.append("\nThe bandits try to steal items from you.");
 		if(position.player.inventory.size()>0) {
-			itemStolen = rnd.nextInt(position.player.inventory.size());
-			if(position.player.inventory.get(itemStolen).isStarter) {
-				Start.ta.append("\nThe bandits dealed "+CalculateDamage()+" damage to you\n"
-						+ " and couldn't steal your item because it is binded to you by\n"
+			Item itemStolen = this.position.player.inventory.get(rnd.nextInt(position.player.inventory.size()));
+			if(itemStolen.isStarter) {
+				Start.ta.append("\nThe bandits dealed "+CalculateDamage()+" damage to you"
+						+ " and couldn't steal your item because it is binded to you by "
 						+ "powers they do not understand.");
 			}
 			else {
-				Start.ta.append("\nThe bandits dealed "+CalculateDamage()+" damage to you\n and"
-						+ " stole "+position.player.inventory.get(itemStolen).getName()
+				Start.ta.append("\nThe bandits dealed "+CalculateDamage()+" damage to you and"
+						+ " stole "+itemStolen.getName()
 						+ " from your inventory.");
 				position.player.inventory.remove(itemStolen);
+			}
+			if(itemStolen.getClass().getSuperclass().getSimpleName().equalsIgnoreCase("Equipment")) {
+				Equipment itemThatWasStolen = (Equipment) itemStolen;
+				itemThatWasStolen.unEquip();
+				itemThatWasStolen.getOwner().setMaxHP(itemThatWasStolen.getOwner().getMaxHP()-itemThatWasStolen.HP);
+				itemThatWasStolen.getOwner().setSTR(itemThatWasStolen.getOwner().getSTR()-itemThatWasStolen.STR);
+				itemThatWasStolen.getOwner().setResistance(itemThatWasStolen.getOwner().getResistance()-itemThatWasStolen.RESISTANCE);
+				itemThatWasStolen.getOwner().setMaxMagic(itemThatWasStolen.getOwner().getMaxMagic()-itemThatWasStolen.MAGIC);
+				itemThatWasStolen.getOwner().setIllusion(itemThatWasStolen.getOwner().getIllusion()-itemThatWasStolen.ILLUSION);
+				itemThatWasStolen.getOwner().setBagredad(itemThatWasStolen.getOwner().getBagredad()-itemThatWasStolen.BAGREDAD);
+				itemThatWasStolen.getOwner().setSneak(itemThatWasStolen.getOwner().getSneak()-itemThatWasStolen.SNEAK);
+				itemThatWasStolen.getOwner().setBlock(itemThatWasStolen.getOwner().getBlock()-itemThatWasStolen.BLOCK);
+				itemThatWasStolen.getOwner().setAccuracy(itemThatWasStolen.getOwner().getAccuracy()-itemThatWasStolen.ACCURACY);
+				itemThatWasStolen.getOwner().equipment[itemThatWasStolen.getCategory()] = null;
+				Start.ta.append("\nYour stolen item has been unequipped.");
 			}
 		}
 		else		
@@ -36,12 +53,21 @@ public class Bandits extends EntityDecorator implements AttackAble {
 					+ " couldn't steal anything because you're poor");
 		position.player.setHP(totalDamage);
 		
+		for(String damage : this.position.player.equipment)
+		{
+			for(int i=0;i<this.position.player.inventory.size();i++) {
+				Equipment piece = (Equipment) this.position.player.inventory.get(i);
+				if(piece.getName().equalsIgnoreCase(damage) 
+						&& piece.getCategory() != Equipment.weapon )
+					piece.reduceDurability();
+			}
+		}
 	}
 
 	@Override
 	public void beAttacked(int damage) {
-		Start.ta.setText("*Gruntled bandits sounds*");
-		Start.ta.append("\nYou made "+damage+" damage to the "+this.name+".");
+		Start.ta.append("\n*Gruntled bandits sounds*");
+		Start.ta.append("\nYou dealt "+damage+" damage to the "+this.name+".");
 		this.HP -= damage;
 		if(this.HP<=0) {
 			die();

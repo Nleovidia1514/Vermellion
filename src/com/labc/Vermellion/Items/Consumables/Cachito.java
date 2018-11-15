@@ -1,11 +1,12 @@
 package com.labc.Vermellion.Items.Consumables;
 
 import com.labc.Vermellion.Character;
+import com.labc.Vermellion.Entity;
 import com.labc.Vermellion.Start;
 import com.labc.Vermellion.Items.Food;
 import com.labc.Vermellion.Items.Useable;
 
-public class Cachito extends Food implements Useable {
+public class Cachito extends Food {
 
 	public Cachito(Character owner) {
 		super(owner);
@@ -19,9 +20,16 @@ public class Cachito extends Food implements Useable {
 	}
 
 	@Override
-	public void beUsed() {
-		Start.ta.setText("It had no fucking ham in it. ");
-		super.beUsed();
+	public void beUsed(Entity mob) {
+		if(mob==null) {
+			Start.ta.setText("It had no fucking ham in it. ");
+			super.beUsed(mob);
+		}
+		else {
+			Start.ta.append("\nYou ate the cachito in fron of the "+mob.getName()+" and\n"
+					+ "made it hungry. You're so clever.");
+			mob.beAttacked(1);
+		}
 	}
 
 	@Override

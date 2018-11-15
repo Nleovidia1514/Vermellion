@@ -3,6 +3,7 @@ package com.labc.Vermellion.Entities.Enemies;
 import com.labc.Vermellion.Entity;
 import com.labc.Vermellion.Start;
 import com.labc.Vermellion.Entities.EntityDecorator;
+import com.labc.Vermellion.Items.Equipment;
 
 public class Creeper extends EntityDecorator implements AttackAble {
 	
@@ -15,15 +16,25 @@ public class Creeper extends EntityDecorator implements AttackAble {
 		int totalDamage = position.player.getHP() - CalculateDamage();
 		Start.ta.append("\nPsssssssssst...");
 		position.player.setHP(totalDamage);
-		Start.ta.append("\nThe "+this.name+" exploded and dealt "+CalculateDamage()+" damage to you.\n" 
+		Start.ta.append("\nThe "+this.name+" exploded and dealt "+CalculateDamage()+" damage to you. " 
 		+"Allahu akbar.");
+		for(String damage : this.position.player.equipment)
+		{
+			for(int i=0;i<this.position.player.inventory.size();i++) {
+				Equipment piece = (Equipment) this.position.player.inventory.get(i);
+				if(piece.getName().equalsIgnoreCase(damage) 
+						&& piece.getCategory() != Equipment.weapon )
+					piece.reduceDurability();
+			}
+		}
 		this.die();
 	}
 
 	@Override
 	public void beAttacked(int damage) {
 		super.beAttacked(damage);
-		Start.ta.setText("Pssssssssstt... x_x");
+		Start.ta.append("\nPssssssssstt... x_x");
+		Start.ta.append("\nYou dealt "+damage+" damage to the Creeper.");
 		this.HP -= damage;
 		if(this.HP<=0) {
 			Start.ta.append("\nPsssssssssst D:");

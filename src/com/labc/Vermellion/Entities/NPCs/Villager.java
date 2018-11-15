@@ -26,7 +26,7 @@ public class Villager extends EntityDecorator{
 	@Override
 	public void beAttacked(int damage) {
 		super.beAttacked(damage);
-		Start.ta.setText("*Scared villager noises*");
+		Start.ta.append("\n*Scared villager noises*");
 		this.HP -= damage;
 		if(this.HP<=0) {
 			
@@ -60,14 +60,14 @@ public class Villager extends EntityDecorator{
 	@Override
 	public void talk() {
 		if(!alreadyTalkedTo) {
-			Start.ta.setText("Villager noisesVillager noisesVillager noises\n"
-					+ "Villager noisesVillager noisesVillager noises\n"
-					+ "Villager noisesVillager noisesVillager noises\n"
-					+ "Villager noisesVillager noisesVillager noises");
+			Start.ta.setText("Villager noises Villager noises Villager noises "
+					+ "Villager noises Villager noises Villager noises "
+					+ "Villager noises Villager noises Villager noises "
+					+ "Villager noises Villager noises Villager noises");
 			Start.tfState = VillagerState.instance();
 		}
 		else
-			Start.ta.setText("Villager noised");
+			Start.ta.setText("Villager noises.");
 	}
 	
 	public void makeDecision(String decision) {
@@ -89,9 +89,9 @@ public class Villager extends EntityDecorator{
 				Start.tfState = PlayState.instance();
 			}
 			else {
-				Start.ta.setText("Villager noisesVillager noisesVillager noises\n"
-						+ "Villager noisesVillager noisesVillager noises\n"
-						+ "Villager noisesVillager noisesVillager noises\n"
+				Start.ta.setText("Villager noisesVillager noisesVillager noises "
+						+ "Villager noisesVillager noisesVillager noises "
+						+ "Villager noisesVillager noisesVillager noises "
 						+ "Villager noisesVillager noisesVillager noises");
 				Start.ta.append("*Confused villager noises*");
 			}

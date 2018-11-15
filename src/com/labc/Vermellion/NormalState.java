@@ -62,7 +62,7 @@ public class NormalState extends CharacterState {
 			player.THIRST-=20;
 		}
 		else {
-			Start.ta.setText("You walked right through those who were trying to kill\n"
+			Start.ta.setText("You walked right through those who were trying to kill "
 					+ "you facilitating their job. You really are a doubtful IQ person.");
 			player.die(player);
 		}
@@ -97,8 +97,8 @@ public class NormalState extends CharacterState {
 
 	@Override
 	public void die(Character player) {
-		Start.ta.append("\nYou perished on Vermellion's lands. But you go down\n"
-				+ "with a smile on your face because you know that this trip\n"
+		Start.ta.append("\n\nYou perished on Vermellion's lands. But you go down "
+				+ "with a smile on your face because you know that this trip "
 				+ "wasn't a failure, it was a learning experience.\n");
 		Start.gameIsRunning = false;
 	}

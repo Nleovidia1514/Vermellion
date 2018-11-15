@@ -3,6 +3,7 @@ package com.labc.Vermellion.Entities.Enemies;
 import com.labc.Vermellion.Start;
 import com.labc.Vermellion.Entities.Enemy;
 import com.labc.Vermellion.Entities.EntityDecorator;
+import com.labc.Vermellion.Items.Equipment;
 
 public class Cornieles extends EntityDecorator implements AttackAble{
 
@@ -16,13 +17,22 @@ public class Cornieles extends EntityDecorator implements AttackAble{
 		Start.ta.append("\nUstedes son unos expertos.");
 		position.player.setHP(totalDamage);
 		Start.ta.append("\n"+this.name+" dealt "+CalculateDamage()+" damage to you.");
+		for(String damage : this.position.player.equipment)
+		{
+			for(int i=0;i<this.position.player.inventory.size();i++) {
+				Equipment piece = (Equipment) this.position.player.inventory.get(i);
+				if(piece.getName().equalsIgnoreCase(damage) 
+						&& piece.getCategory() != Equipment.weapon )
+					piece.reduceDurability();
+			}
+		}
 	}
 
 	@Override
 	public void beAttacked(int damage) {
 		super.beAttacked(damage);
-		Start.ta.setText("Sabeeeeiiiiis.");
-		Start.ta.append("\nYou made "+damage+" damage to "+this.name+".");
+		Start.ta.append("\nSabeeeeiiiiis.");
+		Start.ta.append("\nYou dealt "+damage+" damage to "+this.name+".");
 		this.HP -= damage;
 		if(this.HP<=0) {
 			Start.ta.append("\nNo puede ser nonononono.");

@@ -4,6 +4,7 @@ import com.labc.Vermellion.PoisonedState;
 import com.labc.Vermellion.Start;
 import com.labc.Vermellion.Entities.Enemy;
 import com.labc.Vermellion.Entities.EntityDecorator;
+import com.labc.Vermellion.Items.Equipment;
 
 public class Witch extends EntityDecorator implements AttackAble{
 	
@@ -22,9 +23,17 @@ public class Witch extends EntityDecorator implements AttackAble{
 			Poison();
 		}
 		else {
-			Start.ta.append("\nThe witch attacks you and deals "+CalculateDamage()+" damage to you\n"
-					+ "and poisoned you for 5 turns.");
+			Start.ta.append("\nThe witch attacks you and deals "+CalculateDamage()+" damage.");
 			this.position.player.setHP(totalDamage);
+			for(String damage : this.position.player.equipment)
+			{
+				for(int i=0;i<this.position.player.inventory.size();i++) {
+					Equipment piece = (Equipment) this.position.player.inventory.get(i);
+					if(piece.getName().equalsIgnoreCase(damage) 
+							&& piece.getCategory() != Equipment.weapon )
+						piece.reduceDurability();
+				}
+			}
 		}
 	}
 	
@@ -36,7 +45,7 @@ public class Witch extends EntityDecorator implements AttackAble{
 
 	@Override
 	public void beAttacked(int damage) {
-		Start.ta.setText("The witch makes disturbing noises, this let's you know that you're hurting her"
+		Start.ta.append("\nThe witch makes disturbing noises, this let's you know that you're hurting her."
 				+ " for "+damage+" damage.");
 		this.HP = this.HP-damage;
 		if(this.HP<=0) {
