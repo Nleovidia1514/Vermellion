@@ -32,5 +32,6 @@ public abstract class Item implements Useable {
 		Owner = owner;
 	}
 	
+	public abstract void getStats();
 
 }

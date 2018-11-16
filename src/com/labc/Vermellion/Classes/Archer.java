@@ -6,7 +6,6 @@ import com.labc.Vermellion.Character;
 import com.labc.Vermellion.Start;
 import com.labc.Vermellion.ThirstyState;
 import com.labc.Vermellion.Tile;
-import com.labc.Vermellion.Visitor;
 import com.labc.Vermellion.Items.Equipment;
 import com.labc.Vermellion.Items.ItemFactory;
 
@@ -15,6 +14,7 @@ public class Archer extends Character {
 	public Archer(Tile starting) {
 		super(starting);
 		this.startingItem = (Equipment) ItemFactory.getItem("BOW", this);
+		this.startingArmor = (Equipment) ItemFactory.getItem("ROBE", this);
 		this.MAXHP = 170;
 		this.MAXMAGIC = 50;
 		this.STR = 60;
@@ -24,8 +24,9 @@ public class Archer extends Character {
 		this.BLOCK = 60;
 		this.ACCURACY = 200;
 		this.RESISTANCE = 15;
-		this.bagSize = 30;
 		this.inventory.add(this.startingItem);
+		this.inventory.add(this.startingArmor);
+		this.startingArmor.equip();
 		this.startingItem.equip();
 		this.HP = this.MAXHP;
 		this.MAGIC = this.MAXMAGIC;

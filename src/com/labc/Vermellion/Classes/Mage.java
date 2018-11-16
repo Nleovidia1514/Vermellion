@@ -4,7 +4,6 @@ import com.labc.Vermellion.Character;
 import com.labc.Vermellion.Start;
 import com.labc.Vermellion.ThirstyState;
 import com.labc.Vermellion.Tile;
-import com.labc.Vermellion.Visitor;
 import com.labc.Vermellion.Items.Equipment;
 import com.labc.Vermellion.Items.ItemFactory;
 
@@ -15,6 +14,7 @@ public class Mage extends Character{
 	public Mage(Tile starting) {
 		super(starting);
 		this.startingItem = (Equipment) ItemFactory.getItem("STAFF", this);
+		this.startingArmor = (Equipment) ItemFactory.getItem("TUNIC", this);
 		this.MAXHP = 175;
 		this.MAXMAGIC = 200;
 		this.STR = 60;
@@ -22,10 +22,11 @@ public class Mage extends Character{
 		this.SNEAK = 70;
 		this.ILLUSION = 150;
 		this.BLOCK = 50;
-		this.bagSize = 30;
 		this.ACCURACY = 140;
 		this.RESISTANCE = 10;
 		this.inventory.add(this.startingItem);
+		this.inventory.add(this.startingArmor);
+		this.startingArmor.equip();
 		this.startingItem.equip();
 		this.HP = this.MAXHP;
 		this.MAGIC = this.MAXMAGIC;

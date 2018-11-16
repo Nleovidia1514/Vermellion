@@ -7,6 +7,8 @@ import com.labc.Vermellion.Character;
 public abstract class Equipment extends Item {
 	public int HP, MAGIC, ILLUSION, SNEAK, BLOCK, STR, BAGREDAD, ACCURACY,RESISTANCE;
 	protected int Category;
+	public boolean isEquipped;
+	protected String regularName;
 	public static int weapon = 0, helmet = 1, chestplate = 2, leggings = 3, footWear = 4; 
 	
 	public Equipment(Character owner) {
@@ -19,6 +21,7 @@ public abstract class Equipment extends Item {
 	public void equip() {
 		if(this.getOwner().equipment[this.Category]==null)
 		{
+			this.isEquipped = true;
 			this.name = this.name+"(EQUIPPED)";
 			this.getOwner().setMaxHP(this.getOwner().getMaxHP()+this.HP);
 			this.getOwner().setSTR(this.getOwner().getSTR()+this.STR);
@@ -29,8 +32,8 @@ public abstract class Equipment extends Item {
 			this.getOwner().setBlock(this.getOwner().getBlock()+this.BLOCK);
 			this.getOwner().setAccuracy(this.getOwner().getAccuracy()+this.ACCURACY);
 			this.getOwner().setResistance(this.getOwner().getResistance()+this.RESISTANCE);
-			this.getOwner().equipment[this.Category] = this.getClass().getSimpleName();
-			Start.ta.setText("You equipped "+this.getClass().getSimpleName());
+			this.getOwner().equipment[this.Category] = this.getRegularName();
+			Start.ta.setText("You equipped "+this.regularName+".");
 		}
 		else
 		{
@@ -39,9 +42,10 @@ public abstract class Equipment extends Item {
 	}
 
 	public void unEquip() {
-		if(this.getOwner().equipment[this.Category]!=null) 
+		if(this.getOwner().equipment[this.Category]!=null && this.isEquipped == true) 
 		{
-			this.name = this.getClass().getSimpleName();
+			this.isEquipped = false;
+			this.name = this.regularName;
 			this.getOwner().setMaxHP(this.getOwner().getMaxHP()-this.HP);
 			this.getOwner().setSTR(this.getOwner().getSTR()-this.STR);
 			this.getOwner().setResistance(this.getOwner().getResistance()-this.RESISTANCE);
@@ -54,7 +58,7 @@ public abstract class Equipment extends Item {
 			this.getOwner().equipment[this.Category] = null;
 			this.getOwner().setHP(this.getOwner().getMaxHP());
 			this.getOwner().setMagic(this.getOwner().getMaxMagic());
-			Start.ta.setText("You unequipped "+this.getClass().getSimpleName());
+			Start.ta.setText("You unequipped "+this.getName());
 		}
 		else
 		{
@@ -62,8 +66,10 @@ public abstract class Equipment extends Item {
 		}
 	}
 	protected void broke() {
-		Start.ta.append("\nYour "+this.getClass().getSimpleName()+" has broken.");
+		Start.ta.append("\nYour "+this.regularName+" has broken.");
 		this.getOwner().inventory.remove(this);
+		if(this.isEquipped)
+			this.unEquip();
 	}
 	
 	public int getCategory() {
@@ -72,5 +78,26 @@ public abstract class Equipment extends Item {
 	
 	public void reduceDurability() {
 		this.Durability--;
+	}
+	
+	@Override
+	public void getStats() {
+		Start.ta.setText(this.name);
+		Start.ta.append("\n"+this.Description);
+		Start.ta.append("\nHP: "+this.HP);
+		Start.ta.append("\nMAGIC: "+this.MAGIC);
+		Start.ta.append("\nSTR: "+this.STR);
+		Start.ta.append("\nSNEAK: "+this.SNEAK);
+		Start.ta.append("\nBLOCK: "+this.BLOCK);
+		Start.ta.append("\nACCURACY: "+this.ACCURACY);
+		Start.ta.append("\nILLUSION: "+this.ILLUSION);
+		Start.ta.append("\nBAGREDAD: "+this.BAGREDAD);
+		Start.ta.append("\nRESISTANCE: "+this.RESISTANCE);
+		Start.ta.append("\nDamage: "+this.Damage);
+		Start.ta.append("\nDurability: "+this.Durability);
+	}
+	
+	public String getRegularName() {
+		return this.regularName;
 	}
 }

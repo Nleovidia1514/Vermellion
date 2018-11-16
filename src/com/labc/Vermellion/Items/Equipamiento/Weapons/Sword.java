@@ -1,4 +1,4 @@
-package com.labc.Vermellion.Items.Equipamiento;
+package com.labc.Vermellion.Items.Equipamiento.Weapons;
 
 import com.labc.Vermellion.Character;
 import com.labc.Vermellion.Entity;
@@ -11,7 +11,7 @@ public class Sword extends Equipment{
 		super(owner);
 		this.Category = Equipment.weapon;
 		this.Durability = 30;
-		this.name = "Sword";
+		this.name = this.regularName = "Sword";
 		this.HP = 40;
 		this.MAGIC = 50;
 		this.BLOCK = 50;

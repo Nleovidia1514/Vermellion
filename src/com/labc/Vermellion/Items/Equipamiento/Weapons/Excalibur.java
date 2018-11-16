@@ -1,4 +1,4 @@
-package com.labc.Vermellion.Items.Equipamiento;
+package com.labc.Vermellion.Items.Equipamiento.Weapons;
 
 import com.labc.Vermellion.Character;
 import com.labc.Vermellion.Entity;
@@ -11,7 +11,7 @@ public class Excalibur extends Equipment{
 		super(owner);
 		this.Category = Equipment.weapon;
 		this.Durability = 100;
-		this.name = "Excalibur";
+		this.name = this.regularName = "Excalibur";
 		this.HP = 80;
 		this.MAGIC = 60;
 		this.ILLUSION = 5;

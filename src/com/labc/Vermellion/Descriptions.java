@@ -14,13 +14,22 @@ public class Descriptions {
 	public HashMap<String,String> longDescsAftFight = new HashMap<String,String>();
 	public HashMap<String,Entity> Entities = new HashMap<String,Entity>();
 	public static HashMap<String,ImageIcon> picBeforeFight = new HashMap<String,ImageIcon>();
-	public static ImageIcon bandits = new ImageIcon("images/Bandits.jpg"), 
+	public static HashMap<String,ImageIcon> lookImage = new HashMap<String,ImageIcon>();
+	public static HashMap<String,ImageIcon> picAfterFight = new HashMap<String,ImageIcon>();
+	public static ImageIcon bandits = new ImageIcon("images/Bandits.jpg"), Ded = new ImageIcon("images/Ded.jpg"),
+			ChooseClass = new ImageIcon("images/ChooseClass.jpg"), 
 			GiantSnake = new ImageIcon("images/GiantSnake.jpg"),
+			DeadGiantSnake = new ImageIcon("images/DeadGiantSnake.jpg"),
 			mountainView = new ImageIcon("images/mountainView.jpg"), 
 			Minotaur = new ImageIcon("images/Minotaur.jpg"),
+			DeadMinotaur = new ImageIcon("images/DeadMinotaur.jpg"),
 			SkullKid = new ImageIcon("images/SkullKid.jpg"),
+			lookSkullKid = new ImageIcon("images/lookSkullKid.jpg"),
+			LostWoods = new ImageIcon("images/LostWoods.jpg"),
 			Forest = new ImageIcon("images/Forest.jpg"),
+			Forest1 = new ImageIcon("images/Forest1.jpg"),
 			Villager = new ImageIcon("images/Villager.jpg"),
+			Village = new ImageIcon("images/Village.jpg"),
 			LadyofTheLake = new ImageIcon("images/LadyofTheLake.jpg"),
 			Lake = new ImageIcon("images/Lake.jpg"),
 			Cave = new ImageIcon("images/Cave.jpg"),
@@ -28,7 +37,10 @@ public class Descriptions {
 			Swamp = new ImageIcon("images/Swamp.jpg"),
 			OldLady = new ImageIcon("images/OldLady.jpg"),
 			Witch = new ImageIcon("images/Witch.jpg"),
-			Creeper = new ImageIcon("images/Creeper.jpg");
+			Creeper = new ImageIcon("images/Creeper.jpg"),
+			CreeperHole = new ImageIcon("images/CreeperHole.jpg"),
+			Adult = new ImageIcon("images/Adult.jpg"),
+			Forest3 = new ImageIcon("images/Forest3.jpg");
 	
 	public Descriptions(Tile dis) {
 		if(dis.getName().equalsIgnoreCase("bandits")) {
@@ -134,6 +146,34 @@ public class Descriptions {
 			dis.hasEnemy = true;
 		}
 		
+		else if(dis.getName().equalsIgnoreCase("village")) {
+			String DescBeforeFight = "You walk into a village with a few small houses and some"
+					+ " amusement building like a church and a library, A weird person (if that's"
+					+ " how you wanna call it) greets you in a weird way. It appears to be a villager,"
+					+ " you think it is trying to tell you something but it only is making weird"
+					+ " villager noises. What will you do?";
+			String DescAfterFight = "You are in a beatiful village.";
+			shortDescs.put("village", DescBeforeFight);
+			longDescs.put("village", DescBeforeFight+"\n\tThere is "+dis.getItemOnFloor()+" on the floor.");
+			shortDescsAftFight.put("village", DescAfterFight);
+			longDescsAftFight.put("village", DescAfterFight+"\n\tThere is "+dis.getItemOnFloor()+" on the floor.");
+			Entities.put("village", EntityFactory.getEntity("VILLAGER", dis));
+		}
+		
+		else if(dis.getName().equalsIgnoreCase("sabeis")) {
+			String DescBeforeFight = "You hear strange noises and you decide to investigate,"
+					+ " after walking around for a bit, you see someone in the middle of the"
+					+ " forest. he appears to be deep down into his own thoughts, repeating"
+					+ "what you think might be his name ''Cornieles...Cornieles...Cornieles..''What will you do?";
+			String DescAfterFight = "Cornieles lies slept on the ground. He looks like he won't wake up anytime soon.";
+			shortDescs.put("sabeis", DescBeforeFight);
+			longDescs.put("sabeis", DescBeforeFight+"\n\tThere is "+dis.getItemOnFloor()+" on the floor.");
+			shortDescsAftFight.put("sabeis", DescAfterFight);
+			longDescsAftFight.put("sabeis", DescAfterFight+"\n\tThere is "+dis.getItemOnFloor()+" on the floor.");
+			Entities.put("sabeis", EntityFactory.getEntity("CORNIELES", dis));
+			dis.hasEnemy = true;
+		}
+		
 		else if(dis.getName().startsWith("mountainView")) {
 			if(dis.getName().equalsIgnoreCase("mountainViewNorth")) {
 				shortDescs.put("mountainViewNorth", "A huge mountain can be seen rising to the north.");
@@ -201,18 +241,26 @@ public class Descriptions {
 		}
 		
 		else if(dis.getName().equalsIgnoreCase("mountain")) {
-			
+			shortDescs.put("mountain", "You reached the top of the mountain overcoming"
+					+ " every obstacle put in front of you during your journey. This trip"
+					+ " made you a very powerful individual and now you feel ready to take onto"
+					+ " your next adventure.\n\n\n\tTHANKS FOR PLAYING!");
 		}
 	}
 	
 	public static void innitPics() {
+		Ded.setImage(Ded.getImage().getScaledInstance(364, 361, Image.SCALE_SMOOTH));
+		ChooseClass.setImage(ChooseClass.getImage().getScaledInstance(364, 361, Image.SCALE_SMOOTH));
 		bandits.setImage(bandits.getImage().getScaledInstance(364, 361, Image.SCALE_SMOOTH));
 		GiantSnake.setImage(GiantSnake.getImage().getScaledInstance(364, 361, Image.SCALE_SMOOTH));
 		mountainView.setImage(mountainView.getImage().getScaledInstance(364, 361, Image.SCALE_SMOOTH));
 		Minotaur.setImage(Minotaur.getImage().getScaledInstance(364, 361, Image.SCALE_SMOOTH));
 		SkullKid.setImage(SkullKid.getImage().getScaledInstance(364, 361, Image.SCALE_SMOOTH));
+		lookSkullKid.setImage(lookSkullKid.getImage().getScaledInstance(364, 361, Image.SCALE_SMOOTH));
 		Forest.setImage(Forest.getImage().getScaledInstance(364, 361, Image.SCALE_SMOOTH));
 		Villager.setImage(Villager.getImage().getScaledInstance(364, 361, Image.SCALE_SMOOTH));
+		Village.setImage(Village.getImage().getScaledInstance(364, 361, Image.SCALE_SMOOTH));
+		Lake.setImage(Lake.getImage().getScaledInstance(364, 361, Image.SCALE_SMOOTH));
 		LadyofTheLake.setImage(LadyofTheLake.getImage().getScaledInstance(364, 361, Image.SCALE_SMOOTH));
 		Cave.setImage(Cave.getImage().getScaledInstance(364, 361, Image.SCALE_SMOOTH));
 		Bear.setImage(Bear.getImage().getScaledInstance(364, 361, Image.SCALE_SMOOTH));
@@ -220,7 +268,14 @@ public class Descriptions {
 		OldLady.setImage(OldLady.getImage().getScaledInstance(364, 361, Image.SCALE_SMOOTH));
 		Witch.setImage(Witch.getImage().getScaledInstance(364, 361, Image.SCALE_SMOOTH));
 		Creeper.setImage(Creeper.getImage().getScaledInstance(364, 361, Image.SCALE_SMOOTH));
+		DeadGiantSnake.setImage(DeadGiantSnake.getImage().getScaledInstance(364, 361, Image.SCALE_SMOOTH));
+		DeadMinotaur.setImage(DeadMinotaur.getImage().getScaledInstance(364, 361, Image.SCALE_SMOOTH));
+		LostWoods.setImage(LostWoods.getImage().getScaledInstance(364, 361, Image.SCALE_SMOOTH));
+		CreeperHole.setImage(CreeperHole.getImage().getScaledInstance(364, 361, Image.SCALE_SMOOTH));
+		Forest3.setImage(Forest3.getImage().getScaledInstance(364, 361, Image.SCALE_SMOOTH));
+		Adult.setImage(Adult.getImage().getScaledInstance(364, 361, Image.SCALE_SMOOTH));
 		
+		//Pics before fight
 		picBeforeFight.put("bandits", bandits);
 		picBeforeFight.put("wasteland", GiantSnake);
 		picBeforeFight.put("mountainViewNorth", mountainView);
@@ -238,5 +293,49 @@ public class Descriptions {
 		picBeforeFight.put("cave", Cave);
 		picBeforeFight.put("swamp", Swamp);
 		picBeforeFight.put("plains", Creeper);
+		picBeforeFight.put("village", Village);
+		picBeforeFight.put("sabeis", Adult);
+		
+		//Look image
+		lookImage.put("bandits", bandits);
+		lookImage.put("wasteland", GiantSnake);
+		lookImage.put("mountainViewNorth", mountainView);
+		lookImage.put("mountainViewEast", mountainView);
+		lookImage.put("mountainViewSouth", mountainView);
+		lookImage.put("mountainViewWest", mountainView);
+		lookImage.put("mountainViewNorthWest", mountainView);
+		lookImage.put("mountainViewNorthEast", mountainView);
+		lookImage.put("mountainViewSouthWest", mountainView);
+		lookImage.put("mountainViewSouthEast", mountainView);
+		lookImage.put("mountainSurroundings", Minotaur);
+		lookImage.put("woods", lookSkullKid);
+		lookImage.put("forest", Forest);
+		lookImage.put("lake", LadyofTheLake);
+		lookImage.put("cave", Bear);
+		lookImage.put("swamp", OldLady);
+		lookImage.put("plains", Creeper);
+		lookImage.put("village", Villager);
+		lookImage.put("sabeis", Adult);
+		
+		//Pic after fight
+		picAfterFight.put("bandits", Forest1);
+		picAfterFight.put("wasteland", DeadGiantSnake);
+		picAfterFight.put("mountainViewNorth", mountainView);
+		picAfterFight.put("mountainViewEast", mountainView);
+		picAfterFight.put("mountainViewSouth", mountainView);
+		picAfterFight.put("mountainViewWest", mountainView);
+		picAfterFight.put("mountainViewNorthWest", mountainView);
+		picAfterFight.put("mountainViewNorthEast", mountainView);
+		picAfterFight.put("mountainViewSouthWest", mountainView);
+		picAfterFight.put("mountainViewSouthEast", mountainView);
+		picAfterFight.put("mountainSurroundings", DeadMinotaur);
+		picAfterFight.put("woods", LostWoods);
+		picAfterFight.put("forest", Forest);
+		picAfterFight.put("lake", Lake);
+		picAfterFight.put("cave", Cave);
+		picAfterFight.put("swamp", Swamp);
+		picAfterFight.put("plains", CreeperHole);
+		picAfterFight.put("village", Village);
+		picAfterFight.put("sabeis", Forest3);
 	}
 }

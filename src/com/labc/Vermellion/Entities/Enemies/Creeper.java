@@ -1,9 +1,13 @@
 package com.labc.Vermellion.Entities.Enemies;
 
+import com.labc.Vermellion.Descriptions;
 import com.labc.Vermellion.Entity;
+import com.labc.Vermellion.Item;
 import com.labc.Vermellion.Start;
 import com.labc.Vermellion.Entities.EntityDecorator;
+import com.labc.Vermellion.Entities.NPCs.Villager;
 import com.labc.Vermellion.Items.Equipment;
+import com.labc.Vermellion.Items.ItemFactory;
 
 public class Creeper extends EntityDecorator implements AttackAble {
 	
@@ -40,7 +44,6 @@ public class Creeper extends EntityDecorator implements AttackAble {
 		this.HP -= damage;
 		if(this.HP<=0) {
 			Start.ta.append("\nPsssssssssst D:");
-			Start.ta.append("\nThe creeper died.");
 			this.die();
 		}
 		else
@@ -49,12 +52,19 @@ public class Creeper extends EntityDecorator implements AttackAble {
 
 	@Override
 	public void die() {
-		super.die();
 		this.position.mob = null;
 		this.position.hasEnemy = false;
 		this.position.shortDescription = this.position.descripts.shortDescsAftFight.get(this.position.name);
 		this.position.longDescription = this.position.descripts.longDescsAftFight.get(this.position.name);
-		
+		this.position.lookImage = this.position.image = Descriptions.picAfterFight.get(this.position.name);
+		Start.pic.setIcon(Descriptions.picAfterFight.get(this.position.name));
+		if(this.position.player.inventory.size()<this.position.player.getBagSize()) {
+			Item itemDropped = ItemFactory.getItem(Villager.itemNames[Start.rnd.nextInt(Villager.itemNames.length)], this.position.player);
+			this.position.player.inventory.add(itemDropped);
+			Start.ta.append("The "+this.name+" died and dropped "+itemDropped.getName()+" and it was added to your inventory.");
+		}
+		else
+			Start.ta.append("\nThe "+this.name+" died. Your inventory is full.");
 	}
 	
 	@Override
@@ -67,7 +77,7 @@ public class Creeper extends EntityDecorator implements AttackAble {
 	public void create() {
 		super.create();
 		this.HP = this.HP + 100;
-		this.ATTACK = this.ATTACK + 200;
+		this.ATTACK = this.ATTACK + 250;
 		this.name = "Green Creature";
 	}
 	
@@ -77,10 +87,9 @@ public class Creeper extends EntityDecorator implements AttackAble {
 		Start.ta.append("\nPssssssssstt... x_x");
 		this.HP -= damage;
 		if(this.HP<=0) {
-			this.die();
 			Start.ta.append("\nPsssssssssst D:");
-			Start.ta.append("\nThe creeper died.");
-		}
+			this.die();
+			}
 			
 	}
 	

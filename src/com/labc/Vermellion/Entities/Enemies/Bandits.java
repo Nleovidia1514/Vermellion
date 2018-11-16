@@ -2,11 +2,15 @@ package com.labc.Vermellion.Entities.Enemies;
 
 import java.util.Random;
 
+import com.labc.Vermellion.Descriptions;
 import com.labc.Vermellion.Entity;
 import com.labc.Vermellion.Item;
+import com.labc.Vermellion.SingletonMap;
 import com.labc.Vermellion.Start;
 import com.labc.Vermellion.Entities.EntityDecorator;
+import com.labc.Vermellion.Entities.NPCs.Villager;
 import com.labc.Vermellion.Items.Equipment;
+import com.labc.Vermellion.Items.ItemFactory;
 
 public class Bandits extends EntityDecorator implements AttackAble {
 
@@ -74,9 +78,9 @@ public class Bandits extends EntityDecorator implements AttackAble {
 		Start.ta.append("\nYou dealt "+damage+" damage to the "+this.name+".");
 		this.HP -= damage;
 		if(this.HP<=0) {
-			die();
 			Start.ta.append("\nBandits started to scatter.");
 			Start.ta.append("\nThe bandits died.");
+			die();
 		}
 		else
 			this.attack();
@@ -87,18 +91,26 @@ public class Bandits extends EntityDecorator implements AttackAble {
 		this.HP = this.HP - damage;
 		Start.ta.append("\n*Gruntled bandits sounds*");
 		if(this.HP<=0) {
-			this.die();
 			Start.ta.append("\nBandits started to scatter.");
-			Start.ta.append("\nThe bandits died.");
+			this.die();
 		}
 	}
 
 	@Override
 	public void die() {
+		Start.pic.setIcon(Descriptions.picAfterFight.get(this.position.name));
 		this.position.mob = null;
 		this.position.hasEnemy = false;
 		this.position.shortDescription = this.position.descripts.shortDescsAftFight.get(this.position.name);
 		this.position.longDescription = this.position.descripts.longDescsAftFight.get(this.position.name);
+		this.position.lookImage = this.position.image = Descriptions.picAfterFight.get(this.position.name);
+		if(this.position.player.inventory.size()<this.position.player.getBagSize()) {
+			Item itemDropped = ItemFactory.getItem(Villager.itemNames[Start.rnd.nextInt(Villager.itemNames.length)], this.position.player);
+			this.position.player.inventory.add(itemDropped);
+			Start.ta.append("The "+this.name+" died and dropped "+itemDropped.getName()+" and it was added to your inventory.");
+		}
+		else
+			Start.ta.append("\nThe "+this.name+" died. Your inventory is full.");
 	}
 	
 	@Override
@@ -111,7 +123,7 @@ public class Bandits extends EntityDecorator implements AttackAble {
 	public void create() {
 		super.create();
 		this.HP = this.HP + 200;
-		this.ATTACK = this.ATTACK + 50;
+		this.ATTACK = this.ATTACK + 200;
 		this.name = "Bandits";
 	}
 	

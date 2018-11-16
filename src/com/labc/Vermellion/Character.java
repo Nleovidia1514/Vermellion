@@ -12,16 +12,17 @@ public abstract class Character implements Visitor {
 	protected double HP;
 	protected int bagSize;
 	protected Tile current;
-	protected Equipment startingItem;
+	protected Equipment startingItem, startingArmor;
 	public ArrayList<Item> inventory;
 	public String[] equipment = new String[5];
-	private CharacterState state;
+	protected CharacterState state;
 	
 	protected Character(Tile starting) {
 		this.current = starting;
 		current.player = this;
 		this.inventory = new ArrayList<Item>();
-		this.MAXTHIRST = this.THIRST = 500;
+		this.bagSize = 10;
+		this.MAXTHIRST = this.THIRST = 1000;
 		this.state = NormalState.instance();
 	}
 	
@@ -41,6 +42,7 @@ public abstract class Character implements Visitor {
 	}
 	
 	protected void die(Character player) {
+		Start.pic.setIcon(Descriptions.Ded);
 		this.state.die(player);
 	}
 
@@ -57,6 +59,35 @@ public abstract class Character implements Visitor {
 		Start.ta.setText("You ran to the "+direction+".\n");
 		this.current.accept(this);
 		this.THIRST-=30;
+	}
+	
+	protected void drop(Scanner sn) {
+		if(sn.hasNext()) {
+			Item itemToBeDropped = null;
+			String whatToDrop = sn.next().toLowerCase();
+			for(int i=0;i<inventory.size();i++)
+				if(inventory.get(i).getName().toLowerCase().contains(whatToDrop)) {
+					itemToBeDropped = inventory.get(i);
+				}
+			if(itemToBeDropped == null)
+				Start.ta.setText("I don't understand what you're trying to drop.");
+			else {
+				try {
+					Equipment pieceToBeDropped = (Equipment) itemToBeDropped;
+					if(pieceToBeDropped.isEquipped)
+						Start.ta.setText("You must unequip this piece first.");
+					else {
+						inventory.remove(pieceToBeDropped);
+						Start.ta.setText("You dropped "+pieceToBeDropped.getName()+" from your inventory.");
+					}
+				}catch(Exception e) {
+					inventory.remove(itemToBeDropped);
+					Start.ta.setText("You dropped "+itemToBeDropped.getName()+" from your inventory.");
+				}
+			}
+		}		
+		else
+			Start.ta.setText("Drop what?");
 	}
 	
 	protected void drinkWater(Scanner sn) {
@@ -111,7 +142,7 @@ public abstract class Character implements Visitor {
 			Equipment itemToBeEquipped = null;
 			String itemToEquip = sn.next().toLowerCase();
 			for(int i = 0; i<inventory.size();i++)
-				if(inventory.get(i).getClass().getSimpleName().toLowerCase().contains(itemToEquip)) {
+				if(inventory.get(i).getName().toLowerCase().contains(itemToEquip)) {
 					try {
 						itemToBeEquipped = (Equipment) inventory.get(i);
 						itemToBeEquipped.equip();
@@ -134,9 +165,13 @@ public abstract class Character implements Visitor {
 			Equipment itemToBeUnEquipped = null;
 			String itemToUnEquip = sn.next().toLowerCase();
 			for(int i = 0; i<inventory.size();i++) {
-				if(inventory.get(i).getClass().getSimpleName().toLowerCase().contains(itemToUnEquip)) {
-						itemToBeUnEquipped = (Equipment) inventory.get(i);
-						itemToBeUnEquipped.unEquip();
+				if(inventory.get(i).getName().toLowerCase().contains(itemToUnEquip)) {
+						try {
+							itemToBeUnEquipped = (Equipment) inventory.get(i);
+							itemToBeUnEquipped.unEquip();
+						}catch(Exception e) {
+							Start.ta.setText("You don't have that item equipped");
+						}
 					}		
 			}
 			if(itemToBeUnEquipped == null)
@@ -177,11 +212,56 @@ public abstract class Character implements Visitor {
 			Start.ta.append("\n"+inventory.get(i).getName()+" - "+inventory.get(i).getDescription());
 	}
 	
+	public void look(Scanner sn) {
+		if(sn.hasNext()) {
+			String whatToLook = sn.next().toLowerCase();
+			if(whatToLook.equals("around")) {
+				Start.ta.setText(this.current.getLongDescription());
+				Start.pic.setIcon(this.current.lookImage);
+				if(this.current.getName().equals("cave") && this.current.mob!=null)
+					this.current.hasEnemy = true;
+			}
+			
+			else if(whatToLook.equals("cave") && this.current.getName().equals("cave")) {
+				Start.ta.setText(this.current.getLongDescription());
+				Start.pic.setIcon(this.current.lookImage);
+				if(this.current.mob!=null)
+					this.current.hasEnemy = true;	
+			}
+				
+			else if(whatToLook.equals("hut") && this.current.getName().equals("swamp")) {
+				Start.ta.setText(this.current.getLongDescription());
+				Start.pic.setIcon(this.current.lookImage);
+			}
+			
+			else if(whatToLook.contains("inv") )
+				seeInv();
+			else if(whatToLook.equals("stats"))
+				seeStats();
+			else {
+				Item itemToBeLookedAt = null;
+				for(int i=0;i<inventory.size();i++)
+					if(inventory.get(i).getName().toLowerCase().contains(whatToLook)) {
+						itemToBeLookedAt = inventory.get(i);
+						itemToBeLookedAt.getStats();
+						break;
+					}
+				if(itemToBeLookedAt == null)
+					Start.ta.setText("I don't understand what you're trying to look.");
+			}
+		}
+		else
+			Start.ta.setText("Look what?");
+		
+	}
+
+	
 	protected void attack(Scanner sn) {
 		Entity mobToAttack;
 		Item itemToAttackWith = null;
 		if(sn.hasNext()) {
-			if(this.current.mob!=null && this.current.mob.getName().toLowerCase().contains(sn.next().toLowerCase())) {
+			String mobToBeAttacked = sn.next().toLowerCase();
+			if(this.current.mob!=null && this.current.mob.getName().toLowerCase().contains(mobToBeAttacked)) {
 				mobToAttack = this.current.mob;
 				if(sn.hasNext()) {
 					if(sn.hasNext() && sn.next().equalsIgnoreCase("with")) {
@@ -201,16 +281,12 @@ public abstract class Character implements Visitor {
 						
 							else if(itemToAttackWith.getClass().getSuperclass().getSimpleName().equalsIgnoreCase("Equipment"))
 							{
-								if(this.equipment[Equipment.weapon].equalsIgnoreCase(itemToAttackWith.getClass().getSimpleName())) {
-									Start.ta.setText("You attacked "+current.mob.getName()+" with "+equipment[Equipment.weapon]+".");
+								Equipment ItemToAttackWith = (Equipment) itemToAttackWith;
+								if(this.equipment[ItemToAttackWith.getCategory()].equalsIgnoreCase(ItemToAttackWith.getRegularName())) {
+									Start.ta.setText("You attacked "+current.mob.getName()+" with "+equipment[ItemToAttackWith.getCategory()]+".");
 									itemToAttackWith.beUsed(mobToAttack);
 								}
-								else if( ( itemToAttackWith.getClass().getSimpleName().equalsIgnoreCase("Mind") && this.equipment[Equipment.helmet].equalsIgnoreCase("Mind") )  || 
-										( itemToAttackWith.getClass().getSimpleName().equalsIgnoreCase("MajorasMask") && this.equipment[Equipment.helmet].equalsIgnoreCase("MajorasMask") ))
-								{
-									Start.ta.setText("You attacked " + current.mob.getName()+ "with " + this.equipment[Equipment.helmet]+".");
-									itemToAttackWith.beUsed(mobToAttack);
-								}
+								
 								else
 									Start.ta.setText("You don't have that equipped as a weapon.");
 							}
@@ -227,6 +303,9 @@ public abstract class Character implements Visitor {
 				else
 					Start.ta.setText("Attack "+this.current.mob.getName()+" with what?");
 			}
+			else if(mobToBeAttacked.equalsIgnoreCase("MYSELF"))
+				this.die(this);
+			
 			else
 				Start.ta.setText("There is no such being like that near here.");
 		}
@@ -280,6 +359,10 @@ public abstract class Character implements Visitor {
 	
 	public void setHP(double HP) {
 		this.HP = HP;
+	}
+	
+	public int getBagSize() {
+		return this.bagSize;
 	}
 	
 	public double getHP() {
@@ -388,5 +471,7 @@ public abstract class Character implements Visitor {
 		return this.inventory;
 	}
 
+
+	
 	
 }

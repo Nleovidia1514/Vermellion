@@ -1,9 +1,5 @@
 package com.labc.Vermellion;
 
-import java.awt.Color;
-import java.awt.FlowLayout;
-import java.awt.Font;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -26,15 +22,26 @@ public class Start {
 	public static JTextArea Stats, ta, TileTitle;
 	
 	public Start() throws IOException {
+		pic.setIcon(Descriptions.ChooseClass);
 		Start.gameIsRunning = true;
 		Start.tfState = ChooseClassState.instance();
 		innitGui();
 		map = SingletonMap.getInstance();
 		//this.Player = Singleton.getInstance(starting, clase);
-		int RndX = rnd.nextInt(SingletonMap.MapSize), RndY = rnd.nextInt(SingletonMap.MapSize);
-		while(RndY>SingletonMap.MapSize/2)
-			RndY = rnd.nextInt(SingletonMap.MapSize);
+		int RndX = rnd.nextInt(SingletonMap.MapSize), RndY = 0;
 		Start.starting = map.getTile(RndX, RndY);
+		int z=0;
+		while(!starting.getName().equals("forest") && !starting.getName().equals("lake")) {
+			if(z==SingletonMap.MapSize-1) {
+				z=0;
+				RndY++;
+			}
+			else {
+				z++;
+				Start.starting = map.getTile(rnd.nextInt(SingletonMap.MapSize), RndY);
+			}
+		}
+			
 	}
 	
 	private void innitGui() {

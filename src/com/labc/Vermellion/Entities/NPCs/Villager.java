@@ -2,8 +2,8 @@ package com.labc.Vermellion.Entities.NPCs;
 
 import java.util.Random;
 
+import com.labc.Vermellion.Descriptions;
 import com.labc.Vermellion.Item;
-import com.labc.Vermellion.SingletonMap;
 import com.labc.Vermellion.Start;
 import com.labc.Vermellion.Classes.TextFieldStates.PlayState;
 import com.labc.Vermellion.Classes.TextFieldStates.VillagerState;
@@ -12,7 +12,10 @@ import com.labc.Vermellion.Entities.NPC;
 import com.labc.Vermellion.Items.ItemFactory;
 
 public class Villager extends EntityDecorator{
-
+	public static String[] itemNames = new String[] {"Axe","Dagger","Bow","Staff","Sword","Chestplate",
+			"HylianShield","Robe","TShirt","Tunic","Hood","IronHelmet","Cap","Hat","Boots",
+			"IronBoots","Sandals"};
+	
 	public Villager(NPC npc) {
 		super(npc);
 	}
@@ -25,11 +28,9 @@ public class Villager extends EntityDecorator{
 
 	@Override
 	public void beAttacked(int damage) {
-		super.beAttacked(damage);
-		Start.ta.append("\n*Scared villager noises*");
+		Start.ta.append("\nYou attacked the villager dealing "+damage+" damage to him.");
 		this.HP -= damage;
 		if(this.HP<=0) {
-			
 			this.die();
 		}
 		else
@@ -38,14 +39,16 @@ public class Villager extends EntityDecorator{
 
 	@Override
 	public void die() {
+		Start.ta.append("\nThe villager died.");
 		this.position.mob = null;
 		this.position.shortDescription = this.position.descripts.shortDescsAftFight.get(this.position.name);
+		this.position.lookImage = this.position.image = Descriptions.picAfterFight.get(this.position.name);
 		this.position.longDescription = this.position.descripts.longDescsAftFight.get(this.position.name);
+		Start.pic.setIcon(this.position.image);
 	}
 
 	@Override
 	public void beShot(int damage) {
-		super.beShot(damage);
 		this.HP -= damage;
 		if(this.HP<=0) {
 			Start.ta.append("\n*Funny (and weird) villager noises.*");
@@ -58,11 +61,13 @@ public class Villager extends EntityDecorator{
 	
 	@Override
 	public void talk() {
+		Start.pic.setIcon(Descriptions.picBeforeFight.get(this.position.name));
 		if(!alreadyTalkedTo) {
 			Start.ta.setText("Villager noises Villager noises Villager noises "
 					+ "Villager noises Villager noises Villager noises "
 					+ "Villager noises Villager noises Villager noises "
-					+ "Villager noises Villager noises Villager noises");
+					+ "Villager noises Villager noises Villager noises?\n\t"
+					+ "Villager noises(YES) \n\tVillager noises(NO)");
 			Start.tfState = VillagerState.instance();
 		}
 		else
@@ -74,9 +79,7 @@ public class Villager extends EntityDecorator{
 		
 		if(decision.trim().equalsIgnoreCase("YES") || decision.trim().equalsIgnoreCase("NO")) {
 			if(decision.trim().equalsIgnoreCase("YES")) {
-				Item RndItem = ItemFactory.getItem(SingletonMap.getInstance()
-						.getItemNames()[rnd.nextInt(SingletonMap.getInstance()
-								.getItemNames().length)],this.position.player);
+				Item RndItem = ItemFactory.getItem(Villager.itemNames[rnd.nextInt(Villager.itemNames.length)],this.position.player);
 				this.position.player.inventory.add(RndItem);
 				Start.ta.setText("*Happy villager noises^-^*");
 				Start.ta.append("\n"+RndItem.getName()+" has been added to your inventory.");
@@ -84,7 +87,7 @@ public class Villager extends EntityDecorator{
 				this.alreadyTalkedTo = true;
 			}
 			else if(decision.trim().equalsIgnoreCase("NO")) {
-				Start.ta.append("\n*Disappointed villager noises*");
+				Start.ta.append("\n*Disappointed villager noises*"); 
 				Start.tfState = PlayState.instance();
 			}	
 		}

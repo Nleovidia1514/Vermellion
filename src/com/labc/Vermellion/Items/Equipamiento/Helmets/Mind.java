@@ -1,4 +1,4 @@
-package com.labc.Vermellion.Items.Equipamiento;
+package com.labc.Vermellion.Items.Equipamiento.Helmets;
 
 import com.labc.Vermellion.Items.Equipment;
 import com.labc.Vermellion.Character;
@@ -9,9 +9,9 @@ public class Mind extends Equipment {
 	
 	public Mind(Character owner) {
 		super(owner);
-		this.Category = Equipment.weapon;
+		this.Category = Equipment.helmet;
 		this.Durability = 250;
-		this.name = "Mind";
+		this.name = this.regularName = "Mind";
 		this.HP = 20;
 		this.MAGIC = 300;
 		this.SNEAK = 20;

@@ -1,10 +1,8 @@
 package com.labc.Vermellion.Classes;
 
 import com.labc.Vermellion.Tile;
-import com.labc.Vermellion.Visitor;
 import com.labc.Vermellion.Items.Equipment;
 import com.labc.Vermellion.Items.ItemFactory;
-
 import java.util.Random;
 import com.labc.Vermellion.Character;
 import com.labc.Vermellion.Start;
@@ -15,6 +13,7 @@ public class Rogue extends Character{
 	public Rogue(Tile starting) {
 		super(starting);
 		this.startingItem = (Equipment) ItemFactory.getItem("DAGGER", this);
+		this.startingArmor = (Equipment) ItemFactory.getItem("ROBE", this);
 		this.MAXHP = 175;
 		this.MAXMAGIC = 120;
 		this.STR = 80;
@@ -24,8 +23,9 @@ public class Rogue extends Character{
 		this.BLOCK = 30;
 		this.ACCURACY = 100;
 		this.RESISTANCE = 20;
-		this.bagSize = 20;
 		this.inventory.add(this.startingItem);
+		this.inventory.add(this.startingArmor);
+		this.startingArmor.equip();
 		this.startingItem.equip();
 		this.HP = this.MAXHP;
 		this.MAGIC = this.MAXMAGIC;

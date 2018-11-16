@@ -1,5 +1,6 @@
 package com.labc.Vermellion;
 
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
 public class Tile implements Element{
@@ -13,6 +14,7 @@ public class Tile implements Element{
 	private String itemOnFloor;
 	public Descriptions descripts;
 	public ImageIcon image;
+	public Icon lookImage;
 	
 	
 	public Tile(int x , int y, String name, String itemOnF){
@@ -65,6 +67,9 @@ public class Tile implements Element{
 
 	@Override
 	public void accept(Visitor v) {
+		if(this.name.equals("mountain")) {
+			Start.gameIsRunning = false;
+		}
 		Start.pic.setIcon(this.image);
 		Start.TileTitle.setText(this.name.toUpperCase());
 		Start.ta.append(this.getShortDescription());

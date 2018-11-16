@@ -1,5 +1,6 @@
 package com.labc.Vermellion.Entities.NPCs;
 
+import com.labc.Vermellion.Descriptions;
 import com.labc.Vermellion.Start;
 import com.labc.Vermellion.Classes.TextFieldStates.PlayState;
 import com.labc.Vermellion.Classes.TextFieldStates.SariasSongState;
@@ -39,7 +40,9 @@ public class SkullKid extends EntityDecorator{
 	public void die() {
 		this.position.mob = null;
 		this.position.shortDescription = this.position.descripts.shortDescsAftFight.get(this.position.name);
+		this.position.lookImage = this.position.image = Descriptions.picAfterFight.get(this.position.name);
 		this.position.longDescription = this.position.descripts.longDescsAftFight.get(this.position.name);
+		Start.pic.setIcon(Descriptions.picAfterFight.get(this.position.name));
 	}
 
 	@Override
@@ -49,6 +52,7 @@ public class SkullKid extends EntityDecorator{
 	}
 	@Override
 	public void talk() {
+		Start.pic.setIcon(this.position.lookImage);
 		if(!this.alreadyTalkedTo) {
 			Start.tfState = SkullKidState.instance();
 			Start.ta.setText("SkullKid - Hello adventurer. I am the SkullKid, inhabitant and "

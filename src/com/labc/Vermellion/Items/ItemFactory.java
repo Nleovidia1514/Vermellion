@@ -9,14 +9,26 @@ import com.labc.Vermellion.Items.Consumables.Fungi;
 import com.labc.Vermellion.Items.Consumables.GreenPot;
 import com.labc.Vermellion.Items.Consumables.RedPot;
 import com.labc.Vermellion.Items.Consumables.SpaghettiOs;
-import com.labc.Vermellion.Items.Equipamiento.Axe;
-import com.labc.Vermellion.Items.Equipamiento.Bow;
-import com.labc.Vermellion.Items.Equipamiento.Dagger;
-import com.labc.Vermellion.Items.Equipamiento.Excalibur;
-import com.labc.Vermellion.Items.Equipamiento.MajorasMask;
-import com.labc.Vermellion.Items.Equipamiento.Mind;
-import com.labc.Vermellion.Items.Equipamiento.Staff;
-import com.labc.Vermellion.Items.Equipamiento.Sword;
+import com.labc.Vermellion.Items.Equipamiento.Weapons.Axe;
+import com.labc.Vermellion.Items.Equipamiento.Weapons.Bow;
+import com.labc.Vermellion.Items.Equipamiento.Weapons.Dagger;
+import com.labc.Vermellion.Items.Equipamiento.Weapons.Excalibur;
+import com.labc.Vermellion.Items.Equipamiento.ChestPieces.Chestplate;
+import com.labc.Vermellion.Items.Equipamiento.ChestPieces.HylianShield;
+import com.labc.Vermellion.Items.Equipamiento.ChestPieces.Robe;
+import com.labc.Vermellion.Items.Equipamiento.ChestPieces.TShirt;
+import com.labc.Vermellion.Items.Equipamiento.ChestPieces.Tunic;
+import com.labc.Vermellion.Items.Equipamiento.FootwearPieces.Boots;
+import com.labc.Vermellion.Items.Equipamiento.FootwearPieces.IronBoots;
+import com.labc.Vermellion.Items.Equipamiento.FootwearPieces.Sandals;
+import com.labc.Vermellion.Items.Equipamiento.Helmets.Cap;
+import com.labc.Vermellion.Items.Equipamiento.Helmets.Hat;
+import com.labc.Vermellion.Items.Equipamiento.Helmets.Hood;
+import com.labc.Vermellion.Items.Equipamiento.Helmets.IronHelmet;
+import com.labc.Vermellion.Items.Equipamiento.Helmets.MajorasMask;
+import com.labc.Vermellion.Items.Equipamiento.Helmets.Mind;
+import com.labc.Vermellion.Items.Equipamiento.Weapons.Staff;
+import com.labc.Vermellion.Items.Equipamiento.Weapons.Sword;
 import com.labc.Vermellion.Character;
 
 public class ItemFactory {
@@ -25,7 +37,7 @@ public class ItemFactory {
 	public static Item getItem ( String name, Character owner ) {
 		if(name.equals(null))
 			return null;
-		//Weapons
+		//Equipment
 		else if(name.equalsIgnoreCase("AXE"))
 			return new Axe(owner);
 		
@@ -49,6 +61,43 @@ public class ItemFactory {
 		
 		else if(name.equalsIgnoreCase("MAJORASMASK"))
 			return new MajorasMask(owner);
+		
+		else if(name.equalsIgnoreCase("CHESTPLATE"))
+			return new Chestplate(owner);
+		
+		else if(name.equalsIgnoreCase("HYLIANSHIELD"))
+			return new HylianShield(owner);
+		
+		else if(name.equalsIgnoreCase("ROBE"))
+			return new Robe(owner);
+		
+		else if(name.equalsIgnoreCase("TSHIRT"))
+			return new TShirt(owner);
+		
+		else if(name.equalsIgnoreCase("TUNIC"))
+			return new Tunic(owner);
+		
+		else if(name.equalsIgnoreCase("HOOD"))
+			return new Hood(owner);
+		
+		else if(name.equalsIgnoreCase("IRONHELMET"))
+			return new IronHelmet(owner);
+		
+		else if(name.equalsIgnoreCase("HAT"))
+			return new Hat(owner);
+		
+		else if(name.equalsIgnoreCase("CAP"))
+			return new Cap(owner);
+		
+		else if(name.equalsIgnoreCase("BOOTS"))
+			return new Boots(owner);
+		
+		else if(name.equalsIgnoreCase("IRONBOOTS"))
+			return new IronBoots(owner);
+		
+		else if(name.equalsIgnoreCase("SANDALS"))
+			return new Sandals(owner);
+		
 		//Food
 		else if(name.equalsIgnoreCase("APPLE"))
 			return new Apple(owner);

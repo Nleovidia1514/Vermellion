@@ -1,9 +1,13 @@
 package com.labc.Vermellion.Entities.Enemies;
 
+import com.labc.Vermellion.Descriptions;
+import com.labc.Vermellion.Item;
 import com.labc.Vermellion.Start;
 import com.labc.Vermellion.Entities.Enemy;
 import com.labc.Vermellion.Entities.EntityDecorator;
+import com.labc.Vermellion.Entities.NPCs.Villager;
 import com.labc.Vermellion.Items.Equipment;
+import com.labc.Vermellion.Items.ItemFactory;
 
 public class Cornieles extends EntityDecorator implements AttackAble{
 
@@ -38,8 +42,7 @@ public class Cornieles extends EntityDecorator implements AttackAble{
 		this.HP -= damage;
 		if(this.HP<=0) {
 			Start.ta.append("\nNo puede ser nonononono.");
-			Start.ta.append("\nCornieles died.");
-			die();
+			this.die();
 		}	
 		else
 			this.attack();
@@ -52,7 +55,16 @@ public class Cornieles extends EntityDecorator implements AttackAble{
 		this.position.mob = null;
 		this.position.hasEnemy = false;
 		this.position.shortDescription = this.position.descripts.shortDescsAftFight.get(this.position.name);
+		this.position.lookImage = this.position.image = Descriptions.picAfterFight.get(this.position.name);
+		Start.pic.setIcon(Descriptions.picAfterFight.get(this.position.name));
 		this.position.longDescription = this.position.descripts.longDescsAftFight.get(this.position.name);
+		if(this.position.player.inventory.size()<this.position.player.getBagSize()) {
+			Item itemDropped = ItemFactory.getItem(Villager.itemNames[Start.rnd.nextInt(Villager.itemNames.length)], this.position.player);
+			this.position.player.inventory.add(itemDropped);
+			Start.ta.append("The "+this.name+" died and dropped "+itemDropped.getName()+" and it was added to your inventory.");
+		}
+		else
+			Start.ta.append("\nThe "+this.name+" died. Your inventory is full.");
 	}
 	
 	@Override
@@ -65,7 +77,7 @@ public class Cornieles extends EntityDecorator implements AttackAble{
 	public void create() {
 		super.create();
 		this.HP = this.HP + 300;
-		this.ATTACK = this.ATTACK + 150;
+		this.ATTACK = this.ATTACK + 225;
 		this.name = "Cornieles";
 	}
 	
@@ -75,9 +87,8 @@ public class Cornieles extends EntityDecorator implements AttackAble{
 		this.HP = this.HP - damage;
 		Start.ta.append("Sabeeeeeiiiis.");
 		if(this.HP<=0) {
-			this.die();
 			Start.ta.append("\nNo puede ser nonononono.");
-			Start.ta.append("\nCornieles died.");
+			this.die();
 		}
 			
 	}

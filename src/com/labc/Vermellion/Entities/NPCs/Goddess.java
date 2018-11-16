@@ -1,5 +1,6 @@
 package com.labc.Vermellion.Entities.NPCs;
 
+import com.labc.Vermellion.Descriptions;
 import com.labc.Vermellion.Start;
 import com.labc.Vermellion.Classes.TextFieldStates.GoddessState;
 import com.labc.Vermellion.Classes.TextFieldStates.PlayState;
@@ -36,7 +37,9 @@ public class Goddess extends EntityDecorator{
 	public void die() {
 		this.position.mob = null;
 		this.position.shortDescription = this.position.descripts.shortDescsAftFight.get(this.position.name);
+		this.position.lookImage = Descriptions.picAfterFight.get(this.position.name);
 		this.position.longDescription = this.position.descripts.longDescsAftFight.get(this.position.name);
+		Start.pic.setIcon(Descriptions.picAfterFight.get(this.position.name));
 	}
 
 	@Override

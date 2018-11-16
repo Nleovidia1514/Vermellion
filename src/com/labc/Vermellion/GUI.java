@@ -52,7 +52,7 @@ public class GUI {
 		frmVermellion.getContentPane().setBackground(Color.BLACK);
 		frmVermellion.setBackground(Color.WHITE);
 		frmVermellion.setAlwaysOnTop(true);
-		frmVermellion.setBounds(100, 100, 826, 592);
+		frmVermellion.setBounds(100, 100, 870, 592);
 		frmVermellion.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmVermellion.getContentPane().setLayout(null);
 		frmVermellion.setLocationRelativeTo(null);
@@ -71,7 +71,7 @@ public class GUI {
 		txtrHello.setFont(new Font("Segoe Print", Font.ITALIC, 16));
 		txtrHello.setForeground(Color.WHITE);
 		txtrHello.setBackground(Color.DARK_GRAY);
-		txtrHello.setBounds(384, 52, 416, 491);
+		txtrHello.setBounds(384, 52, 460, 491);
 		frmVermellion.getContentPane().add(txtrHello);
 		Start.ta = txtrHello;
 		
@@ -90,7 +90,7 @@ public class GUI {
 		textArea.setEditable(false);
 		textArea.setBackground(Color.GRAY);
 		textArea.setFont(new Font("Segoe Print", Font.ITALIC, 25));
-		textArea.setBounds(384, 11, 416, 42);
+		textArea.setBounds(384, 11, 460, 42);
 		Start.TileTitle = textArea;
 		frmVermellion.getContentPane().add(textArea);
 		

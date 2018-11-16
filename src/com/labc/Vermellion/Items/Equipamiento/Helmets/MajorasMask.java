@@ -1,4 +1,4 @@
-package com.labc.Vermellion.Items.Equipamiento;
+package com.labc.Vermellion.Items.Equipamiento.Helmets;
 
 import com.labc.Vermellion.Character;
 import com.labc.Vermellion.Entity;
@@ -11,7 +11,7 @@ public class MajorasMask extends Equipment {
 		super(owner);
 		this.Category = Equipment.helmet;
 		this.Durability = 500;
-		this.name = "Majoras Mask";
+		this.name = this.regularName = "Majoras Mask";
 		this.HP = 50;
 		this.MAGIC = 200;
 		this.ILLUSION = 150;

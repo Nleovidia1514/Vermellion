@@ -1,4 +1,4 @@
-package com.labc.Vermellion.Items.Equipamiento;
+package com.labc.Vermellion.Items.Equipamiento.Weapons;
 
 import com.labc.Vermellion.Character;
 import com.labc.Vermellion.Entity;
@@ -11,7 +11,7 @@ public class Dagger extends Equipment {
 		super(owner);
 		this.Category = Equipment.weapon;
 		this.Durability = 25;
-		this.name = "Dagger";
+		this.name = this.regularName = "Dagger";
 		this.HP = 15;
 		this.MAGIC = 30;
 		this.SNEAK = 90;

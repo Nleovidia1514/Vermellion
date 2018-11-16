@@ -4,7 +4,6 @@ import com.labc.Vermellion.Character;
 import com.labc.Vermellion.Entity;
 import com.labc.Vermellion.Start;
 import com.labc.Vermellion.Items.Food;
-import com.labc.Vermellion.Items.Useable;
 
 public class Cachito extends Food {
 

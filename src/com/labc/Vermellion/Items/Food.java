@@ -40,4 +40,13 @@ public abstract class Food extends Item {
 		Start.ta.append("\nYou restored "+hphealed+" HP, "+magicrestored+" MAGIC"
 				+ " and "+thirstrestored+" thirst");
 	}
+	
+	@Override
+	public void getStats() {
+		Start.ta.setText(this.name);
+		Start.ta.append("\n"+this.Description);
+		Start.ta.append("\nHealing: "+this.Heal);
+		Start.ta.append("\nMAGIC: "+this.Mana);
+		Start.ta.append("\nTHIRST: "+this.water);
+	}
 }

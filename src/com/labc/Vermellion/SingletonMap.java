@@ -7,7 +7,7 @@ public class SingletonMap {
 	public static int MapSize = 8;
 	private Tile[][] tile = new Tile[MapSize][MapSize];
 	private Random rnd = new Random();
-	private static String[] Easynames = new String[]{"bandits","forest","lake","plains","swamp"};
+	private static String[] Easynames = new String[]{"bandits","forest","lake","plains","swamp","village","sabeis"};
 	private static String[] Hardnames = new String[] {"wasteland","woods","forest","cave"};
 	private static String[] itemNames = new String[]{"Apple","Bluepot","Cachito","Chicha","Fungi",
 	"GreenPot","RedPot","SpaghettiOs","Axe"};
@@ -40,6 +40,7 @@ public class SingletonMap {
 			for(int j= 0; j<MapSize;j++) {
 			tile[i][j].setDescs();
 			tile[i][j].image = Descriptions.picBeforeFight.get(tile[i][j].getName());
+			tile[i][j].lookImage = Descriptions.lookImage.get(tile[i][j].getName());
 			//System.out.println(tile[i][j].getName());
 			}
 		

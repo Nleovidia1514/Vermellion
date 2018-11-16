@@ -1,4 +1,4 @@
-package com.labc.Vermellion.Items.Equipamiento;
+package com.labc.Vermellion.Items.Equipamiento.Weapons;
 
 import com.labc.Vermellion.Items.Equipment;
 import com.labc.Vermellion.Character;
@@ -11,7 +11,7 @@ public class Axe extends Equipment{
 		super(owner);
 		this.Category = Equipment.weapon;
 		this.Durability = 15;
-		this.name = "Axe";
+		this.name = this.regularName = "Axe";
 		this.HP = 40;
 		this.MAGIC = 0;
 		this.ILLUSION = 5;
@@ -54,8 +54,5 @@ public class Axe extends Equipment{
 			this.getOwner().getCurrent().hasRiver = false;
 		}	
 	}
-
-
-	
 	
 }

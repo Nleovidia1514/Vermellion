@@ -14,18 +14,12 @@ public abstract class CharacterState {
 			if(action.equalsIgnoreCase("ATTACK") || action.equalsIgnoreCase("KILL"))
 				player.attack(sn);
 			
-			else if(action.equalsIgnoreCase("LOOK")) {
-				Start.ta.setText(player.current.getLongDescription());
-				if(player.current.getName().equals("lake"))
-					Start.pic.setIcon(Descriptions.LadyofTheLake);
-				if(player.current.getName().equals("cave")) {
-					player.current.hasEnemy = true;
-					Start.pic.setIcon(Descriptions.Bear);
-				}
-				if(player.current.getName().equals("swamp"))
-					Start.pic.setIcon(Descriptions.OldLady);
-			}
-							
+			else if(action.equalsIgnoreCase("LOOK") || action.equalsIgnoreCase("SEE")) 
+				player.look(sn);
+			
+			else if(action.equalsIgnoreCase("DROP"))
+				player.drop(sn);
+			
 			else if(action.equalsIgnoreCase("RUN"))
 				player.run();
 			
@@ -40,7 +34,7 @@ public abstract class CharacterState {
 					Start.ta.setText("Shoot what?");
 			}
 			
-			else if(action.equalsIgnoreCase("INVENTORY"))
+			else if(action.toUpperCase().contains("INV"))
 				player.seeInv();
 			
 			else if(action.equalsIgnoreCase("STATS"))
@@ -59,24 +53,22 @@ public abstract class CharacterState {
 				else
 					Start.ta.setText("Pick what up?");
 			}
+			
 			else if(action.equalsIgnoreCase("USE")||action.equalsIgnoreCase("EAT")
-					||action.equalsIgnoreCase("DRINK")) {
+					||action.equalsIgnoreCase("DRINK")) 
 				player.useItem(sn,action);
-			}
 			
-			else if(action.equalsIgnoreCase("TALK")) {
+			else if(action.equalsIgnoreCase("TALK")) 
 				player.talkToNPC(sn);
-			}
 			
-			else if(action.equalsIgnoreCase("SUICIDE")) {
+			else if(action.equalsIgnoreCase("SUICIDE")) 
 				player.die(player);
-			}
 			
 			else if(action.equalsIgnoreCase("EQUIP")) {
 				player.equip(sn);
 			}
 			
-			else if(action.equalsIgnoreCase("UNEQUIP")) {
+			else if(action.toUpperCase().contains("UNEQ")) {
 				player.unEquip(sn);
 			}
 			else

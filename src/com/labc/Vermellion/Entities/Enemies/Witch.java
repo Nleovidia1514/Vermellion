@@ -1,13 +1,16 @@
 package com.labc.Vermellion.Entities.Enemies;
 
 import com.labc.Vermellion.Descriptions;
+import com.labc.Vermellion.Item;
 import com.labc.Vermellion.PoisonedState;
 import com.labc.Vermellion.Start;
 import com.labc.Vermellion.Classes.TextFieldStates.PlayState;
 import com.labc.Vermellion.Classes.TextFieldStates.WitchState;
 import com.labc.Vermellion.Entities.Enemy;
 import com.labc.Vermellion.Entities.EntityDecorator;
+import com.labc.Vermellion.Entities.NPCs.Villager;
 import com.labc.Vermellion.Items.Equipment;
+import com.labc.Vermellion.Items.ItemFactory;
 
 public class Witch extends EntityDecorator implements AttackAble{
 	
@@ -20,6 +23,7 @@ public class Witch extends EntityDecorator implements AttackAble{
 		int totalDamage = (int) (this.position.player.getHP() - CalculateDamage());
 		if(!this.position.player.getCharacterstate().equals(PoisonedState.instance()) ) {
 			Poison();
+			Start.ta.append("\nThe witch poisoned you for 5 turns.");
 		}
 		else {
 			Start.ta.append("\nThe witch attacks you and deals "+CalculateDamage()+" damage.");
@@ -48,7 +52,7 @@ public class Witch extends EntityDecorator implements AttackAble{
 	public void beAttacked(int damage) {
 		if(this.name.equalsIgnoreCase("OLD LADY")) {
 			Start.ta.append("\nThe old lady made disturbing noises and turns into a witch. "
-					+ "Who would've said so?");
+					+ "Who would've said so?\nYou dealth "+damage+" damage to her.");
 			this.name = "Witch";
 			this.position.hasEnemy = true;
 			Start.pic.setIcon(Descriptions.Witch);
@@ -60,7 +64,6 @@ public class Witch extends EntityDecorator implements AttackAble{
 		this.HP = this.HP-damage;
 		if(this.HP<=0) {
 			this.die();
-			Start.ta.append("\nThe witch died.");
 		}
 		else
 			this.attack();
@@ -68,10 +71,20 @@ public class Witch extends EntityDecorator implements AttackAble{
 
 	@Override
 	public void die() {
+		Start.ta.append("\nThe witch died.");
 		this.position.shortDescription = this.position.descripts.shortDescsAftFight.get(this.position.name);
 		this.position.longDescription = this.position.descripts.longDescsAftFight.get(this.position.name);
+		this.position.lookImage = Descriptions.picAfterFight.get(this.position.name);
+		Start.pic.setIcon(Descriptions.picAfterFight.get(this.position.name));
 		this.position.hasEnemy = false;
 		this.position.mob = null;
+		if(this.position.player.inventory.size()<this.position.player.getBagSize()) {
+			Item itemDropped = ItemFactory.getItem(Villager.itemNames[Start.rnd.nextInt(Villager.itemNames.length)], this.position.player);
+			this.position.player.inventory.add(itemDropped);
+			Start.ta.append("The "+this.name+" died and dropped "+itemDropped.getName()+" and it was added to your inventory.");
+		}
+		else
+			Start.ta.append("\nThe "+this.name+" died. Your inventory is full.");
 	}
 	
 	@Override
@@ -90,15 +103,15 @@ public class Witch extends EntityDecorator implements AttackAble{
 	@Override
 	public void create() {
 		super.create();
-		this.HP = this.HP + 200;
-		this.ATTACK = this.ATTACK + 40;
+		this.HP = this.HP + 450;
+		this.ATTACK = this.ATTACK + 150;
 		this.name = "Old lady";
 	}
 	
 	@Override 
 	public void beShot(int damage) {
 		if(this.name.equalsIgnoreCase("OLD LADY")) {
-			Start.ta.setText("Old Lady - Oh you're a clever one, aren't ya?");
+			Start.ta.append("\nOld Lady - Oh you're a clever one, aren't ya?");
 			Start.ta.append("The old lady resulted to be a witch. Who would've guessed?");
 			this.position.hasEnemy = true;
 			this.name = "Witch";
@@ -111,7 +124,7 @@ public class Witch extends EntityDecorator implements AttackAble{
 		}
 		this.HP = this.HP-damage;
 		if(this.HP<=0) 
-			die();
+			this.die();
 	}
 	
 	private int CalculateDamage() {

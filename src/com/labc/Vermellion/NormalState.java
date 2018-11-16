@@ -81,12 +81,11 @@ public class NormalState extends CharacterState {
 					boolean okay = false;
 					String[] wat = sn.nextLine().split(" ");
 					for(String who : wat)
-						if(player.current.mob.getName().toLowerCase().
-								contains(who)) {
+						if(player.current.mob.getName().toLowerCase().contains(who)) {
 							player.current.mob.talk();
 							okay = true;
 						}
-					if(okay = false)
+					if(okay == false)
 						Start.ta.setText("There is no such being like that here");
 				}
 				else

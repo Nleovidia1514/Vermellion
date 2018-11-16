@@ -14,6 +14,7 @@ public class Fighter extends Character {
 	public Fighter(Tile starting) {
 		super(starting);
 		this.startingItem = (Equipment) ItemFactory.getItem("SWORD", this);
+		this.startingArmor = (Equipment) ItemFactory.getItem("CHESTPLATE", this);
 		this.MAXHP = 250;
 		this.MAXMAGIC = 50;
 		this.STR = 130;
@@ -23,8 +24,9 @@ public class Fighter extends Character {
 		this.BLOCK = 150;
 		this.ACCURACY = 80;
 		this.RESISTANCE = 30;
-		this.bagSize = 25;
 		this.inventory.add(this.startingItem);
+		this.inventory.add(this.startingArmor);
+		this.startingArmor.equip();
 		this.startingItem.equip();
 		this.HP = this.MAXHP;
 		this.MAGIC = this.MAXMAGIC;
