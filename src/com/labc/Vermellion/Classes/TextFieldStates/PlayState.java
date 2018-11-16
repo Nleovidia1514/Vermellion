@@ -19,9 +19,10 @@ public class PlayState extends TextFieldState{
 	private void play() {
 		
 		if(Start.gameIsRunning) {
+			Start.ta.setText("");
 			changeGameState(Start.tf.getText());
-			Start.ta.append("\nHP - "+Start.Player.getHP()+"\n"
-					+"MAGIC - "+Start.Player.getMagic()+"\n"
+			Start.Stats.setText("HP - "+(int)Start.Player.getHP()+"   "
+					+"MAGIC - "+Start.Player.getMagic()+"   "
 					+"THIRST - "+Start.Player.getThirst());
 		}
 	}

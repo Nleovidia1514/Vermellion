@@ -52,7 +52,7 @@ public class GUI {
 		frmVermellion.getContentPane().setBackground(Color.BLACK);
 		frmVermellion.setBackground(Color.WHITE);
 		frmVermellion.setAlwaysOnTop(true);
-		frmVermellion.setBounds(100, 100, 826, 536);
+		frmVermellion.setBounds(100, 100, 826, 592);
 		frmVermellion.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmVermellion.getContentPane().setLayout(null);
 		frmVermellion.setLocationRelativeTo(null);
@@ -68,15 +68,15 @@ public class GUI {
 		txtrHello.setWrapStyleWord(true);
 		txtrHello.setLineWrap(true);
 		txtrHello.setEditable(false);
-		txtrHello.setFont(new Font("Lucida Handwriting", Font.ITALIC, 16));
+		txtrHello.setFont(new Font("Segoe Print", Font.ITALIC, 16));
 		txtrHello.setForeground(Color.WHITE);
 		txtrHello.setBackground(Color.DARK_GRAY);
-		txtrHello.setBounds(384, 11, 416, 476);
+		txtrHello.setBounds(384, 52, 416, 491);
 		frmVermellion.getContentPane().add(txtrHello);
 		Start.ta = txtrHello;
 		
 		txtInsertText = new JTextField();
-		txtInsertText.setFont(new Font("Lucida Handwriting", Font.ITALIC, 16));
+		txtInsertText.setFont(new Font("Segoe Print", Font.ITALIC, 16));
 		txtInsertText.setToolTipText("");
 		txtInsertText.setForeground(Color.WHITE);
 		txtInsertText.setBackground(Color.DARK_GRAY);
@@ -84,5 +84,25 @@ public class GUI {
 		frmVermellion.getContentPane().add(txtInsertText);
 		txtInsertText.setColumns(10);
 		Start.tf = txtInsertText;
+		
+		JTextArea textArea = new JTextArea();
+		textArea.setForeground(new Color(25, 25, 112));
+		textArea.setEditable(false);
+		textArea.setBackground(Color.GRAY);
+		textArea.setFont(new Font("Segoe Print", Font.ITALIC, 25));
+		textArea.setBounds(384, 11, 416, 42);
+		Start.TileTitle = textArea;
+		frmVermellion.getContentPane().add(textArea);
+		
+		JTextArea textArea_1 = new JTextArea();
+		textArea_1.setForeground(Color.WHITE);
+		textArea_1.setBackground(Color.GRAY);
+		textArea_1.setLineWrap(true);
+		textArea_1.setWrapStyleWord(true);
+		textArea_1.setEditable(false);
+		textArea_1.setFont(new Font("Segoe Print", Font.ITALIC, 15));
+		textArea_1.setBounds(10, 498, 370, 45);
+		Start.Stats = textArea_1;
+		frmVermellion.getContentPane().add(textArea_1);
 	}
 }

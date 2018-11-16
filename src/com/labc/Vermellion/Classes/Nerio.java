@@ -61,7 +61,6 @@ public class Nerio extends Character  {
 
 	@Override
 	public void Visit(Tile tile) {
-		Start.ta.setText(tile.getShortDescription());
 		if(tile.hasEnemy)
 			Start.ta.append("\nYou think about what to do next "
 					+ "while you watch youtube.");

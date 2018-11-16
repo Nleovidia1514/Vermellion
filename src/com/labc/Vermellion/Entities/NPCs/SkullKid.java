@@ -38,7 +38,6 @@ public class SkullKid extends EntityDecorator{
 	@Override
 	public void die() {
 		this.position.mob = null;
-		this.position.hasEnemy = false;
 		this.position.shortDescription = this.position.descripts.shortDescsAftFight.get(this.position.name);
 		this.position.longDescription = this.position.descripts.longDescsAftFight.get(this.position.name);
 	}

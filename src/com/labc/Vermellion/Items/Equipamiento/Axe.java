@@ -47,7 +47,7 @@ public class Axe extends Equipment{
 		Start.ta.append("\nYou chopped the tree. ");
 		if( this.getOwner().getCurrent().hasEnemy ) {
 			Start.ta.append("\nand it fell on " + this.getOwner().getCurrent().mob.getName() );
-			this.getOwner().getCurrent().mob.beAttacked(75);
+			this.getOwner().getCurrent().mob.beAttacked(150);
 		}
 		if( this.getOwner().getCurrent().hasRiver ) {
 			Start.ta.append("\nThe chopped tree fell on the river and now you can pass over it.");

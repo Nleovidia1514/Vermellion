@@ -21,18 +21,18 @@ public class ThirstyState extends CharacterState{
 			
 			player.current = player.current.getNeighbors()[dir];
 			if(dir==SingletonMap.NORTH)
-				Start.ta.setText("You're hallucinating and walked north instead.");
+				Start.ta.setText("You're hallucinating and walked north instead.\n");
 			
 			else if(dir==SingletonMap.EAST)
-				Start.ta.setText("You're hallucinating and walked east instead.");
+				Start.ta.setText("You're hallucinating and walked east instead.\n");
 			
 			else if(dir==SingletonMap.SOUTH)
-				Start.ta.setText("You're hallucinating and walked south instead");
+				Start.ta.setText("You're hallucinating and walked south instead\n");
 			
 			else if(dir==SingletonMap.WEST)
-				Start.ta.setText("You're hallucinating and walked west instead.");
+				Start.ta.setText("You're hallucinating and walked west instead.\n");
 			
-			
+			player.current.accept(player);
 		}
 		else {
 			Start.ta.setText("You walked right through those who were trying to kill "

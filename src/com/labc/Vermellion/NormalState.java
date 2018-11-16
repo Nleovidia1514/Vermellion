@@ -20,6 +20,7 @@ public class NormalState extends CharacterState {
 			if(direction.toLowerCase().contains("north")) {
 				if(player.current.getNeighbors()[SingletonMap.NORTH]!=null) {
 					player.current = player.current.getNeighbors()[SingletonMap.NORTH];
+					Start.ta.setText("You walked north\n\n");
 					player.current.accept(player);
 				}
 					
@@ -30,6 +31,7 @@ public class NormalState extends CharacterState {
 			else if(direction.toLowerCase().contains("east")) {
 				if(player.current.getNeighbors()[SingletonMap.EAST]!=null) {
 					player.current = player.current.getNeighbors()[SingletonMap.EAST];
+					Start.ta.setText("You walked east\n\n");
 					player.current.accept(player);
 				}
 					
@@ -40,6 +42,7 @@ public class NormalState extends CharacterState {
 			else if(direction.toLowerCase().contains("south")) {
 				if(player.current.getNeighbors()[SingletonMap.SOUTH]!=null) {
 					player.current = player.current.getNeighbors()[SingletonMap.SOUTH];
+					Start.ta.setText("You walked south\n\n");
 					player.current.accept(player);
 				}
 					
@@ -50,6 +53,7 @@ public class NormalState extends CharacterState {
 			else if(direction.toLowerCase().contains("west")) {
 				if(player.current.getNeighbors()[SingletonMap.WEST]!=null) {
 					player.current = player.current.getNeighbors()[SingletonMap.WEST];
+					Start.ta.setText("You walked west\n\n");
 					player.current.accept(player);
 				}
 					

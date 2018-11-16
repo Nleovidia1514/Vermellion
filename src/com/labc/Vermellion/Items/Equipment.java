@@ -52,6 +52,8 @@ public abstract class Equipment extends Item {
 			this.getOwner().setBlock(this.getOwner().getBlock()-this.BLOCK);
 			this.getOwner().setAccuracy(this.getOwner().getAccuracy()-this.ACCURACY);
 			this.getOwner().equipment[this.Category] = null;
+			this.getOwner().setHP(this.getOwner().getMaxHP());
+			this.getOwner().setMagic(this.getOwner().getMaxMagic());
 			Start.ta.setText("You unequipped "+this.getClass().getSimpleName());
 		}
 		else

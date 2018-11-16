@@ -60,7 +60,6 @@ public class Fighter extends Character {
 
 	@Override
 	public void Visit(Tile tile) {
-		Start.ta.setText(tile.getShortDescription());
 		if(tile.hasEnemy)
 			Start.ta.append("\nYour honor makes you anxious to fight but "
 					+ "decide to think before you act.");

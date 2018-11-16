@@ -8,18 +8,18 @@ public class Tile implements Element{
 	public String name, shortDescription = "There is nothing here", longDescription = "There is nothing you can do here";
 	public Entity mob;
 	public Character player;
-	public boolean hasRiver, hasTree, hasEnemy, hasNPC, canShoot;
+	public boolean hasRiver, hasTree, hasLake, hasEnemy, canShoot;
 	private Tile[] neighbors = new Tile[4];
 	private String itemOnFloor;
 	public Descriptions descripts;
 	public ImageIcon image;
+	
 	
 	public Tile(int x , int y, String name, String itemOnF){
 		this.name = name;
 		this.x=x;
 		this.y=y;
 		this.hasEnemy=false;
-		this.hasNPC=false;
 		this.hasTree = true;
 		this.player = null;
 		this.itemOnFloor = itemOnF;
@@ -66,6 +66,8 @@ public class Tile implements Element{
 	@Override
 	public void accept(Visitor v) {
 		Start.pic.setIcon(this.image);
+		Start.TileTitle.setText(this.name.toUpperCase());
+		Start.ta.append(this.getShortDescription());
 		v.Visit(this);
 	}
 }

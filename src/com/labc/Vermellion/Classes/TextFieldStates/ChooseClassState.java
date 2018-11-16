@@ -32,8 +32,8 @@ public class ChooseClassState extends TextFieldState {
 		if(Start.Player!=null) {
 			Start.tfState = PlayState.instance();
 			Start.starting.accept(Start.Player);
-			Start.ta.append("\nHP - "+Start.Player.getHP()+"\n"
-			+"MAGIC - "+Start.Player.getMagic()+"\n"
+			Start.Stats.setText("HP - "+(int)Start.Player.getHP()+"   "
+			+"MAGIC - "+Start.Player.getMagic()+"   "
 			+"THIRST - "+Start.Player.getThirst());
 		}
 	

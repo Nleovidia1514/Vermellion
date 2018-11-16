@@ -13,17 +13,19 @@ public class Cornieles extends EntityDecorator implements AttackAble{
 	
 	@Override
 	public void attack() {
-		int totalDamage = position.player.getHP()-CalculateDamage();
+		int totalDamage = (int) (position.player.getHP()-CalculateDamage());
 		Start.ta.append("\nUstedes son unos expertos.");
 		position.player.setHP(totalDamage);
 		Start.ta.append("\n"+this.name+" dealt "+CalculateDamage()+" damage to you.");
 		for(String damage : this.position.player.equipment)
 		{
 			for(int i=0;i<this.position.player.inventory.size();i++) {
-				Equipment piece = (Equipment) this.position.player.inventory.get(i);
-				if(piece.getName().equalsIgnoreCase(damage) 
-						&& piece.getCategory() != Equipment.weapon )
-					piece.reduceDurability();
+				try {
+					Equipment piece = (Equipment) this.position.player.inventory.get(i);
+					if(piece.getName().equalsIgnoreCase(damage) 
+							&& piece.getCategory() != Equipment.weapon )
+						piece.reduceDurability();
+				}catch(Exception e) {}
 			}
 		}
 	}

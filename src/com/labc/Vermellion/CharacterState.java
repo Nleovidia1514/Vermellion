@@ -14,9 +14,18 @@ public abstract class CharacterState {
 			if(action.equalsIgnoreCase("ATTACK") || action.equalsIgnoreCase("KILL"))
 				player.attack(sn);
 			
-			else if(action.equalsIgnoreCase("LOOK")) 
+			else if(action.equalsIgnoreCase("LOOK")) {
 				Start.ta.setText(player.current.getLongDescription());
-			
+				if(player.current.getName().equals("lake"))
+					Start.pic.setIcon(Descriptions.LadyofTheLake);
+				if(player.current.getName().equals("cave")) {
+					player.current.hasEnemy = true;
+					Start.pic.setIcon(Descriptions.Bear);
+				}
+				if(player.current.getName().equals("swamp"))
+					Start.pic.setIcon(Descriptions.OldLady);
+			}
+							
 			else if(action.equalsIgnoreCase("RUN"))
 				player.run();
 			
@@ -44,7 +53,7 @@ public abstract class CharacterState {
 					Start.ta.setText("Walk where?");
 			}
 			
-			else if(action.equalsIgnoreCase("PICKUP")) {
+			else if(action.equalsIgnoreCase("PICKUP") || action.equalsIgnoreCase("TAKE")) {
 				if( sn.hasNext() )
 					player.pickUpItem(sn.next());
 				else

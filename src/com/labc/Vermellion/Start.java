@@ -21,17 +21,20 @@ public class Start {
 	public static boolean gameIsRunning;
 	public static JFrame frame;
 	public static JLabel pic;
-	public static JTextArea ta;
 	public static JTextField tf;
 	public static TextFieldState tfState;
+	public static JTextArea Stats, ta, TileTitle;
 	
 	public Start() throws IOException {
 		Start.gameIsRunning = true;
 		Start.tfState = ChooseClassState.instance();
 		innitGui();
-		//this.Player = Singleton.getInstance(starting, clase);
 		map = SingletonMap.getInstance();
-		Start.starting = map.getTile(rnd.nextInt(SingletonMap.MapSize), rnd.nextInt(SingletonMap.MapSize));
+		//this.Player = Singleton.getInstance(starting, clase);
+		int RndX = rnd.nextInt(SingletonMap.MapSize), RndY = rnd.nextInt(SingletonMap.MapSize);
+		while(RndY>SingletonMap.MapSize/2)
+			RndY = rnd.nextInt(SingletonMap.MapSize);
+		Start.starting = map.getTile(RndX, RndY);
 	}
 	
 	private void innitGui() {
@@ -43,23 +46,10 @@ public class Start {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				Start.tfState.action();
-				tf.setText(null);
-			
+				Start.tf.setText(null);
+				//System.out.println(Start.Player.current.x+","+Start.Player.current.y);
 			}
-	
 		});
-		
-		/*panel.add(ta);
-		panel.add(tf);
-		tf.setRequestFocusEnabled(true);
-		panel.setLayout(new FlowLayout());
-		frame.add(panel);
-		ta.setFont(new Font("perro",Font.ITALIC,17));
-		frame.pack();
-		frame.setLocationRelativeTo(null);
-		frame.setVisible(true);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setAlwaysOnTop(true);*/
 	}
 
 }

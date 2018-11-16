@@ -17,7 +17,7 @@ public class Bandits extends EntityDecorator implements AttackAble {
 	@Override
 	public void attack() {
 		Random rnd = new Random();
-		int totalDamage = position.player.getHP()-CalculateDamage();
+		int totalDamage = (int) position.player.getHP()-CalculateDamage();
 		Start.ta.append("\nThe bandits try to steal items from you.");
 		if(position.player.inventory.size()>0) {
 			Item itemStolen = this.position.player.inventory.get(rnd.nextInt(position.player.inventory.size()));
@@ -31,21 +31,23 @@ public class Bandits extends EntityDecorator implements AttackAble {
 						+ " stole "+itemStolen.getName()
 						+ " from your inventory.");
 				position.player.inventory.remove(itemStolen);
-			}
-			if(itemStolen.getClass().getSuperclass().getSimpleName().equalsIgnoreCase("Equipment")) {
-				Equipment itemThatWasStolen = (Equipment) itemStolen;
-				itemThatWasStolen.unEquip();
-				itemThatWasStolen.getOwner().setMaxHP(itemThatWasStolen.getOwner().getMaxHP()-itemThatWasStolen.HP);
-				itemThatWasStolen.getOwner().setSTR(itemThatWasStolen.getOwner().getSTR()-itemThatWasStolen.STR);
-				itemThatWasStolen.getOwner().setResistance(itemThatWasStolen.getOwner().getResistance()-itemThatWasStolen.RESISTANCE);
-				itemThatWasStolen.getOwner().setMaxMagic(itemThatWasStolen.getOwner().getMaxMagic()-itemThatWasStolen.MAGIC);
-				itemThatWasStolen.getOwner().setIllusion(itemThatWasStolen.getOwner().getIllusion()-itemThatWasStolen.ILLUSION);
-				itemThatWasStolen.getOwner().setBagredad(itemThatWasStolen.getOwner().getBagredad()-itemThatWasStolen.BAGREDAD);
-				itemThatWasStolen.getOwner().setSneak(itemThatWasStolen.getOwner().getSneak()-itemThatWasStolen.SNEAK);
-				itemThatWasStolen.getOwner().setBlock(itemThatWasStolen.getOwner().getBlock()-itemThatWasStolen.BLOCK);
-				itemThatWasStolen.getOwner().setAccuracy(itemThatWasStolen.getOwner().getAccuracy()-itemThatWasStolen.ACCURACY);
-				itemThatWasStolen.getOwner().equipment[itemThatWasStolen.getCategory()] = null;
-				Start.ta.append("\nYour stolen item has been unequipped.");
+				if(itemStolen.getClass().getSuperclass().getSimpleName().equalsIgnoreCase("Equipment")){
+					Equipment itemThatWasStolen = (Equipment) itemStolen;
+					if(this.position.player.equipment[itemThatWasStolen.getCategory()].equalsIgnoreCase(itemThatWasStolen.getClass().getSimpleName()))
+					{
+						itemThatWasStolen.getOwner().setMaxHP(itemThatWasStolen.getOwner().getMaxHP()-itemThatWasStolen.HP);
+						itemThatWasStolen.getOwner().setSTR(itemThatWasStolen.getOwner().getSTR()-itemThatWasStolen.STR);
+						itemThatWasStolen.getOwner().setResistance(itemThatWasStolen.getOwner().getResistance()-itemThatWasStolen.RESISTANCE);
+						itemThatWasStolen.getOwner().setMaxMagic(itemThatWasStolen.getOwner().getMaxMagic()-itemThatWasStolen.MAGIC);
+						itemThatWasStolen.getOwner().setIllusion(itemThatWasStolen.getOwner().getIllusion()-itemThatWasStolen.ILLUSION);
+						itemThatWasStolen.getOwner().setBagredad(itemThatWasStolen.getOwner().getBagredad()-itemThatWasStolen.BAGREDAD);
+						itemThatWasStolen.getOwner().setSneak(itemThatWasStolen.getOwner().getSneak()-itemThatWasStolen.SNEAK);
+						itemThatWasStolen.getOwner().setBlock(itemThatWasStolen.getOwner().getBlock()-itemThatWasStolen.BLOCK);
+						itemThatWasStolen.getOwner().setAccuracy(itemThatWasStolen.getOwner().getAccuracy()-itemThatWasStolen.ACCURACY);
+						itemThatWasStolen.getOwner().equipment[itemThatWasStolen.getCategory()] = null;
+						Start.ta.append("\nYour stolen item has been unequipped.");
+					}
+				}
 			}
 		}
 		else		
@@ -56,10 +58,12 @@ public class Bandits extends EntityDecorator implements AttackAble {
 		for(String damage : this.position.player.equipment)
 		{
 			for(int i=0;i<this.position.player.inventory.size();i++) {
-				Equipment piece = (Equipment) this.position.player.inventory.get(i);
-				if(piece.getName().equalsIgnoreCase(damage) 
-						&& piece.getCategory() != Equipment.weapon )
-					piece.reduceDurability();
+				try {
+					Equipment piece = (Equipment) this.position.player.inventory.get(i);
+					if(piece.getName().equalsIgnoreCase(damage) 
+							&& piece.getCategory() != Equipment.weapon )
+						piece.reduceDurability();
+				}catch(Exception e) {}
 			}
 		}
 	}

@@ -21,23 +21,20 @@ public abstract class Food extends Item {
 	@Override
 	public void beUsed(Entity mob) {
 		int hphealed = 0, magicrestored = 0; int thirstrestored = 0;
-		for(int i = 0; i<this.Heal;i++)
-			if (this.getOwner().getHP() < this.getOwner().getMaxHP()) {
-				this.getOwner().setHP(this.getOwner().getHP()+1);
-				hphealed++;
-			}
+		while(hphealed<this.Heal && this.getOwner().getHP()<this.getOwner().getMaxHP()) {
+			this.getOwner().setHP(this.getOwner().getHP()+1);
+			hphealed++;
+		}
 		
-		for(int i = 0; i<this.Mana;i++)
-			if (this.getOwner().getMagic() < this.getOwner().getMaxMagic()) {
-				this.getOwner().setMagic(this.getOwner().getMagic()+1);
-				magicrestored++;
-			}
-		
-		for( int i = 0; i<this.water; i++)
-			if(this.getOwner().getThirst() < this.getOwner().getMaxThirst() ){
-				this.getOwner().setThirst(this.getOwner().getThirst()+1);
-				thirstrestored++;
-			}
+		while(magicrestored<this.Mana && this.getOwner().getMagic()<this.getOwner().getMaxMagic()) {
+			this.getOwner().setMagic(this.getOwner().getMagic()+1);
+			magicrestored++;
+		}
+
+		while(thirstrestored<this.water && this.getOwner().getThirst()<this.getOwner().getMaxThirst()) {
+			this.getOwner().setThirst(this.getOwner().getThirst()+1);
+			thirstrestored++;
+		}
 			
 		this.getOwner().inventory.remove(this);
 		Start.ta.append("\nYou restored "+hphealed+" HP, "+magicrestored+" MAGIC"

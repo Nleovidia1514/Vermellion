@@ -39,7 +39,6 @@ public class Villager extends EntityDecorator{
 	@Override
 	public void die() {
 		this.position.mob = null;
-		this.position.hasEnemy = false;
 		this.position.shortDescription = this.position.descripts.shortDescsAftFight.get(this.position.name);
 		this.position.longDescription = this.position.descripts.longDescsAftFight.get(this.position.name);
 	}
@@ -87,14 +86,14 @@ public class Villager extends EntityDecorator{
 			else if(decision.trim().equalsIgnoreCase("NO")) {
 				Start.ta.append("\n*Disappointed villager noises*");
 				Start.tfState = PlayState.instance();
-			}
-			else {
-				Start.ta.setText("Villager noisesVillager noisesVillager noises "
-						+ "Villager noisesVillager noisesVillager noises "
-						+ "Villager noisesVillager noisesVillager noises "
-						+ "Villager noisesVillager noisesVillager noises");
-				Start.ta.append("*Confused villager noises*");
-			}
+			}	
+		}
+		else {
+			Start.ta.setText("Villager noisesVillager noisesVillager noises "
+					+ "Villager noisesVillager noisesVillager noises "
+					+ "Villager noisesVillager noisesVillager noises "
+					+ "Villager noisesVillager noisesVillager noises");
+			Start.ta.append("*Confused villager noises*");
 		}
 	}
 }

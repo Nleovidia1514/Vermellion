@@ -31,29 +31,45 @@ public class PoisonedState extends CharacterState {
 	public void walk(String direction, Character player) {
 		if(!player.current.hasEnemy) {
 			if(direction.toLowerCase().contains("north")) {
-				if(player.current.getNeighbors()[SingletonMap.NORTH]!=null)
+				if(player.current.getNeighbors()[SingletonMap.NORTH]!=null) {
+					Start.ta.setText("You walked north\n\n");
 					player.current = player.current.getNeighbors()[SingletonMap.NORTH];
+					player.current.accept(player);
+				}
+					
 				else
 					Start.ta.setText("Seems like there is no access through there");
 			}
 			
 			else if(direction.toLowerCase().contains("east")) {
-				if(player.current.getNeighbors()[SingletonMap.EAST]!=null)
+				if(player.current.getNeighbors()[SingletonMap.EAST]!=null) {
+					Start.ta.setText("You walked east\n\n");
 					player.current = player.current.getNeighbors()[SingletonMap.EAST];
+					player.current.accept(player);
+				}
+					
 				else
 					Start.ta.setText("Seems like there is no access through there");
 			}
 			
 			else if(direction.toLowerCase().contains("south")) {
-				if(player.current.getNeighbors()[SingletonMap.SOUTH]!=null)
+				if(player.current.getNeighbors()[SingletonMap.SOUTH]!=null) {
+					Start.ta.setText("You walked south\n\n");
 					player.current = player.current.getNeighbors()[SingletonMap.SOUTH];
+					player.current.accept(player);
+				}
+					
 				else
 					Start.ta.setText("Seems like there is no access through there");
 			}
 			
 			else if(direction.toLowerCase().contains("west")) {
-				if(player.current.getNeighbors()[SingletonMap.WEST]!=null)
+				if(player.current.getNeighbors()[SingletonMap.WEST]!=null) {
+					Start.ta.setText("You walked west\n\n");
 					player.current = player.current.getNeighbors()[SingletonMap.WEST];
+					player.current.accept(player);
+				}
+					
 				else
 					Start.ta.setText("Seems like there is no access through there");
 			}

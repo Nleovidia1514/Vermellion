@@ -59,7 +59,6 @@ public class Rogue extends Character{
 
 	@Override
 	public void Visit(Tile tile) {
-		Start.ta.setText(tile.getShortDescription());
 		if(tile.hasEnemy)
 			Start.ta.append("\nYou make playful moves with your dagger "
 					+ "as you can't wait to slice something's throat..");
