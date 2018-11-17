@@ -3,6 +3,8 @@ package com.labc.Vermellion;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import javax.sound.sampled.Clip;
+
 import com.labc.Vermellion.Items.Equipment;
 import com.labc.Vermellion.Items.ItemFactory;
 
@@ -34,7 +36,8 @@ public abstract class Character implements Visitor {
 	protected abstract void shoot(String target);
 
 	protected void walk(String direction) {
-		this.state.walk(direction,this);
+		if(this.state.walk(direction,this))
+			SoundFX.WALK.loop(3,0.35);
 	}
 	
 	protected void talkToNPC(Scanner sn ) {
@@ -43,6 +46,9 @@ public abstract class Character implements Visitor {
 	
 	protected void die(Character player) {
 		Start.pic.setIcon(Descriptions.Ded);
+		Start.background.stop();
+		Start.battle.stop();
+		SoundFX.DIE.play(0.6);
 		this.state.die(player);
 	}
 
@@ -57,6 +63,9 @@ public abstract class Character implements Visitor {
 		direction = i==2 ? "south" : direction;
 		direction = i==3 ? "west" : direction;
 		Start.ta.setText("You ran to the "+direction+".\n");
+		SoundFX.WALK.loop(3,0.35);
+		Start.battle.stop();
+		Start.background.loop(Clip.LOOP_CONTINUOUSLY, 0.15);
 		this.current.accept(this);
 		this.THIRST-=30;
 	}
@@ -471,7 +480,8 @@ public abstract class Character implements Visitor {
 		return this.inventory;
 	}
 
-
-	
+	public void setCurrent(Tile tile) {
+		this.current = tile;
+	}
 	
 }

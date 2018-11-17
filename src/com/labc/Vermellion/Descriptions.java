@@ -40,7 +40,9 @@ public class Descriptions {
 			Creeper = new ImageIcon("images/Creeper.jpg"),
 			CreeperHole = new ImageIcon("images/CreeperHole.jpg"),
 			Adult = new ImageIcon("images/Adult.jpg"),
-			Forest3 = new ImageIcon("images/Forest3.jpg");
+			Forest3 = new ImageIcon("images/Forest3.jpg"),
+			Fairy = new ImageIcon("images/Fairy.jpg"),
+			MountainTop = new ImageIcon("images/Mountaintop.jpg");
 	
 	public Descriptions(Tile dis) {
 		if(dis.getName().equalsIgnoreCase("bandits")) {
@@ -174,6 +176,20 @@ public class Descriptions {
 			dis.hasEnemy = true;
 		}
 		
+		else if (dis.getName().equals("magical forest")) {
+			String DescBeforeFight = "As you enter the thick part of the forest you just stumbled"
+					+ " upon with, you see a small woman that looks more like a girl. You're pretty"
+					+ " sure that she is a fairy of the forest, you could approach her but you don't"
+					+ " know what might happen. What will you do?";
+			String DescAfterFight = "The fairy left leaving you alone in the woods. The atmosphere"
+					+ " of the place now has a weird sparkling.";
+			shortDescs.put("magical forest", DescBeforeFight);
+			longDescs.put("magical forest", DescBeforeFight+"\n\tThere is "+dis.getItemOnFloor()+" on the floor.");
+			shortDescsAftFight.put("magical forest", DescAfterFight);
+			longDescsAftFight.put("magical forest", DescAfterFight+"\n\tThere is "+dis.getItemOnFloor()+" on the floor.");
+			Entities.put("magical forest", EntityFactory.getEntity("FAIRY", dis));
+		}
+		
 		else if(dis.getName().startsWith("mountainView")) {
 			if(dis.getName().equalsIgnoreCase("mountainViewNorth")) {
 				shortDescs.put("mountainViewNorth", "A huge mountain can be seen rising to the north.");
@@ -274,6 +290,8 @@ public class Descriptions {
 		CreeperHole.setImage(CreeperHole.getImage().getScaledInstance(364, 361, Image.SCALE_SMOOTH));
 		Forest3.setImage(Forest3.getImage().getScaledInstance(364, 361, Image.SCALE_SMOOTH));
 		Adult.setImage(Adult.getImage().getScaledInstance(364, 361, Image.SCALE_SMOOTH));
+		Fairy.setImage(Fairy.getImage().getScaledInstance(364, 361, Image.SCALE_SMOOTH));
+		MountainTop.setImage(MountainTop.getImage().getScaledInstance(364, 361, Image.SCALE_SMOOTH));
 		
 		//Pics before fight
 		picBeforeFight.put("bandits", bandits);
@@ -295,6 +313,7 @@ public class Descriptions {
 		picBeforeFight.put("plains", Creeper);
 		picBeforeFight.put("village", Village);
 		picBeforeFight.put("sabeis", Adult);
+		picBeforeFight.put("magical forest", Fairy);
 		
 		//Look image
 		lookImage.put("bandits", bandits);
@@ -316,6 +335,7 @@ public class Descriptions {
 		lookImage.put("plains", Creeper);
 		lookImage.put("village", Villager);
 		lookImage.put("sabeis", Adult);
+		lookImage.put("magical forest", Fairy);
 		
 		//Pic after fight
 		picAfterFight.put("bandits", Forest1);
@@ -337,5 +357,7 @@ public class Descriptions {
 		picAfterFight.put("plains", CreeperHole);
 		picAfterFight.put("village", Village);
 		picAfterFight.put("sabeis", Forest3);
+		picAfterFight.put("magical forest", Forest1);
+		
 	}
 }

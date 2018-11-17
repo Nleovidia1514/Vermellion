@@ -3,12 +3,13 @@ package com.labc.Vermellion.Entities.Enemies;
 import com.labc.Vermellion.Descriptions;
 import com.labc.Vermellion.Item;
 import com.labc.Vermellion.PoisonedState;
+import com.labc.Vermellion.SoundFX;
 import com.labc.Vermellion.Start;
 import com.labc.Vermellion.Classes.TextFieldStates.PlayState;
 import com.labc.Vermellion.Classes.TextFieldStates.WitchState;
+import com.labc.Vermellion.Entities.BasicEntity;
 import com.labc.Vermellion.Entities.Enemy;
 import com.labc.Vermellion.Entities.EntityDecorator;
-import com.labc.Vermellion.Entities.NPCs.Villager;
 import com.labc.Vermellion.Items.Equipment;
 import com.labc.Vermellion.Items.ItemFactory;
 
@@ -51,6 +52,7 @@ public class Witch extends EntityDecorator implements AttackAble{
 	@Override
 	public void beAttacked(int damage) {
 		if(this.name.equalsIgnoreCase("OLD LADY")) {
+			SoundFX.WITCH.play(0.40);
 			Start.ta.append("\nThe old lady made disturbing noises and turns into a witch. "
 					+ "Who would've said so?\nYou dealth "+damage+" damage to her.");
 			this.name = "Witch";
@@ -79,9 +81,9 @@ public class Witch extends EntityDecorator implements AttackAble{
 		this.position.hasEnemy = false;
 		this.position.mob = null;
 		if(this.position.player.inventory.size()<this.position.player.getBagSize()) {
-			Item itemDropped = ItemFactory.getItem(Villager.itemNames[Start.rnd.nextInt(Villager.itemNames.length)], this.position.player);
+			Item itemDropped = ItemFactory.getItem(BasicEntity.normalDrops[Start.rnd.nextInt(BasicEntity.normalDrops.length)],this.position.player);
 			this.position.player.inventory.add(itemDropped);
-			Start.ta.append("The "+this.name+" died and dropped "+itemDropped.getName()+" and it was added to your inventory.");
+			Start.ta.append("\nThe "+this.name+" died and dropped "+itemDropped.getName()+" and it was added to your inventory.");
 		}
 		else
 			Start.ta.append("\nThe "+this.name+" died. Your inventory is full.");
@@ -111,6 +113,7 @@ public class Witch extends EntityDecorator implements AttackAble{
 	@Override 
 	public void beShot(int damage) {
 		if(this.name.equalsIgnoreCase("OLD LADY")) {
+			SoundFX.WITCH.play(0.40);
 			Start.ta.append("\nOld Lady - Oh you're a clever one, aren't ya?");
 			Start.ta.append("The old lady resulted to be a witch. Who would've guessed?");
 			this.position.hasEnemy = true;

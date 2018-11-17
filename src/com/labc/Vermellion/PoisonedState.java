@@ -28,13 +28,15 @@ public class PoisonedState extends CharacterState {
 	}
 	
 	@Override
-	public void walk(String direction, Character player) {
+	public boolean walk(String direction, Character player) {
+		boolean success = false;
 		if(!player.current.hasEnemy) {
 			if(direction.toLowerCase().contains("north")) {
 				if(player.current.getNeighbors()[SingletonMap.NORTH]!=null) {
 					Start.ta.setText("You walked north\n\n");
 					player.current = player.current.getNeighbors()[SingletonMap.NORTH];
 					player.current.accept(player);
+					success = true;
 				}
 					
 				else
@@ -46,6 +48,7 @@ public class PoisonedState extends CharacterState {
 					Start.ta.setText("You walked east\n\n");
 					player.current = player.current.getNeighbors()[SingletonMap.EAST];
 					player.current.accept(player);
+					success = true;
 				}
 					
 				else
@@ -57,6 +60,7 @@ public class PoisonedState extends CharacterState {
 					Start.ta.setText("You walked south\n\n");
 					player.current = player.current.getNeighbors()[SingletonMap.SOUTH];
 					player.current.accept(player);
+					success = true;
 				}
 					
 				else
@@ -68,13 +72,14 @@ public class PoisonedState extends CharacterState {
 					Start.ta.setText("You walked west\n\n");
 					player.current = player.current.getNeighbors()[SingletonMap.WEST];
 					player.current.accept(player);
+					success = true;
 				}
 					
 				else
 					Start.ta.setText("Seems like there is no access through there");
 			}
 			else
-				Start.ta.setText("You can't walk there for some odd reason...");
+				Start.ta.setText("You must specify a compass direction to go in.");
 			
 			player.THIRST-=20;
 		}
@@ -83,6 +88,7 @@ public class PoisonedState extends CharacterState {
 					+ "you facilitating their job. You really are a doubtful IQ person.");
 			player.die(player);
 		}
+		return success;
 	}
 	
 	@Override

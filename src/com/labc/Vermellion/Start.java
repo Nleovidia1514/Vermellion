@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.util.Random;
 import com.labc.Vermellion.Classes.TextFieldStates.ChooseClassState;
 import com.labc.Vermellion.Classes.TextFieldStates.TextFieldState;
+
+import javax.sound.sampled.Clip;
 import javax.swing.*;
 
 public class Start {
@@ -13,6 +15,8 @@ public class Start {
 	private SingletonMap map;
 	public static Random rnd = new Random();
 	public static String clase = "";
+	public static SoundFX background = SoundFX.BACKGROUND; 
+	public static SoundFX battle = SoundFX.BATTLE;
 	public static Character Player;
 	public static boolean gameIsRunning;
 	public static JFrame frame;
@@ -41,7 +45,7 @@ public class Start {
 				Start.starting = map.getTile(rnd.nextInt(SingletonMap.MapSize), RndY);
 			}
 		}
-			
+		SoundFX.CHOOSE.loop(Clip.LOOP_CONTINUOUSLY, 0.10);	
 	}
 	
 	private void innitGui() {
@@ -54,6 +58,24 @@ public class Start {
 			public void actionPerformed(ActionEvent arg0) {
 				Start.tfState.action();
 				Start.tf.setText(null);
+				if(Start.Player!=null && Start.gameIsRunning) {
+					if(Start.Player.current.hasEnemy && !battle.isRunning()) {
+						background.stop();
+						battle.loop(Clip.LOOP_CONTINUOUSLY,0.25);
+					}
+					else if(!Start.Player.current.hasEnemy && battle.isRunning()) {
+						battle.stop();
+						background.loop(Clip.LOOP_CONTINUOUSLY, 0.10);
+					}
+					
+					else if(!Start.Player.current.hasEnemy && !battle.isRunning()) {
+						background.loop(Clip.LOOP_CONTINUOUSLY, 0.1);
+					}
+					
+					else if(Start.Player.current.hasEnemy && battle.isRunning()) {
+						battle.loop(Clip.LOOP_CONTINUOUSLY, 0.25);
+					}
+				}
 				//System.out.println(Start.Player.current.x+","+Start.Player.current.y);
 			}
 		});

@@ -15,13 +15,15 @@ public class NormalState extends CharacterState {
 	}
 	
 	@Override
-	public void walk(String direction, Character player) {
+	public boolean walk(String direction, Character player) {
+		boolean success = false;
 		if(!player.current.hasEnemy) {
 			if(direction.toLowerCase().contains("north")) {
 				if(player.current.getNeighbors()[SingletonMap.NORTH]!=null) {
 					player.current = player.current.getNeighbors()[SingletonMap.NORTH];
 					Start.ta.setText("You walked north\n\n");
 					player.current.accept(player);
+					success = true;
 				}
 					
 				else
@@ -33,6 +35,7 @@ public class NormalState extends CharacterState {
 					player.current = player.current.getNeighbors()[SingletonMap.EAST];
 					Start.ta.setText("You walked east\n\n");
 					player.current.accept(player);
+					success = true;
 				}
 					
 				else
@@ -44,6 +47,7 @@ public class NormalState extends CharacterState {
 					player.current = player.current.getNeighbors()[SingletonMap.SOUTH];
 					Start.ta.setText("You walked south\n\n");
 					player.current.accept(player);
+					success = true;
 				}
 					
 				else
@@ -55,13 +59,14 @@ public class NormalState extends CharacterState {
 					player.current = player.current.getNeighbors()[SingletonMap.WEST];
 					Start.ta.setText("You walked west\n\n");
 					player.current.accept(player);
+					success = true;
 				}
 					
 				else
 					Start.ta.setText("Seems like there is no access through there");
 			}
 			else
-				Start.ta.setText("You can't walk there for some odd reason...");
+				Start.ta.setText("You must specify a compass direction to go in.");
 			
 			player.THIRST-=20;
 		}
@@ -70,6 +75,7 @@ public class NormalState extends CharacterState {
 					+ "you facilitating their job. You really are a doubtful IQ person.");
 			player.die(player);
 		}
+		return success;
 	}
 	
 	@Override
@@ -81,7 +87,8 @@ public class NormalState extends CharacterState {
 					boolean okay = false;
 					String[] wat = sn.nextLine().split(" ");
 					for(String who : wat)
-						if(player.current.mob.getName().toLowerCase().contains(who)) {
+						if(player.current.mob!=null &&
+						player.current.mob.getName().toLowerCase().contains(who)) {
 							player.current.mob.talk();
 							okay = true;
 						}

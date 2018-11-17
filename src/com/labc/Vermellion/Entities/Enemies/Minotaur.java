@@ -3,9 +3,9 @@ package com.labc.Vermellion.Entities.Enemies;
 import com.labc.Vermellion.Descriptions;
 import com.labc.Vermellion.Item;
 import com.labc.Vermellion.Start;
+import com.labc.Vermellion.Entities.BasicEntity;
 import com.labc.Vermellion.Entities.Enemy;
 import com.labc.Vermellion.Entities.EntityDecorator;
-import com.labc.Vermellion.Entities.NPCs.Villager;
 import com.labc.Vermellion.Items.Equipment;
 import com.labc.Vermellion.Items.ItemFactory;
 
@@ -40,9 +40,9 @@ public class Minotaur extends EntityDecorator implements AttackAble {
 		this.position.longDescription = this.position.descripts.longDescsAftFight.get(this.getName());
 		Start.ta.append("\nYou... deem... worthy... of it... x_x");
 		if(this.position.player.inventory.size()<this.position.player.getBagSize()) {
-			Item itemDropped = ItemFactory.getItem(Villager.itemNames[Start.rnd.nextInt(Villager.itemNames.length)], this.position.player);
+			Item itemDropped = ItemFactory.getItem(BasicEntity.goodDrops[Start.rnd.nextInt(BasicEntity.goodDrops.length)], this.position.player);
 			this.position.player.inventory.add(itemDropped);
-			Start.ta.append("The "+this.name+" died and dropped "+itemDropped.getName()+" and it was added to your inventory.");
+			Start.ta.append("\nThe "+this.name+" died and dropped "+itemDropped.getName()+". It was added to your inventory.");
 		}
 		else
 			Start.ta.append("\nThe "+this.name+" died. Your inventory is full.");
@@ -51,7 +51,7 @@ public class Minotaur extends EntityDecorator implements AttackAble {
 	@Override
 	public void beShot(int damage) {
 		super.beShot(damage);
-		Start.ta.setText("The minotaur looks confused LUL.");
+		Start.ta.append("\nThe minotaur looks confused LUL.");
 		this.HP-=damage;
 		if(this.HP<=0)
 			this.die();

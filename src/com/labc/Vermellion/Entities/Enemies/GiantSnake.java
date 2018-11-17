@@ -4,9 +4,9 @@ import com.labc.Vermellion.Descriptions;
 import com.labc.Vermellion.Item;
 import com.labc.Vermellion.PoisonedState;
 import com.labc.Vermellion.Start;
+import com.labc.Vermellion.Entities.BasicEntity;
 import com.labc.Vermellion.Entities.Enemy;
 import com.labc.Vermellion.Entities.EntityDecorator;
-import com.labc.Vermellion.Entities.NPCs.Villager;
 import com.labc.Vermellion.Items.Equipment;
 import com.labc.Vermellion.Items.ItemFactory;
 
@@ -40,9 +40,9 @@ public class GiantSnake extends EntityDecorator implements AttackAble{
 		Start.pic.setIcon(Descriptions.picAfterFight.get(this.position.name));
 		this.position.longDescription = this.position.descripts.longDescsAftFight.get(this.getName());
 		if(this.position.player.inventory.size()<this.position.player.getBagSize()) {
-			Item itemDropped = ItemFactory.getItem(Villager.itemNames[Start.rnd.nextInt(Villager.itemNames.length)], this.position.player);
+			Item itemDropped = ItemFactory.getItem(BasicEntity.goodDrops[Start.rnd.nextInt(BasicEntity.goodDrops.length)], this.position.player);
 			this.position.player.inventory.add(itemDropped);
-			Start.ta.append("The "+this.name+" died and dropped "+itemDropped.getName()+" and it was added to your inventory.");
+			Start.ta.append("\nThe "+this.name+" died and dropped "+itemDropped.getName()+" and it was added to your inventory.");
 		}
 		else
 			Start.ta.append("\nThe "+this.name+" died. Your inventory is full.");

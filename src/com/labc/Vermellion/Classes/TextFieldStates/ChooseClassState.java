@@ -1,5 +1,8 @@
 package com.labc.Vermellion.Classes.TextFieldStates;
 
+import javax.sound.sampled.Clip;
+
+import com.labc.Vermellion.SoundFX;
 import com.labc.Vermellion.Start;
 import com.labc.Vermellion.Classes.Archer;
 import com.labc.Vermellion.Classes.Fighter;
@@ -30,13 +33,14 @@ public class ChooseClassState extends TextFieldState {
 			Start.ta.append("\nCan you get the dick out of your mouth?");
 		
 		if(Start.Player!=null) {
+			SoundFX.CHOOSE.stop();
+			Start.background.loop(Clip.LOOP_CONTINUOUSLY, 0.10);
 			Start.tfState = PlayState.instance();
 			Start.starting.accept(Start.Player);
 			Start.Stats.setText("HP - "+(int)Start.Player.getHP()+"   "
 			+"MAGIC - "+Start.Player.getMagic()+"   "
 			+"THIRST - "+Start.Player.getThirst());
 		}
-	
 	}
 
 	@Override

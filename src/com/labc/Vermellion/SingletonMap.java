@@ -34,6 +34,7 @@ public class SingletonMap {
 				tile[i][j].initNeightbors(tile);
 		
 		innitMountain();
+		innitFairy();
 		Descriptions.innitPics();
 		
 		for(int i = 0; i<MapSize;i++)
@@ -106,6 +107,15 @@ public class SingletonMap {
 				}
 			}
 		}
+	}
+	
+	private void innitFairy() {
+		int RdnX = rnd.nextInt(MapSize), RndY = rnd.nextInt(MapSize);
+		while(this.getTile(RdnX, RndY).getName().equals("mountain") ||
+				this.getTile(RdnX, RndY).getName().equals("mountainSurroundings") ||
+				this.getTile(RdnX, RndY).getName().startsWith("mountainView")) 
+		{RdnX = rnd.nextInt(MapSize); RndY = rnd.nextInt(MapSize);}
+		tile[RdnX][RndY].name = "magical forest";
 	}
 
 	public static SingletonMap getInstance() 

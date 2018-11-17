@@ -1,5 +1,6 @@
 package com.labc.Vermellion;
 
+import javax.sound.sampled.Clip;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
@@ -9,7 +10,7 @@ public class Tile implements Element{
 	public String name, shortDescription = "There is nothing here", longDescription = "There is nothing you can do here";
 	public Entity mob;
 	public Character player;
-	public boolean hasRiver, hasTree, hasLake, hasEnemy, canShoot;
+	public boolean hasRiver, hasTree, hasLake, hasEnemy, canShoot, alreadyVisited;
 	private Tile[] neighbors = new Tile[4];
 	private String itemOnFloor;
 	public Descriptions descripts;
@@ -68,11 +69,27 @@ public class Tile implements Element{
 	@Override
 	public void accept(Visitor v) {
 		if(this.name.equals("mountain")) {
+			Start.background.stop();
+			Start.battle.stop();
+			SoundFX.VICTORY.loop(Clip.LOOP_CONTINUOUSLY, 0.6);
 			Start.gameIsRunning = false;
 		}
+		else if(this.mob!=null && this.mob.getName().equals("Minotaur")) {
+			Start.battle.stop();
+			Start.battle = SoundFX.FINALBATTLE;
+		}
+		else if(Start.battle.equals(SoundFX.FINALBATTLE)) {
+			Start.battle.stop();
+			if(Start.background.equals(SoundFX.ZELDA))
+				Start.battle = SoundFX.BATTLEZELDA;
+			else 
+				Start.battle = SoundFX.BATTLE;
+		}
+		
 		Start.pic.setIcon(this.image);
 		Start.TileTitle.setText(this.name.toUpperCase());
 		Start.ta.append(this.getShortDescription());
+		this.alreadyVisited = true;
 		v.Visit(this);
 	}
 }

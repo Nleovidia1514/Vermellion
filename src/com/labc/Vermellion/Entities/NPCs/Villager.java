@@ -4,6 +4,7 @@ import java.util.Random;
 
 import com.labc.Vermellion.Descriptions;
 import com.labc.Vermellion.Item;
+import com.labc.Vermellion.SoundFX;
 import com.labc.Vermellion.Start;
 import com.labc.Vermellion.Classes.TextFieldStates.PlayState;
 import com.labc.Vermellion.Classes.TextFieldStates.VillagerState;
@@ -14,7 +15,7 @@ import com.labc.Vermellion.Items.ItemFactory;
 public class Villager extends EntityDecorator{
 	public static String[] itemNames = new String[] {"Axe","Dagger","Bow","Staff","Sword","Chestplate",
 			"HylianShield","Robe","TShirt","Tunic","Hood","IronHelmet","Cap","Hat","Boots",
-			"IronBoots","Sandals"};
+			"IronBoots","Sandals","Trousers","Chainmail"};
 	
 	public Villager(NPC npc) {
 		super(npc);
@@ -61,8 +62,9 @@ public class Villager extends EntityDecorator{
 	
 	@Override
 	public void talk() {
-		Start.pic.setIcon(Descriptions.picBeforeFight.get(this.position.name));
+		Start.pic.setIcon(Descriptions.lookImage.get(this.position.name));
 		if(!alreadyTalkedTo) {
+			SoundFX.VILLAGER.loop(2, 0.6);
 			Start.ta.setText("Villager noises Villager noises Villager noises "
 					+ "Villager noises Villager noises Villager noises "
 					+ "Villager noises Villager noises Villager noises "

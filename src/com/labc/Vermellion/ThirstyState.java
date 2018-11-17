@@ -1,6 +1,5 @@
 package com.labc.Vermellion;
 
-import java.util.Random;
 import java.util.Scanner;
 
 public class ThirstyState extends CharacterState{
@@ -12,12 +11,12 @@ public class ThirstyState extends CharacterState{
 	
 	
 	
-	public void walk(String direction, Character player) {
-		Random rnd = new Random();
+	public boolean walk(String direction, Character player) {
+		boolean success = false;
 		if(!player.current.hasEnemy) {
-			int dir = rnd.nextInt(4);
+			int dir = Start.rnd.nextInt(4);
 			while(player.current.getNeighbors()[dir] == null)
-				dir = rnd.nextInt(4);
+				dir = Start.rnd.nextInt(4);
 			
 			player.current = player.current.getNeighbors()[dir];
 			if(dir==SingletonMap.NORTH)
@@ -32,6 +31,7 @@ public class ThirstyState extends CharacterState{
 			else if(dir==SingletonMap.WEST)
 				Start.ta.setText("You're hallucinating and walked west instead.\n");
 			
+			success = true;
 			player.current.accept(player);
 		}
 		else {
@@ -39,6 +39,7 @@ public class ThirstyState extends CharacterState{
 					+ "you facilitating their job. You really are a doubtful IQ person.");
 			player.die(player);
 		}
+		return success;
 	}
 
 	@Override

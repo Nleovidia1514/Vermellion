@@ -27,6 +27,8 @@ import com.labc.Vermellion.Items.Equipamiento.Helmets.Hood;
 import com.labc.Vermellion.Items.Equipamiento.Helmets.IronHelmet;
 import com.labc.Vermellion.Items.Equipamiento.Helmets.MajorasMask;
 import com.labc.Vermellion.Items.Equipamiento.Helmets.Mind;
+import com.labc.Vermellion.Items.Equipamiento.LeggingPieces.Chainmail;
+import com.labc.Vermellion.Items.Equipamiento.LeggingPieces.Trousers;
 import com.labc.Vermellion.Items.Equipamiento.Weapons.Staff;
 import com.labc.Vermellion.Items.Equipamiento.Weapons.Sword;
 import com.labc.Vermellion.Character;
@@ -97,6 +99,12 @@ public class ItemFactory {
 		
 		else if(name.equalsIgnoreCase("SANDALS"))
 			return new Sandals(owner);
+		
+		else if(name.equalsIgnoreCase("CHAINMAIL"))
+			return new Chainmail(owner);
+		
+		else if(name.equalsIgnoreCase("TROUSERS"))
+			return new Trousers(owner); 
 		
 		//Food
 		else if(name.equalsIgnoreCase("APPLE"))

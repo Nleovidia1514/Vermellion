@@ -9,6 +9,7 @@ import com.labc.Vermellion.Entities.Enemies.Creeper;
 import com.labc.Vermellion.Entities.Enemies.GiantSnake;
 import com.labc.Vermellion.Entities.Enemies.Minotaur;
 import com.labc.Vermellion.Entities.Enemies.Witch;
+import com.labc.Vermellion.Entities.NPCs.Fairy;
 import com.labc.Vermellion.Entities.NPCs.Goddess;
 import com.labc.Vermellion.Entities.NPCs.SkullKid;
 import com.labc.Vermellion.Entities.NPCs.Villager;
@@ -16,45 +17,47 @@ import com.labc.Vermellion.Entities.NPCs.Villager;
 public class EntityFactory {
 
 	public static Entity getEntity(String type,Tile tile) {
-		Entity enemy = null;
+		Entity entity = null;
 		if(type.equalsIgnoreCase(null))
-			enemy = null;
+			entity = null;
 		//Enemies			
 		else if(type.equalsIgnoreCase("CREEPER"))
-			enemy = new Creeper(new Enemy(new BasicEntity(tile)));
+			entity = new Creeper(new Enemy(new BasicEntity(tile)));
 		
 		else if(type.equalsIgnoreCase("Witch"))
-			enemy = new Witch(new Enemy(new BasicEntity(tile)));
+			entity = new Witch(new Enemy(new BasicEntity(tile)));
 		
 		else if(type.equalsIgnoreCase("CREEPITCH"))
-			enemy = new Creeper(new Witch(new Enemy(new BasicEntity(tile))));
+			entity = new Creeper(new Witch(new Enemy(new BasicEntity(tile))));
 		
 		else if(type.equalsIgnoreCase("CORNIELES"))
-			enemy = new Cornieles(new Enemy(new BasicEntity(tile)));
+			entity = new Cornieles(new Enemy(new BasicEntity(tile)));
 		
 		else if(type.equalsIgnoreCase("BEAR"))
-			enemy = new Bear(new Enemy(new BasicEntity(tile)));
+			entity = new Bear(new Enemy(new BasicEntity(tile)));
 		
 		else if(type.equalsIgnoreCase("BANDITS"))
-			enemy = new Bandits(new Enemy(new BasicEntity(tile)));
+			entity = new Bandits(new Enemy(new BasicEntity(tile)));
 		
 		else if(type.equalsIgnoreCase("GIANTSNAKE"))
-			enemy = new GiantSnake(new Enemy(new BasicEntity(tile)));
+			entity = new GiantSnake(new Enemy(new BasicEntity(tile)));
 		
 		else if(type.equalsIgnoreCase("MINOTAUR"))
-			enemy = new Minotaur(new Enemy(new BasicEntity(tile)));
+			entity = new Minotaur(new Enemy(new BasicEntity(tile)));
 		//NPCs
 		else if(type.equalsIgnoreCase("GODDESS"))
-			enemy = new Goddess(new NPC(new BasicEntity(tile)));
+			entity = new Goddess(new NPC(new BasicEntity(tile)));
 		
 		else if(type.equalsIgnoreCase("SKULLKID"))
-			enemy = new SkullKid(new NPC(new BasicEntity(tile)));
+			entity = new SkullKid(new NPC(new BasicEntity(tile)));
 		
 		else if(type.equalsIgnoreCase("VILLAGER"))
-			enemy = new Villager(new NPC(new BasicEntity(tile)));
+			entity = new Villager(new NPC(new BasicEntity(tile)));
 		
+		else if(type.equalsIgnoreCase("FAIRY"))
+			entity = new Fairy(new NPC(new BasicEntity(tile)));
 		
-		enemy.create();
-		return enemy;
+		entity.create();
+		return entity;
 	}
 }

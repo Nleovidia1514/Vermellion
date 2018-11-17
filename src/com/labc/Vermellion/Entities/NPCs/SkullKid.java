@@ -1,6 +1,7 @@
 package com.labc.Vermellion.Entities.NPCs;
 
 import com.labc.Vermellion.Descriptions;
+import com.labc.Vermellion.SoundFX;
 import com.labc.Vermellion.Start;
 import com.labc.Vermellion.Classes.TextFieldStates.PlayState;
 import com.labc.Vermellion.Classes.TextFieldStates.SariasSongState;
@@ -67,13 +68,14 @@ public class SkullKid extends EntityDecorator{
 	}
 	
 	public void playSong(String song) {
-		String sariasSong = "abajo derecha izquierda";
+		String sariasSong = "down right left";
 		if(song.toLowerCase().contains("stop") || song.toLowerCase().contains(sariasSong)) {
 			if(song.toLowerCase().contains(sariasSong)) {
 				Start.ta.setText("SkullKid - That really is a beatiful song. Isn't it adventurer?");
 				this.position.player.inventory.add(ItemFactory.getItem("MAJORASMASK",this.position.player));
 				Start.ta.append("\nMajora's mask has been added to your inventory.");
 				this.alreadyTalkedTo = true;
+				SoundFX.SARIA.play(0.6);
 				Start.tfState = PlayState.instance();
 			}
 			else {

@@ -3,7 +3,7 @@ package com.labc.Vermellion;
 import java.util.Scanner;
 
 public abstract class CharacterState {
-	public abstract void walk(String direction, Character player);
+	public abstract boolean walk(String direction, Character player);
 	public abstract void talkToNPC(Scanner sn, Character player);
 	public abstract void die(Character player);
 	
@@ -40,11 +40,13 @@ public abstract class CharacterState {
 			else if(action.equalsIgnoreCase("STATS"))
 				player.seeStats();
 			
-			else if(action.equalsIgnoreCase("WALK")) {
+			else if(action.equalsIgnoreCase("WALK") || action.equalsIgnoreCase("GO")) {
 				if( sn.hasNext() )
 					player.walk(sn.nextLine().trim());
-				else
+				else if(action.equalsIgnoreCase("WALK"))
 					Start.ta.setText("Walk where?");
+				else
+					Start.ta.setText("Go where?");
 			}
 			
 			else if(action.equalsIgnoreCase("PICKUP") || action.equalsIgnoreCase("TAKE")) {
@@ -71,6 +73,25 @@ public abstract class CharacterState {
 			else if(action.toUpperCase().contains("UNEQ")) {
 				player.unEquip(sn);
 			}
+			
+			else if(action.equalsIgnoreCase("ZELDA")) {
+				Start.background.stop();
+				Start.battle.stop();
+				Start.background = SoundFX.ZELDA;
+				Start.battle = SoundFX.BATTLEZELDA;
+				Start.ta.setText("Zelda soundtrack activated");
+			}
+				
+			
+			else if(action.equalsIgnoreCase("NORMAL")) {
+				Start.background.stop();
+				Start.battle.stop();
+				Start.background = SoundFX.BACKGROUND;
+				Start.battle = SoundFX.BATTLE;
+				Start.ta.setText("Regular soundtrack activated");
+			}
+				
+			
 			else
 				Start.ta.setText("You can't do that.");
 		}
@@ -78,7 +99,6 @@ public abstract class CharacterState {
 			Start.ta.setText("Are you a mute?");
 			Start.ta.append(player.current.getShortDescription());
 		}
-			
 		
 		if(player.THIRST<=25)
 			player.setCharacterState(ThirstyState.instance());
@@ -86,6 +106,7 @@ public abstract class CharacterState {
 		if(player.THIRST<=0 || player.HP<=0) {
 			player.die(player);
 		}
+		
 	}
 	
 	
