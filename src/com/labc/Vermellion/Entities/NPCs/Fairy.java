@@ -115,9 +115,10 @@ public class Fairy extends EntityDecorator{
 			Tile toBeTPed = null;
 			for(int i = 0; i<SingletonMap.MapSize;i++) {
 				for(int j=0; j<SingletonMap.MapSize;j++) {
-					if(SingletonMap.getInstance().getTile(i, j).getName().startsWith(whereToTeleport) && !toBeTPed.alreadyVisited) {
+					if(SingletonMap.getInstance().getTile(i, j).getName().startsWith(whereToTeleport) ) {
 						toBeTPed = SingletonMap.getInstance().getTile(i, j);
-						break;
+						if(toBeTPed.alreadyVisited) toBeTPed = null;
+						if(!toBeTPed.alreadyVisited) break;
 					}
 				}	
 				if(toBeTPed!=null && toBeTPed.getName().startsWith(whereToTeleport) && !toBeTPed.alreadyVisited) 

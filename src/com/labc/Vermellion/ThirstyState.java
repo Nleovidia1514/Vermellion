@@ -31,6 +31,7 @@ public class ThirstyState extends CharacterState{
 			else if(dir==SingletonMap.WEST)
 				Start.ta.setText("You're hallucinating and walked west instead.\n");
 			
+			player.THIRST -= 5;
 			success = true;
 			player.current.accept(player);
 		}

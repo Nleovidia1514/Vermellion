@@ -19,19 +19,6 @@ public class GUI {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					GUI window = new GUI();
-					window.frmVermellion.setVisible(true);
-					new Start();
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the application.
@@ -52,7 +39,7 @@ public class GUI {
 		frmVermellion.getContentPane().setBackground(Color.BLACK);
 		frmVermellion.setBackground(Color.WHITE);
 		frmVermellion.setAlwaysOnTop(true);
-		frmVermellion.setBounds(100, 100, 870, 592);
+		frmVermellion.setBounds(100, 100, 857, 576);
 		frmVermellion.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmVermellion.getContentPane().setLayout(null);
 		frmVermellion.setLocationRelativeTo(null);
@@ -104,5 +91,7 @@ public class GUI {
 		textArea_1.setBounds(10, 498, 370, 45);
 		Start.Stats = textArea_1;
 		frmVermellion.getContentPane().add(textArea_1);
+		frmVermellion.setVisible(true);
+		frmVermellion.setResizable(false);
 	}
 }

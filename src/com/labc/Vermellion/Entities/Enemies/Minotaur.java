@@ -63,7 +63,7 @@ public class Minotaur extends EntityDecorator implements AttackAble {
 	@Override
 	public void create() {
 		super.create();
-		this.HP = this.HP + 2500;
+		this.HP = this.HP + 1800;
 		this.ATTACK = this.ATTACK + 450;
 		this.name = "Minotaur";
 	}
