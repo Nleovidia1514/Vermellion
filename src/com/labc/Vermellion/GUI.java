@@ -1,7 +1,5 @@
 package com.labc.Vermellion;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextArea;
@@ -12,10 +10,6 @@ import java.awt.Dialog.ModalExclusionType;
 import java.awt.Cursor;
 
 public class GUI {
-
-	private JFrame frmVermellion;
-	private JTextField txtInsertText;
-
 	/**
 	 * Launch the application.
 	 */
@@ -31,7 +25,7 @@ public class GUI {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frmVermellion = new JFrame();
+		JFrame frmVermellion = new JFrame();
 		frmVermellion.setLocationByPlatform(true);
 		frmVermellion.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		frmVermellion.setModalExclusionType(ModalExclusionType.APPLICATION_EXCLUDE);
@@ -43,7 +37,6 @@ public class GUI {
 		frmVermellion.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmVermellion.getContentPane().setLayout(null);
 		frmVermellion.setLocationRelativeTo(null);
-		Start.frame = frmVermellion;
 		
 		JLabel lblNewLabel = new JLabel("");
 		lblNewLabel.setForeground(Color.BLACK);
@@ -62,7 +55,7 @@ public class GUI {
 		frmVermellion.getContentPane().add(txtrHello);
 		Start.ta = txtrHello;
 		
-		txtInsertText = new JTextField();
+		JTextField txtInsertText = new JTextField();
 		txtInsertText.setFont(new Font("Segoe Print", Font.ITALIC, 16));
 		txtInsertText.setToolTipText("");
 		txtInsertText.setForeground(Color.WHITE);
@@ -91,7 +84,7 @@ public class GUI {
 		textArea_1.setBounds(10, 498, 370, 45);
 		Start.Stats = textArea_1;
 		frmVermellion.getContentPane().add(textArea_1);
-		frmVermellion.setVisible(true);
 		frmVermellion.setResizable(false);
+		Start.frame = frmVermellion;
 	}
 }

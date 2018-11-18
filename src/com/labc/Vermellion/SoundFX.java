@@ -24,7 +24,8 @@ public enum SoundFX {
 	WITCH("sounds/witch.wav"),
 	VILLAGER("sounds/villager.wav"),
 	FINALBATTLE("sounds/finalbattle.wav"),
-	VICTORY("sounds/victory.wav");
+	VICTORY("sounds/victory.wav"), 
+	MrsSpider("sounds/MrsSpider.wav");
 	
 	public static enum Volume {
 	      MUTE, LOW, MEDIUM, HIGH

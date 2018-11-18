@@ -42,7 +42,9 @@ public class Descriptions {
 			Adult = new ImageIcon("images/Adult.jpg"),
 			Forest3 = new ImageIcon("images/Forest3.jpg"),
 			Fairy = new ImageIcon("images/Fairy.jpg"),
-			MountainTop = new ImageIcon("images/Mountaintop.jpg");
+			MountainTop = new ImageIcon("images/Mountaintop.jpg"),
+			MrsSpider = new ImageIcon("images/MrsSpider.jpg"),
+			Spiderweb = new ImageIcon("images/Spiderweb.jpg");
 	
 	public Descriptions(Tile dis) {
 		if(dis.getName().equalsIgnoreCase("bandits")) {
@@ -61,6 +63,20 @@ public class Descriptions {
 			dis.hasEnemy = true;
 		}
 		
+		else if(dis.getName().equalsIgnoreCase("spider web")) {
+			String descBeforeFight = "This part of the forest is very green and very dark"
+					+ " it looks like the sun hasn't been here for a very long time, there"
+					+ " are hundreds of spider web in every tree around you. But in front of you"
+					+ " there is a huge spider web that you suppose it's the giant spider's.";
+			String descAfterFight = "The misses spider lies dead on the ground with her"
+					+ " numerous legs contracted over herself. It's not a pretty view.";
+			shortDescs.put("spider web", descBeforeFight);
+			longDescs.put("spider web", descBeforeFight+"\n\tThere is "+dis.getItemOnFloor()+" on the floor.");
+			shortDescsAftFight.put("spider web",descAfterFight);
+			longDescsAftFight.put("spider web", descAfterFight+"\n\tThere is "+dis.getItemOnFloor()+" on the floor.");
+			Entities.put("spider web", EntityFactory.getEntity("MRSSPIDER",dis));
+			dis.hasEnemy = true;
+		}
 		else if(dis.getName().equalsIgnoreCase("wasteland")) {
 			String descBeforeFight ="You find yourself in a strange place. "
 					+ "There are no trees in here even though you just came out of a forest "
@@ -292,6 +308,8 @@ public class Descriptions {
 		Adult.setImage(Adult.getImage().getScaledInstance(364, 361, Image.SCALE_SMOOTH));
 		Fairy.setImage(Fairy.getImage().getScaledInstance(364, 361, Image.SCALE_SMOOTH));
 		MountainTop.setImage(MountainTop.getImage().getScaledInstance(364, 361, Image.SCALE_SMOOTH));
+		MrsSpider.setImage(MrsSpider.getImage().getScaledInstance(364, 361, Image.SCALE_SMOOTH));
+		Spiderweb.setImage(Spiderweb.getImage().getScaledInstance(364, 361, Image.SCALE_SMOOTH));
 		
 		//Pics before fight
 		picBeforeFight.put("bandits", bandits);
@@ -314,6 +332,7 @@ public class Descriptions {
 		picBeforeFight.put("village", Village);
 		picBeforeFight.put("sabeis", Adult);
 		picBeforeFight.put("magical forest", Fairy);
+		picBeforeFight.put("spider web", MrsSpider);
 		
 		//Look image
 		lookImage.put("bandits", bandits);
@@ -336,6 +355,7 @@ public class Descriptions {
 		lookImage.put("village", Villager);
 		lookImage.put("sabeis", Adult);
 		lookImage.put("magical forest", Fairy);
+		lookImage.put("spider web", MrsSpider);
 		
 		//Pic after fight
 		picAfterFight.put("bandits", Forest1);
@@ -358,6 +378,6 @@ public class Descriptions {
 		picAfterFight.put("village", Village);
 		picAfterFight.put("sabeis", Forest3);
 		picAfterFight.put("magical forest", Forest1);
-		
+		picAfterFight.put("spider web", Spiderweb);
 	}
 }

@@ -68,6 +68,7 @@ public class Tile implements Element{
 
 	@Override
 	public void accept(Visitor v) {
+		Start.ta.append(this.getShortDescription());
 		if(this.name.equals("mountain")) {
 			Start.background.stop();
 			Start.battle.stop();
@@ -77,6 +78,11 @@ public class Tile implements Element{
 		else if(this.mob!=null && this.mob.getName().equals("Minotaur")) {
 			Start.battle.stop();
 			Start.battle = SoundFX.FINALBATTLE;
+		}
+		else if(this.mob!=null && this.mob.getName().equals("Misses spider")) {
+			Start.battle.stop();
+			Start.battle = SoundFX.MrsSpider;
+			this.mob.talk();
 		}
 		else if(Start.battle.equals(SoundFX.FINALBATTLE)) {
 			Start.battle.stop();
@@ -88,7 +94,6 @@ public class Tile implements Element{
 		
 		Start.pic.setIcon(this.image);
 		Start.TileTitle.setText(this.name.toUpperCase());
-		Start.ta.append(this.getShortDescription());
 		this.alreadyVisited = true;
 		v.Visit(this);
 	}

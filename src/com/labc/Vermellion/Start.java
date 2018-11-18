@@ -26,10 +26,10 @@ public class Start {
 	public static JTextArea Stats, ta, TileTitle;
 	
 	public Start() throws IOException {
+		innitGui();
 		pic.setIcon(Descriptions.ChooseClass);
 		Start.gameIsRunning = true;
 		Start.tfState = ChooseClassState.instance();
-		innitGui();
 		map = SingletonMap.getInstance();
 		//this.Player = Singleton.getInstance(starting, clase);
 		int RndX = rnd.nextInt(SingletonMap.MapSize), RndY = 0;
@@ -49,6 +49,7 @@ public class Start {
 	}
 	
 	private void innitGui() {
+		new GUI();
 		ta.setText("You wake up in the middle of nowhere with nothing"
 				+" but your skills and a thirst for revenge. You look"
 				+" around and see a number of tools:\n\nA staff\nA dagger"

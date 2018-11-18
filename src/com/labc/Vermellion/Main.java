@@ -5,7 +5,7 @@ import java.io.IOException;
 public class Main {
 
 	public static void main(String[] args) throws IOException {
-		new GUI();
 		new Start();
+		Start.frame.setVisible(true);
 	}
 }

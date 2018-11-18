@@ -8,7 +8,7 @@ public class SingletonMap {
 	private Tile[][] tile = new Tile[MapSize][MapSize];
 	private Random rnd = new Random();
 	private static String[] Easynames = new String[]{"bandits","forest","lake","plains","swamp","village","sabeis"};
-	private static String[] Hardnames = new String[] {"wasteland","woods","forest","cave"};
+	private static String[] Hardnames = new String[] {"wasteland","woods","forest","cave","spider web"};
 	private static String[] itemNames = new String[]{"Apple","Bluepot","Cachito","Chicha","Fungi",
 	"GreenPot","RedPot","SpaghettiOs","Axe"};
 	private volatile static SingletonMap obj; 
