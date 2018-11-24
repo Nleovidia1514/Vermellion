@@ -8,6 +8,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Dialog.ModalExclusionType;
 import java.awt.Cursor;
+import javax.swing.JScrollPane;
 
 public class GUI {
 	/**
@@ -44,15 +45,18 @@ public class GUI {
 		Start.pic = lblNewLabel;
 		frmVermellion.getContentPane().add(lblNewLabel);
 		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(384, 52, 460, 491);
+		frmVermellion.getContentPane().add(scrollPane);
+		
 		JTextArea txtrHello = new JTextArea();
+		scrollPane.setViewportView(txtrHello);
 		txtrHello.setWrapStyleWord(true);
 		txtrHello.setLineWrap(true);
 		txtrHello.setEditable(false);
 		txtrHello.setFont(new Font("Segoe Print", Font.ITALIC, 16));
 		txtrHello.setForeground(Color.WHITE);
 		txtrHello.setBackground(Color.DARK_GRAY);
-		txtrHello.setBounds(384, 52, 460, 491);
-		frmVermellion.getContentPane().add(txtrHello);
 		Start.ta = txtrHello;
 		
 		JTextField txtInsertText = new JTextField();
