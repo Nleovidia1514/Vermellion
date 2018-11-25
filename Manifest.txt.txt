@@ -1,0 +1,2 @@
+Main-Class: com/labc/Vermellion/Main
+Class-Path: jgoodies-forms-1.8.0-sources.jar jgoodies-forms-1.8.0

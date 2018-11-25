@@ -45,6 +45,7 @@ public class Descriptions {
 			MountainTop = new ImageIcon("images/Mountaintop.jpg"),
 			MrsSpider = new ImageIcon("images/MrsSpider.jpg"),
 			Spiderweb = new ImageIcon("images/Spiderweb.jpg");
+
 	
 	public Descriptions(Tile dis) {
 		if(dis.getName().equalsIgnoreCase("bandits")) {
@@ -333,6 +334,7 @@ public class Descriptions {
 		picBeforeFight.put("sabeis", Adult);
 		picBeforeFight.put("magical forest", Fairy);
 		picBeforeFight.put("spider web", MrsSpider);
+		picBeforeFight.put("mountain", MountainTop);
 		
 		//Look image
 		lookImage.put("bandits", bandits);

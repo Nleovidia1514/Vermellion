@@ -259,9 +259,12 @@ public abstract class Character implements Visitor {
 					Start.ta.setText("I don't understand what you're trying to look.");
 			}
 		}
-		else
-			Start.ta.setText("Look what?");
-		
+		else {
+			Start.ta.setText(this.current.getLongDescription());
+			Start.pic.setIcon(this.current.lookImage);
+			if(this.current.getName().equals("cave") && this.current.mob!=null)
+				this.current.hasEnemy = true;
+		}	
 	}
 
 	

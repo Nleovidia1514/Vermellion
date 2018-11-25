@@ -71,13 +71,13 @@ public class MrsSpider extends EntityDecorator implements AttackAble{
 		if(!this.alreadyTalkedTo) {
 			Start.ta.setText("MISSES SPIDER - HAHA! I'VE BEEN WAITING FOR THIS MOMENT SINCE I WAS A LITTLE EGG. "
 					+ "THE MOMENT WHERE AN UNLUCKY LIVING BEING WALKS INTO MY SPIDER "
-					+ "WEB AND LOSES IT'S LIFE. NOW THAT THAT MOMENT HAS ARRIVED, AND YOU,"
+					+ "WEB AND LOSES IT'S LIFE. NOW THAT MOMENT HAS ARRIVED, AND YOU,"
 					+ " MY DEAR FRIEND, ARE THE UNLUCKY LIVING BEING THIS TIME. SAY GOODBYE"
 					+ " TO YOUR INSIGNIFICANT LIFE!!");
 			this.alreadyTalkedTo = true;
 		}
 		else
-			this.attack();
+			Start.ta.setText("MISSES SPIDER - YOU'RE AS STUPID AS YOU LOOK!");
 	}
 
 	@Override

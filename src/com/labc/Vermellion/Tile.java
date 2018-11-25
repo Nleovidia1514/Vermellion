@@ -84,7 +84,7 @@ public class Tile implements Element{
 			Start.battle = SoundFX.MrsSpider;
 			this.mob.talk();
 		}
-		else if(Start.battle.equals(SoundFX.FINALBATTLE)) {
+		else if(Start.battle.equals(SoundFX.FINALBATTLE) || Start.battle.equals(SoundFX.MrsSpider)) {
 			Start.battle.stop();
 			if(Start.background.equals(SoundFX.ZELDA))
 				Start.battle = SoundFX.BATTLEZELDA;
