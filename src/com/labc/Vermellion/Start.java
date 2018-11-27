@@ -62,19 +62,19 @@ public class Start {
 				if(Start.Player!=null && Start.gameIsRunning) {
 					if(Start.Player.current.hasEnemy && !battle.isRunning()) {
 						background.stop();
-						battle.loop(Clip.LOOP_CONTINUOUSLY,0.25);
+						battle.loop(Clip.LOOP_CONTINUOUSLY,0.30);
 					}
 					else if(!Start.Player.current.hasEnemy && battle.isRunning()) {
 						battle.stop();
-						background.loop(Clip.LOOP_CONTINUOUSLY, 0.10);
+						background.loop(Clip.LOOP_CONTINUOUSLY, 0.15);
 					}
 					
 					else if(!Start.Player.current.hasEnemy && !battle.isRunning()) {
-						background.loop(Clip.LOOP_CONTINUOUSLY, 0.1);
+						background.loop(Clip.LOOP_CONTINUOUSLY, 0.15);
 					}
 					
 					else if(Start.Player.current.hasEnemy && battle.isRunning()) {
-						battle.loop(Clip.LOOP_CONTINUOUSLY, 0.25);
+						battle.loop(Clip.LOOP_CONTINUOUSLY, 0.30);
 					}
 				}
 				//System.out.println(Start.Player.current.x+","+Start.Player.current.y);

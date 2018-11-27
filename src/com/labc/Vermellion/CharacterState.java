@@ -49,11 +49,15 @@ public abstract class CharacterState {
 					Start.ta.setText("Go where?");
 			}
 			
-			else if(action.equalsIgnoreCase("PICKUP") || action.equalsIgnoreCase("TAKE")) {
+			else if(action.equalsIgnoreCase("PICKUP") || action.equalsIgnoreCase("TAKE") || action.equalsIgnoreCase("GRAB")) {
 				if( sn.hasNext() )
 					player.pickUpItem(sn.next());
-				else
-					Start.ta.setText("Pick what up?");
+				else if(action.equalsIgnoreCase("PICKUP"))
+					Start.ta.setText("Pickup what?");
+				else if(action.equalsIgnoreCase("TAKE"))
+					Start.ta.setText("Take what?");
+				else if(action.equalsIgnoreCase("GRAB"))
+					Start.ta.setText("Grab what?");
 			}
 			
 			else if(action.equalsIgnoreCase("USE")||action.equalsIgnoreCase("EAT")
